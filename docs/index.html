@@ -25,12 +25,101 @@
 <p>Human Workflow Marketplace</p>
 <h2 id="entities">Entities</h2>
 <ul>
-<li><a href="/entities/Map.html">Map</a></li>
+<li><a href="entities/Card.html">Card</a></li>
+<li><a href="entities/Dashboard.html">Dashboard</a></li>
+<li><a href="entities/Deck.html">Deck</a></li>
+<li><a href="entities/Dispatch.html">Dispatch</a></li>
+<li><a href="entities/Extension.html">Extension</a></li>
+<li><a href="entities/Marketplace.html">Marketplace</a></li>
+<li><a href="entities/Security.html">Security</a></li>
+<li><a href="entities/Site.html">Site</a></li>
+<li><a href="entities/Terms.html">Terms</a></li>
+<li><a href="entities/Workflow.html">Workflow</a></li>
 </ul>
 
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Junction - Human Workflow Marketplace&#x27;</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-2">&#x00a7;</a>
+              </div>
+              <p>TEMP: REPL Design Reference Shape</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-3">&#x00a7;</a>
+              </div>
+              <p>const repl = require(‘repl’);</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-4">&#x00a7;</a>
+              </div>
+              <p>function myEval(cmd, context, filename, callback) {
+    let result;
+    try {
+        result = vm.runInThisContext(cmd);
+    } catch (e) {
+        if (isRecoverableError(e)) {
+            return callback(new repl.Recoverable(e));
+        }
+    }
+    callback(null, cmd);
+  }</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-5">&#x00a7;</a>
+              </div>
+              <p>  function isRecoverableError(error) {
+    if (error.name === ‘SyntaxError’) {
+      return /^(Unexpected end of input|Unexpected token)/.test(error.message);
+    }
+    return false;
+}</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="sswrap ">
+                <a class="ss" href="#section-6">&#x00a7;</a>
+              </div>
+              <p>repl.start({ prompt: ‘junction&gt; ‘, eval: myEval });</p>
+
+            </div>
             
         </li>
         
