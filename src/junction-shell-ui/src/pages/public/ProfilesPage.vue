@@ -14,9 +14,50 @@
             mdi-close
           </v-icon>
         </v-btn>
+        <v-list-item two-line>
+          <v-list-item-content>
+            <v-list-item-title>Profiles</v-list-item-title>
+            <v-list-item-subtitle>My skills and preferences</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
         <v-spacer></v-spacer>
+        <v-menu
+          transition="slide-y-transition"
+          bottom
+          right
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              :loading="loading"
+              small
+              icon
+            >
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
 
+          <v-list dense two-items>
+            <v-list-item>
+              <v-list-item-action>
+                <v-icon color="Villager" left>
+                  mdi-lead-pencil
+                </v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  My Notes
+                </v-list-item-title>
+                <v-list-item-subtitle class="caption">
+                  Visible only to who you choose
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar>
+
       <v-dialog
         v-model="skillsDialog">
         <v-card
