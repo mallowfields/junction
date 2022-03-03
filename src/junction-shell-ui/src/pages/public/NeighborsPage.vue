@@ -911,7 +911,7 @@
         </h1>
         <v-divider class="my-2"></v-divider>
         <div class="caption">
-          Someone will contact you soon!
+          Login successful
         </div>
 
       <template v-slot:action="{ attrs }">
