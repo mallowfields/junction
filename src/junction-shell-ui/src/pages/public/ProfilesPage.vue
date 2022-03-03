@@ -65,8 +65,9 @@
           fluid
           flat>
           <v-toolbar flat>
-            <v-icon color="Villager">mdi-human-greeting</v-icon>
-            <v-card-title class="Villager--text caption">My Skills and Abilities</v-card-title>
+            <v-icon color="Villager">mdi-human</v-icon>
+            <v-card-title class="Villager--text caption">
+              </v-card-title>
             <v-spacer></v-spacer>
             <v-btn
               icon
@@ -93,14 +94,16 @@
       <v-card flat tile fluid>
         <v-card-title>
           <v-btn
-          class="caption Villager--text"
+          class="Villager"
           text
           outlined
+          elevation="5"
+          icon
+          x-large
           @click="skillsDialog = true">
-          <v-icon left>
-            mdi-human
-          </v-icon>
-            My Profile
+          <v-icon>
+            mdi-human-greeting
+          </v-icon>  
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn
