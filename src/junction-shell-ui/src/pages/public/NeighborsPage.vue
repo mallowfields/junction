@@ -44,18 +44,18 @@
                 <v-list-item-title>
                   <v-btn
                     class="pa-5 ma-2"
-                    color="Data white--text">
+                    color="Villager white--text">
                     <v-icon left>
-                      mdi-check
+                      mdi-human
                     </v-icon>
-                    Your Daily Assessment
+                    Adjust Profile
                   </v-btn>
                 </v-list-item-title>
                 <v-list-item-subtitle
                   class="text-wrap"
                 >
-                  <div class="large">Good Morning,</div>               
-                  Start your path here and we can ensure you have what you need along the way.</v-list-item-subtitle>
+                  Adjust your profile to see different path options
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-divider class="my-2"></v-divider>
