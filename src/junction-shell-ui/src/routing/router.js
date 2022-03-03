@@ -5,7 +5,7 @@ import HomePage from '@/pages/public/HomePage.vue'
 import ProfileBuilderPage from '@/pages/public/ProfileBuilderPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
 import ServicesPage from '@/pages/public/ServicesPage.vue'
-import DataCenterPage from '@/pages/public/DataCenterPage.vue'
+import ModelsPage from '@/pages/public/ModelsPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
 
@@ -29,7 +29,7 @@ const routes = [
   }, {
     name: 'data',
     path: '/data',
-    component: DataCenterPage
+    component: ModelsPage
   }, {
     name: 'process-center',
     path: '/process-center',
