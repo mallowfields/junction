@@ -1,0 +1,318 @@
+<template>
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+    <v-card flat tile>
+      <v-toolbar>
+        <v-btn
+          icon
+          @click="goHome">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+        <v-spacer></v-spacer>
+
+      </v-toolbar>
+      <v-dialog
+        v-model="skillsDialog">
+        <v-card
+          tile
+          fluid
+          flat>
+          <v-toolbar flat>
+            <v-icon color="Villager">mdi-human-greeting</v-icon>
+            <v-card-title class="Villager--text caption">My Skills and Abilities</v-card-title>
+            <v-spacer></v-spacer>
+            <v-btn
+              icon
+              @click="skillsDialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-divider></v-divider>
+          <v-list dense one-line>
+            <v-list-item
+              v-for="(item, i) in profileQuestions"
+              :key="item.question">
+              <v-list-item-action class="mr-2">
+                <v-checkbox color="Villager"></v-checkbox>
+              </v-list-item-action>
+              <v-list-item-content class="caption">
+                {{ `${i + 1} - ${item.question}` }}
+                <!-- <v-list-item-subtitle></v-list-item-title> -->
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-dialog>
+      <v-card flat tile fluid>
+        <v-card-title>
+          <v-btn
+          class="caption Villager--text"
+          text
+          outlined
+          @click="skillsDialog = true">
+          <v-icon left>
+            mdi-human
+          </v-icon>
+            My Profile
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            x-large
+            class="px-5"
+            color="Villager"
+            :loading="!profileComplete"
+            :disabled="!profileComplete"
+            @click="goToHomeMap">
+            <v-icon left>mdi-rocket</v-icon>
+            Start
+          </v-btn>
+        </v-card-title>
+        <v-card
+          tile
+          flat
+          v-show="profileComplete">
+          <v-card-title class="d-flex justify-center align-center">
+            <v-icon class="ma-3 scale-big-small red--text" size="40">
+              mdi-heart
+            </v-icon>
+            <h3 class="ma-2">Thank you!</h3>
+          </v-card-title>
+
+          <v-divider></v-divider>
+
+        </v-card>
+        <v-card
+          tile
+          outlined
+          elevation="20"
+          v-show="!profileComplete"
+          :loading="true"
+          v-touch="{
+            right: () => nextProfileQuestion(),
+            left: () => playChime()
+          }"
+        >
+          <template slot="progress">
+            <v-progress-linear
+              :color="profileSkipped ? 'grey lighten-1' : 'Villager'"
+              height="30"
+              value="100"
+              class="Villager--text"
+              stream
+              striped
+              :indeterminate="!confirming"
+            >
+            <v-icon small color="Villager" v-show="!confirming" left>
+              {{!chiming ? "mdi-human-greeting" : "mdi-volume-high"}}
+            </v-icon>
+            <v-icon x-large v-show="confirming && !profileSkipped" color="white">mdi-check</v-icon>
+            {{validationMessage}}
+          </v-progress-linear>
+          </template>
+          <v-img
+            v-if="!confirmed"
+            v-touch="{
+              right: () => swapProfile(),
+              left: () => playChime()
+            }"
+          src="swipe2.gif"></v-img>
+          <v-img
+            tile
+            height="150"
+            :src="profileQuestion.image"
+          ></v-img>
+          <h3 class="pa-5">{{profileQuestion.question}}</h3>
+
+          <v-card-text>
+            <div>{{profileQuestion.detail}}</div>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn
+              color="Villager"
+              text
+              x-large
+              outlined
+              :disabled="profileSkipped"
+              @click="skip"
+            >
+              <v-icon left>
+                mdi-cancel
+              </v-icon>
+              SKIP
+            </v-btn>
+          </v-card-actions>
+          <v-progress-linear
+            :color="connectionProgressColor"
+            buffer-value="0"
+            :value="connectionProgressValue"
+            height="10"
+            striped
+            stream
+          ></v-progress-linear>
+          <v-card-subtitle class="caption Villager">
+          average time to complete: 1 minute
+          </v-card-subtitle>
+        </v-card>
+      </v-card>
+    </v-card>
+  </v-dialog>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      chiming: false,
+      dialog: true,
+      attentionDialog: false,
+      skillsDialog: false,
+      profileSkipped: false,
+      profileComplete: false,
+      allowInfoRequests: true,
+      allowLocationRequests: true,
+      connectionProgressValue: 10,
+      connectionProgressColor: 'Villager',
+      validationMessage: 'SWIPE TO CONFIRM',
+      confirming: false,
+      confirmed: false,
+      activeQuestionIndex: 0,
+      profileQuestion: {
+        image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
+        question: 'Are you a person with a smartphone?',
+        detail: 'The smartphone requires a data-plan through a provider or a WIFI connection'
+      },
+      profileQuestions: [
+        {
+          image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
+          question: 'Are you a person with a smartphone?',
+          detail: 'This includes any persons who identify as person'
+        }, {
+          image: 'https://th.bing.com/th/id/OIP.5Kg9Z3D3Xg3jT9gFTNn0SQHaFi?pid=ImgDet&rs=1',
+          question: 'Do you want to activate something?',
+          detail: 'This includes something that isn\'t yours but you know about'
+        }, {
+          image: 'https://th.bing.com/th/id/OIP.Xy8iyZ1ZiG4-rfssyZjR-QHaFj?pid=ImgDet&rs=1',
+          question: 'Do you know where the activation is happening?',
+          detail: 'Can you locate points of interest on a map?'
+        }, {
+          image: 'https://www.reviewpro.com/wp-content/uploads/2018/12/business-business-people-calendar-1187439.jpg',
+          question: 'Do you know when the activation is happening?',
+          detail: 'Can you set dates on a calendar? Dates can be past, present, or in the future.'
+        }
+      ]
+    }
+  },
+  methods: {
+    playChime: function () {
+      var audio = new Audio('greeting.mp3')
+      this.chiming = true
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      setTimeout(() => {
+        this.chiming = false
+      }, 1000)
+    },
+    skip: function () {
+      if (this.profileComplete) return
+      this.confirming = true
+      this.connectionProgressColor = 'Grey'
+      this.validationMessage = ''
+      this.profileSkipped = true
+      setTimeout(() => {
+        this.changeQuestionData()
+        this.confirming = false
+        this.profileSkipped = false
+        this.connectionProgressColor = 'Villager'
+        this.validationMessage = 'SWIPE TO CONFIRM'
+      }, 300)
+    },
+    nextProfileQuestion: function () {
+      if (this.profileComplete) return
+      this.confirming = true
+      this.profileSkipped = false
+      this.connectionProgressColor = 'Villager'
+      this.validationMessage = ''
+      this.profileComplete = false
+
+      setTimeout(() => {
+        if (!this.changeQuestionData()) return
+        this.confirming = false
+        this.connectionProgressColor = 'Villager'
+        this.validationMessage = 'SWIPE TO CONFIRM'
+      }, 800)
+    },
+    changeQuestionData: function () {
+      this.activeQuestionIndex++
+      let nextQuestion = Object.assign({}, this.profileQuestions[this.activeQuestionIndex])
+      let total = this.profileQuestions.length
+      let complete = this.activeQuestionIndex
+      this.connectionProgressValue = (complete / total) * 100
+
+      if ((this.profileQuestions.length + 1) === this.activeQuestionIndex) return
+      if (Object.keys(nextQuestion).length === 0) return this.finishProfile()
+
+      this.profileQuestion = nextQuestion
+      return true
+    },
+    finishProfile: function () {
+      this.profileComplete = true
+      return false
+    },
+    goToHomeMap: function () {
+      this.$router.push('/neighbors')
+    },
+    goHome: function () {
+      this.$router.push('/')
+    }
+  }
+}
+</script>
+<style>
+.scale-big-small {
+    -webkit-animation:scale 2s linear infinite;
+    -moz-animation:scale 2s linear infinite;
+    animation:scale 2s linear infinite;
+}
+@-moz-keyframes scale {
+  0% {
+    -moz-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -moz-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -moz-transform: scale(1); transform: scale(1)
+  }
+}
+@-webkit-keyframes scale {
+  0% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -webkit-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+}
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -webkit-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+}
+</style>

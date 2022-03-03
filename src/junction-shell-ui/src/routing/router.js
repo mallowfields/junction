@@ -2,7 +2,7 @@ import VueRouter from 'vue-router'
 
 // Pages
 import HomePage from '@/pages/public/HomePage.vue'
-import ProfileBuilderPage from '@/pages/public/ProfileBuilderPage.vue'
+import ProfilesPage from '@/pages/public/ProfilesPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
 import ServicesPage from '@/pages/public/ServicesPage.vue'
 import ModelsPage from '@/pages/public/ModelsPage.vue'
@@ -17,7 +17,7 @@ const routes = [
   }, {
     name: 'profiles',
     path: '/profiles',
-    component: ProfileBuilderPage
+    component: ProfilesPage
   }, {
     name: 'neighbors',
     path: '/neighbors',
