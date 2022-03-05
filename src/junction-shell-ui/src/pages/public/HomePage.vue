@@ -3,7 +3,7 @@
     <v-list class="d-flex flex-column justify-start">
       <v-list-item-subtitle
         class="text-center grey--text caption">
-        public
+        junction
       </v-list-item-subtitle>
       <v-list-item-group
         >
