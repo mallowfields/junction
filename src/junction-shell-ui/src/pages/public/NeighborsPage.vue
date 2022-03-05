@@ -39,15 +39,15 @@
         dark
         class="ml-5"
       >
-        <v-btn value="/profiles">
+        <v-btn color="Villager" @click="goToProfiles">
           <v-icon left>
             mdi-human
           </v-icon>
           <span>Profiles</span>
         </v-btn>
 
-        <v-btn @click="goToClaims">
-          <v-icon>
+        <v-btn color="Villager" @click="goToClaims">
+          <v-icon left >
             mdi-room-service-outline
           </v-icon>
           <span>Claims</span>
@@ -952,12 +952,12 @@ export default {
     },
     goToProfiles: function () {
       let site = `/profiles`
-      this.$router.push(site, () => this.$router.go(0))
+      this.$router.push(site)
       this.close()
     },
     goToClaims: function () {
       let site = `/claims`
-      this.$router.push(site, () => this.$router.go(0))
+      this.$router.push(site)
       this.close()
     }
   },

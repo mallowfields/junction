@@ -161,7 +161,7 @@
           <v-img
             v-if="!confirmed"
             v-touch="{
-              right: () => swapProfile(),
+              right: () => nextProfileQuestion(),
               left: () => playChime()
             }"
           src="swipe2.gif"></v-img>
