@@ -6,7 +6,9 @@
       transition="dialog-bottom-transition"
     >
     <v-card flat tile>
-      <v-toolbar>
+      <v-toolbar
+        dark
+        tile>
         <v-btn
           icon
           @click="goHome">

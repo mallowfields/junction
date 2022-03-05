@@ -234,6 +234,8 @@
     </v-navigation-drawer>
     <v-card tile flat>
       <v-toolbar
+        dark
+        tile
       >
         <v-btn
           icon
