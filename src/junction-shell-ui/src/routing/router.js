@@ -27,8 +27,8 @@ const routes = [
     path: '/claims',
     component: ClaimsPage
   }, {
-    name: 'data',
-    path: '/data',
+    name: 'models',
+    path: '/models',
     component: ModelsPage
   }, {
     name: 'process-center',
