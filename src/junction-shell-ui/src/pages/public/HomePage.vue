@@ -98,6 +98,7 @@ export default {
       if (this.$route.path !== item.href) {
         this.$store.commit('activePage', i)
         this.$router.push(item.href)
+        this.playChime()
       }
     },
     playChime: function () {

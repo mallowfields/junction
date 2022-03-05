@@ -5,7 +5,12 @@ import { isEmpty } from '/@mflib/str'
 import { Validator } from '/@mflib/validation'
 import { ClientError } from './client_error'
 import { Loader } from '/model'
+
+import { ActorClient } from './routes/actor_client'
 import { EntityClient } from './routes/entity_client'
+import { SiteClient } from './routes/site_client'
+import { TaskClient } from './routes/task_client'
+import { WorkflowClient } from './routes/workflow_client'
 
 const pv = (new Validator(true)).params
 
@@ -13,18 +18,18 @@ const pv = (new Validator(true)).params
  * @typedef {import('axios').AxiosRequestConfig} AxiosRequestConfig
  */
 /**
- * @typedef {object} SlowFireRequestConfig
+ * @typedef {object} RequestConfig
  * @property {boolean} [ignore404] Whether to ignore 404 error and return null
  */
 /**
- * @typedef {AxiosRequestConfig & SlowFireRequestConfig} RequestConfig
+ * @typedef {AxiosRequestConfig & RequestConfig} RequestConfig
  */
 /**
  * @typedef {import('axios').AxiosResponse} AxiosResponse
  */
 
 /**
- * The root client for invoking Slow Fire API methods
+ * The root client for invoking API methods
  */
 export class RestClient {
   /**
@@ -45,7 +50,11 @@ export class RestClient {
 
     this._loader = loader || Loader.create()
 
+    this.actor = new ActorClient(this)
     this.entity = new EntityClient(this)
+    this.site = new SiteClient(this)
+    this.task = new TaskClient(this)
+    this.workflow = new WorkflowClient(this)
   }
 
   /**

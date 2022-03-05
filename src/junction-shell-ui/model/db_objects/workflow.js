@@ -3,7 +3,7 @@ import { DbObject } from '../db_object'
 // eslint-disable-next-line no-unused-vars
 import { Loader } from '../loader'
 
-export class Entity extends DbObject {
+export class Workflow extends DbObject {
   /**
    * Load the data for the instance
    * @param {Loader} loader
@@ -14,7 +14,6 @@ export class Entity extends DbObject {
 
     this.type = data.type
     this.code = data.code
-    this.status = data.status
     this.description = data.description
     this.displayName = data.displayName
     this.lastUpdatedTimestamp = data.lastUpdatedTimestamp
@@ -22,37 +21,38 @@ export class Entity extends DbObject {
     this.actors = data.actors
     this.workflows = data.workflows
     this.tasks = data.tasks
+    this.status = data.status
 
     this.loaded = true
   }
 }
 
 /** @type {string} */
-Entity.prototype.type = ''
+Workflow.prototype.type = ''
 
 /** @type {string} */
-Entity.prototype.code = ''
+Workflow.prototype.code = ''
 
 /** @type {string} */
-Entity.prototype.status = ''
+Workflow.prototype.description = ''
 
 /** @type {string} */
-Entity.prototype.description = ''
+Workflow.prototype.displayName = ''
 
 /** @type {string} */
-Entity.prototype.displayName = ''
-
-/** @type {string} */
-Entity.prototype.lastUpdatedTimestamp = ''
+Workflow.prototype.lastUpdatedTimestamp = ''
 
 /** @type {array} */
-Entity.prototype.entities = []
+Workflow.prototype.entities = []
 
 /** @type {array} */
-Entity.prototype.actors = []
+Workflow.prototype.actors = []
 
 /** @type {array} */
-Entity.prototype.workflows = []
+Workflow.prototype.workflows = []
 
 /** @type {array} */
-Entity.prototype.tasks = []
+Workflow.prototype.tasks = []
+
+/** @type {string} */
+Workflow.prototype.status = ''

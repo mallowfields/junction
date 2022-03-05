@@ -20,7 +20,11 @@ export default {
         'x-jct-app-user-display-name': `${this.$store.state.userName}`
       }
       return {
-        entity: client.entity
+        actor: client.actor,
+        entity: client.entity,
+        site: client.site,
+        task: client.task,
+        workflow: client.workflow
       }
     }
   }

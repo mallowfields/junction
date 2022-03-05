@@ -127,7 +127,7 @@ export default {
           event.preventDefault()
           this.activeItem = 2
           this.setActivePage({
-            href: '/services'
+            href: '/claims'
           }, this.activeItem)
         }
         if (ctrlPressed && fourPressed) {
