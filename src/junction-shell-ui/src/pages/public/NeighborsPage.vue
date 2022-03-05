@@ -427,123 +427,7 @@
         </v-tooltip>
       </v-speed-dial>
     </v-card>
-    <v-snackbar
-      :timeout="-1"
-      multi-line
-      absolute
-      bottom
-      class="mb-1 mx-5"
-      style="max-width: calc(100vw - 100px);"
-      >
-        <v-list-item Three-line>
-          <v-list-item-icon>
-            <v-icon>
-              {{labelIcon}}
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>
-              {{selectedNode ? selectedNode.type : ''}} - {{selectedNode ? selectedNode.displayName : selectedNode}}
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              {{selectedNode && selectedNode.description}}
-              <v-divider class="my-5"></v-divider>
-              <v-card-actions>
-                <v-tooltip
-                  bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      v-bind="attrs"
-                      v-on="on"
-                      text
-                      class="mt-3"
-                      icon
-                      large
-                      color="secondary"
-                      @click="editDialog = true">
-                      <v-icon>mdi-tune</v-icon>
-                    </v-btn>
-                  </template>
-                      Edit
-                </v-tooltip>
-                <v-tooltip
-                  bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      v-bind="attrs"
-                      v-on="on"
-                      color="amber"
-                      icon
-                      large
-                      class="mt-3 ml-4"
-                      @click="automationDialog = true">
-                      <v-icon>mdi-auto-fix</v-icon>
-                    </v-btn>
-                  </template>
-                  Automation
-                </v-tooltip>
-                <v-tooltip
-                  v-if="isTool"
-                  bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      v-bind="attrs"
-                      v-on="on"
-                      v-if="isTool"
-                      color="blue"
-                      icon
-                      large
-                      class="mt-3 ml-4"
-                      @click="toolDialog = true">
-                      <v-icon>mdi-hammer-wrench</v-icon>
-                    </v-btn>
-                  </template>
-                  Tool
-                </v-tooltip>
-                <v-tooltip
-                  v-if="isTool"
-                  bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      v-bind="attrs"
-                      v-on="on"
-                      v-if="isTool"
-                      color="blue"
-                      icon
-                      large
-                      class="mt-3 ml-4"
-                      @click="toolDialog = true">
-                      <v-icon>mdi-star-circle</v-icon>
-                    </v-btn>
-                  </template>
-                  Content
-                </v-tooltip>
-                <v-tooltip
-                  v-if="!isTool"
-                  bottom>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      v-bind="attrs"
-                      v-on="on"
-                      color="Site"
-                      icon
-                      large
-                      class="mt-3 ml-4"
-                      @click="siteDialog = true">
-                      <v-icon>mdi-web</v-icon>
-                    </v-btn>
-                  </template>
-                  Sites
-                </v-tooltip>
-              </v-card-actions>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-          <!-- <v-list-item-subtitle> -->
-            
-          <!-- </v-list-item-subtitle> -->
-        </v-list-item>
 
-    </v-snackbar>
     <v-dialog
       v-model="shareViewDialog"
       width="500">
@@ -965,8 +849,6 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
 
 import 'leaflet/dist/leaflet.css'
-import { Network } from 'vis-network/peer/esm/vis-network'
-import { DataSet } from 'vis-data/peer/esm/vis-data'
 import entityTypes from '@/mixin/entity-types'
 import apiClient from '@/mixin/api-client'
 import moment from 'moment'
@@ -1042,387 +924,9 @@ export default {
       return moment(new Date(this.currentTime || value)).format('LTS')
     },
     close: function () {
-      // this.reset()
       this.$emit('close')
     },
-    reset: function () {
-      this.nodes = new DataSet([])
-      this.edges = new DataSet([])
-      this.network = null
-    },
-    reloadGraph () {
-      this.redrawMap()
-      this.reset()
-      // this.loadData()
-    },
-    createContainer: function () {
-      const container = this.$refs['network']
-      const data = {
-        nodes: this.nodes,
-        edges: this.edges
-      }
-      var options = {
-        groups: {
-          'Entity': { color: this.$store.state.displayTheme === 'dark' ? '#222222' : '#eee', size: 18, shape: 'circularImage', image: '/shape-plus.svg' },
-          'Actor': { color: this.$store.state.displayTheme === 'dark' ? '#222222' : '#eee', size: 16, shape: 'circularImage', image: '/account-circle.svg' },
-          'Workflow': { color: this.$store.state.displayTheme === 'dark' ? '#222222' : '#eee', size: 18, shape: 'circularImage', image: '/check-all.svg' },
-          'Task': { color: this.$store.state.displayTheme === 'dark' ? '#222222' : '#eee', size: 10, shape: 'circularImage', image: '/check.svg' },
-          'Site': { color: this.$store.state.displayTheme === 'dark' ? '#222222' : '#eee', size: 25, shape: 'circularImage', image: '/web.svg' }
-        },
-        nodes: {
-          shape: 'dot',
-          size: 12,
-          shadow: {
-            enabled: true,
-            size: 3,
-            x: 1,
-            y: 2
-          },
-          font: {
-            color: this.$store.state.displayTheme === 'dark' ? '#eee' : '#000'
-          }
-        },
-        interaction: {
-          hover: true,
-          hoverConnectedEdges: true
-        }
-      }
-      this.network = new Network(container, data, options)
-      this.network.on('click', (event) => {
-        if (event.nodes.length) {
-          this.selectedNode = this.nodes.get(event.nodes[0])
-          this.isSite = this.selectedNode.type === 'Site'
-          this.isTool = this.selectedNode.type === 'Task'
-          this.labelIcon = this.isSite ? this.siteLabelicon : this.getEntityLabelIcon(this.selectedNode)
-          this.showNodeDetails = true
-          this.snackBarColor = options.groups[this.selectedNode.type].color
-          this.showFab = true
-        } else {
-          this.showNodeDetails = false
-          this.isSite = null
-          this.isTool = null
-          this.showFab = false
-        }
-      })
-      this.network.on('hoverNode', (event) => {
-        // this.selectedNode = this.nodes.get(event.node)
-        // this.isSite = this.selectedNode.type === 'Site'
-        // this.labelIcon = this.isSite ? this.siteLabelicon : this.getEntityLabelIcon(this.selectedNode)
-        // this.showNodeDetails = true
-        // this.snackBarColor = options.groups[this.selectedNode.type].color
-        // this.showFab = true
-      })
-      this.network.on('blurNode', (event) => {
-        // this.showNodeDetails = false
-        // this.isSite = null
-        // this.isTool = null
-        // this.showFab = false
-      })
-      this.network.on('hold', (event) => {
-        this.selectedNode = {}
-        if (event.nodes[0]) {
-          this.selectedNode = this.nodes.get(event.nodes[0])
-          this.isSite = this.selectedNode.type === 'Site'
-          this.isTool = this.selectedNode.type === 'Task'
 
-          this.labelIcon = this.isSite ? this.siteLabelicon : this.getEntityLabelIcon(this.selectedNode)
-          
-          if (!this.isSite) this.nodeModificationDialog = true
-          if (this.isSite) this.siteModificationDialog = true
-          return
-        }
-        this.networkOptionsDialog = true
-        console.log(event, this.networkOptionsDialog)
-      })
-      this.network.on('deselectNode', (event) => {
-        this.selectedNode = {}
-        this.isSite = null
-        this.isTool = null
-      })
-    },
-    showSelectedNodeInfo: function () {
-      if (this.selectedNode.type === 'Site') {
-        this.siteDialog = true
-        return
-      }
-      this.editDialog = true
-    },
-    getEntityLabelIcon: function (entity) {
-      let entityType = this.entityTypes.filter((options) => {
-        return options.label === entity.type
-      })
-      return entityType.length ? entityType[0].icon : 'mdi-alert-circle'
-    },
-    labelNodeBy: function (prop, arr) {
-      arr.forEach((item) => {
-        item.title = item[prop]
-        item.label = item.type
-        item.group = item.type
-      })
-
-      return arr
-    },
-    getNodes: async function () {
-      let sites = await this.api('map').site.getAll()
-      this.labelNodeBy('displayName', sites)
-      sites.forEach((site) => {
-        site.group = 'Site'
-        site.label = site.title
-      })
-      this.nodes.add(sites)
-
-      let entities = await this.api('map').entity.getAll()
-      this.labelNodeBy('displayName', entities)
-      entities.forEach((entity) => {
-        entity.label = entity.title
-      })
-      this.nodes.add(entities)
-
-      let actors = await this.api('map').actor.getAll()
-      this.labelNodeBy('displayName', actors)
-      entities.forEach((actor) => {
-        actor.label = actor.title
-      })
-      this.nodes.add(actors)
-
-      let workflows = await this.api('map').workflow.getAll()
-      this.labelNodeBy('displayName', workflows)
-      workflows.forEach((workflow) => {
-        workflow.label = workflow.title
-      })
-      this.nodes.add(workflows)
-
-      let tasks = await this.api('map').task.getAll()
-      this.labelNodeBy('displayName', tasks)
-      this.nodes.add(tasks)
-
-      let edges = []
-      await Promise.all(sites.map(async (item) => {
-        let site = await this.api('map').site.get(item.id)
-        site.entities.forEach((id) => {
-          edges.push({
-            to: site.id,
-            from: id,
-            color: '#4CAF50',
-            arrows: {
-              from: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-        site.actors.forEach((id) => {
-          edges.push({
-            to: site.id,
-            from: id,
-            color: '#4CAF50',
-            arrows: {
-              from: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-        site.workflows.forEach((id) => {
-          edges.push({
-            from: site.id,
-            to: id,
-            color: '#4CAF50',
-            arrows: {
-              from: {
-                enabled: true,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-        site.tasks.forEach((id) => {
-          edges.push({
-            to: site.id,
-            from: id,
-            color: '#4CAF50',
-            arrows: {
-              from: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-      }))
-
-      await Promise.all(entities.map(async (item) => {
-        let entity = await this.api('map').entity.get(item.id)
-        entity.entities.forEach((eid) => {
-          edges.push({
-            to: entity.id,
-            from: eid,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        entity.actors.forEach((aid) => {
-          edges.push({
-            to: entity.id,
-            from: aid,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        entity.workflows.forEach((wid) => {
-          edges.push({
-            to: wid,
-            from: entity.id,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        entity.tasks.forEach((tid) => {
-          edges.push({
-            to: tid,
-            from: entity.id,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-      }))
-
-      await Promise.all(actors.map(async (item) => {
-        let actor = await this.api('map').actor.get(item.id)
-
-        actor.entities.forEach((aid) => {
-          edges.push({
-            to: actor.id,
-            from: aid,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        actor.actors.forEach((aid) => {
-          edges.push({
-            to: actor.id,
-            from: aid,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        actor.workflows.forEach((wid) => {
-          edges.push({
-            to: wid,
-            from: actor.id,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-
-        actor.tasks.forEach((tid) => {
-          edges.push({
-            to: tid,
-            from: actor.id,
-            color: '#FF5722',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-      }))
-
-      await Promise.all(workflows.map(async (item) => {
-        let workflow = await this.api('map').workflow.get(item.id)
-
-        workflow.tasks.forEach((tid) => {
-          edges.push({
-            to: workflow.id,
-            from: tid,
-            color: '#2196F3',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-      }))
-
-      await Promise.all(tasks.map(async (item) => {
-        let task = await this.api('map').task.get(item.id)
-
-        task.tools.forEach((tid) => {
-          edges.push({
-            to: task.id,
-            from: tid,
-            color: '#2196F3',
-            arrows: {
-              to: {
-                enabled: true,
-                scaleFactor: 0.5,
-                type: 'arrow'
-              }
-            }
-          })
-        })
-      }))
-
-      this.edges.add(edges)
-    },
     saveEntity: async function (entity) {
       this.loading = true
       this.editDialog = false
@@ -1446,17 +950,10 @@ export default {
       this.$router.push(site, () => this.$router.go(0))
       this.close()
     },
-    loadData: async function () {
-      this.loading = true
-      await this.getNodes()
-      this.createContainer()
-      this.loading = false
-    },
-    getNodesAsList: function () {
-      const nodes = this.nodes.get()
-      return nodes.map((node) => {
-        return node.displayName
-      })
+    goToProfiles: function () {
+      let site = `/profiles`
+      this.$router.push(site, () => this.$router.go(0))
+      this.close()
     },
     goToClaims: function () {
       let site = `/claims`
@@ -1491,55 +988,55 @@ export default {
           center: latLng(42.97252947254143, -85.67439693255552),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'EuzenConnect',
           center: latLng(42.97043760898049, -85.67471522173447),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'NAACP',
           center: latLng(42.93593381097306, -85.65786251021242),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Treetops Collective',
           center: latLng(42.946505929857985, -85.66705535806263),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Mallowfields',
           center: latLng(42.94260261726618, -85.67807064326311),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Lions & Rabbits',
           center: latLng(42.986355109074836, -85.66620189814095),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Grand Valley State University',
           center: latLng(42.9633899227588, -85.88859055639922),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Fort Valley State University',
           center: latLng(32.534688671924854, -83.89550132508403),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }, {
           moniker: 'Georgia Gwinnette College',
           center: latLng(33.97973044216388, -84.00389373600575),
           radius: 20,
           color: 'white',
-          fillColor: 'purple'
+          fillColor: 'pink'
         }
       ]
     },
@@ -1557,14 +1054,7 @@ export default {
     organizationName: null,
     firstLoad: true,
     loading: false,
-    applyingFilter: false,
-    showNodeDetails: false,
-    snackBarColor: null,
-    selectedNode: {},
-    selectedEdge: {},
-    network: null,
-    nodes: new DataSet([]),
-    edges: new DataSet([]),
+
     hereDialog: false,
     connecting: false,
     connected: false,
@@ -1580,9 +1070,7 @@ export default {
     siteDialog: false,
     toolDialog: false,
     isTool: false,
-    isSite: false,
     labelIcon: 'mdi-help',
-    siteLabelicon: 'mdi-web',
     dialog: true
   })
 }
