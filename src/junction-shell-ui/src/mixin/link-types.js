@@ -70,45 +70,45 @@ export default {
       ],
       adminLinks: [
         {
-          title: 'Service Center',
+          title: 'Service',
           href: '/service-center',
           icon: 'mdi-room-service',
           color: 'Data',
           disabled: true,
-          description: 'Coming soon...'
+          description: 'Create and Manage services'
         }, {
-          title: 'Process Center',
+          title: 'Process',
           href: '/process-center',
           icon: 'mdi-human',
           color: 'Data',
-          description: 'Intake and Outcomes'
+          description: 'Manage Intake and Outcomes'
         }, {
-          title: 'Command Center',
+          title: 'Command',
           href: '/command-center',
           icon: 'mdi-charity',
           color: 'Data',
-          description: 'Service Management'
+          description: 'Real-time Service Management'
         }, {
-          title: 'Referral Center',
+          title: 'Referrals',
           href: '/referrals',
           icon: 'mdi-account-multiple-plus',
           color: 'Data',
           disabled: true,
-          description: 'Coming soon...'
+          description: 'Create and Manage Referrals'
         }, {
-          title: 'Contract Center',
+          title: 'Contracts',
           href: '/contract-center',
           icon: 'mdi-file-document-outline',
           color: 'Data',
           disabled: true,
-          description: 'Contract Management'
+          description: 'Manage Platform Contracts'
         }, {
-          title: 'Poll Center',
+          title: 'Polls',
           href: '/poll-center',
           icon: 'mdi-vote',
           color: 'Data',
           disabled: true,
-          description: 'Coming soon...'
+          description: 'Create and Manage Polls'
         }
       ],
       resourceLinks: []

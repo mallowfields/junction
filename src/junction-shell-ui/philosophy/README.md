@@ -14,3 +14,7 @@
 - Mapping allows us to be planful with our neighbors
 - Mapping allows us to set a scope for our ideas
 - Mapping allows us to collaborate
+
+
+# Junction Services
+- Anything from borrowing a cup of sugar to help with taxes
