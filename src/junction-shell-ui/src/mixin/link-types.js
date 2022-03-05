@@ -55,11 +55,11 @@ export default {
           color: 'Villager',
           description: 'My world'
         }, {
-          title: 'Services',
-          href: '/services',
+          title: 'Claims',
+          href: '/claims',
           icon: 'mdi-room-service-outline',
           color: 'Villager',
-          description: 'My service providers and offerings'
+          description: 'My claimed services and offerings'
         }, {
           title: 'Models',
           href: '/models',

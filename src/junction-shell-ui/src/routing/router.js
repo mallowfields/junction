@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import HomePage from '@/pages/public/HomePage.vue'
 import ProfilesPage from '@/pages/public/ProfilesPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
-import ServicesPage from '@/pages/public/ServicesPage.vue'
+import ClaimsPage from '@/pages/public/ClaimsPage.vue'
 import ModelsPage from '@/pages/public/ModelsPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
@@ -23,9 +23,9 @@ const routes = [
     path: '/neighbors',
     component: NeighborsPage
   }, {
-    name: 'services',
-    path: '/services',
-    component: ServicesPage
+    name: 'claims',
+    path: '/claims',
+    component: ClaimsPage
   }, {
     name: 'data',
     path: '/data',

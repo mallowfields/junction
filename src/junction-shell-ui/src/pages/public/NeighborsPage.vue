@@ -34,20 +34,29 @@
           mdi-cash-100
         </v-icon>
       </v-toolbar>
+      <v-btn-toggle
+        dense
+        dark
+        class="ml-5"
+      >
+        <v-btn value="/profiles">
+          <v-icon left>
+            mdi-human
+          </v-icon>
+          <span>Profiles</span>
+        </v-btn>
+
+        <v-btn @click="goToClaims">
+          <v-icon>
+            mdi-room-service-outline
+          </v-icon>
+          <span>Claims</span>
+        </v-btn>
+      </v-btn-toggle>
       <v-card class="ma-2 pa-0">
           <v-list dense>
             <v-list-item two-line>
               <v-list-item-content>
-                <v-list-item-title>
-                  <v-btn
-                    class="pa-5 ma-2"
-                    color="Villager white--text">
-                    <v-icon left>
-                      mdi-human
-                    </v-icon>
-                    Adjust Profile
-                  </v-btn>
-                </v-list-item-title>
                 <v-list-item-subtitle
                   class="text-wrap"
                 >
@@ -982,6 +991,7 @@ export default {
         this.connecting = false
         this.connected = true
         this.statusSnackbar = true
+        this.pathwaysMenu = true
       }, 1300)
     },
     setPurpose: function (icon, enterContext, mapContext) {
@@ -1447,6 +1457,11 @@ export default {
       return nodes.map((node) => {
         return node.displayName
       })
+    },
+    goToClaims: function () {
+      let site = `/claims`
+      this.$router.push(site, () => this.$router.go(0))
+      this.close()
     }
   },
   data: () => ({
