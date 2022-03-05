@@ -30,14 +30,13 @@
             <v-btn
               v-bind="attrs"
               v-on="on"
-              :loading="loading"
               small
               icon
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
-
+  
           <v-list dense two-items>
             <v-list-item>
               <v-list-item-action>
@@ -57,7 +56,6 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-
       <v-dialog
         v-model="skillsDialog">
         <v-card
@@ -100,6 +98,7 @@
           elevation="5"
           icon
           x-large
+          :loading="!profileComplete"
           @click="skillsDialog = true">
           <v-icon>
             mdi-human-greeting

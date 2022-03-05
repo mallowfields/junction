@@ -15,29 +15,26 @@
       src="/grey-gradient-background.jpg"
       @transitionend="checkFab"
     >
-      <v-toolbar absolute width="100%" dense>
-        <div class="caption small">Found (2) Gigs, (2) Appointments</div>
+      <v-toolbar
+        width="100%"
+        dense
+        color="Villager"
+        class="mb-5">
+        <v-icon left>
+          mdi-format-list-numbered
+        </v-icon>
+        <div class="caption small">(8) connections in your path</div>
         <v-spacer></v-spacer>
         <v-divider vertical class="mx-5"></v-divider>
         <div>
-          <div class="caption small Site--text">$13,282.19</div>
-          <div class="caption x-small grey--text">+ $51.00</div>
+          <div class="caption small white--text">$282.00</div>
+          <div class="caption x-small yellow--text">usd</div>
         </div>
-        <v-icon class="ma-3 scale-big-small Site--text" size="20">
+        <v-icon class="ma-3 scale-big-small white--text" size="20">
           mdi-cash-100
         </v-icon>
       </v-toolbar>
-      <v-card>
-        <v-progress-linear
-            class="py-5"
-            color="Site"
-            buffer-value="0"
-            value="100"
-            height="10"
-            striped
-            stream
-            reverse
-          ></v-progress-linear>
+      <v-card class="ma-2 pa-0">
           <v-list dense>
             <v-list-item two-line>
               <v-list-item-content>
@@ -67,21 +64,25 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <h3>
-                  <v-icon class="Site--text" x-large left>
-                    mdi-cash-100
+                    <v-icon class="Site--text" x-large left>
+                      mdi-cash-100
                   </v-icon>
-                  $45.50 - Cleaning
+                  #sanitization, $45.50
                   </h3>
+                  <v-list-item-subtitle class="ma-5">12:00PM (in 19 minutes)</v-list-item-subtitle>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Help clean and sanitize this place">
+                  label="I can clean and sanitize this space">
+                </v-checkbox>
+                <v-checkbox
+                  label="I can work alongside other people">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Site">face covering</v-chip>
-                  <v-chip small color="Site">gloves</v-chip>
-                  <v-chip small color="Site">food provided</v-chip>
+                  <v-chip small color="Villager lighten-3">face coverings</v-chip>
+                  <v-chip small color="Villager lighten-3">gloves</v-chip>
+                  <v-chip small color="Villager lighten-3">food</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -97,17 +98,18 @@
                     <v-icon class="Site--text" x-large left>
                       mdi-cash-100
                     </v-icon>
-                    $5.50 - Petcare
+                    #petcare, $15.50
                   </h3>
+                  <v-list-item-subtitle class="ma-5">3:00PM (in 3 hours 19 minutes))</v-list-item-subtitle>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Take the dogs for a mile walk">
+                  label="I can walk medium sized dogs">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Site">animals</v-chip>
-                  <v-chip small color="Site">gloves</v-chip>
+                  <v-chip small color="Villager lighten-3">animals</v-chip>
+                  <v-chip small color="Villager lighten-3">gloves</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -123,17 +125,17 @@
                     <v-icon class="Villager--text" x-large left>
                       mdi-human-pregnant
                     </v-icon>
-                    30 minutes - Healthcare
+                    #healthcare
                   </h3>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Meet Dr. Holmstead wellness checkup">
+                  label="I will need a ride to the hospital">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Villager">children welcome</v-chip>
-                  <v-chip small color="Villager">face coverings provided</v-chip>
+                  <v-chip small color="Villager lighten-3">children</v-chip>
+                  <v-chip small color="Villager lighten-3">face coverings</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -149,17 +151,20 @@
                     <v-icon class="Villager--text" x-large left>
                       mdi-vote
                     </v-icon>
-                    1 hour - Vote
+                    #vote
                   </h3>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Simon will take you to the polls">
+                  label="I am already registered to vote in my district">
+                </v-checkbox>
+                <v-checkbox
+                  label="I will need a ride">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Villager">friend</v-chip>
-                  <v-chip small color="Villager">face coverings provided</v-chip>
+                  <v-chip small color="Villager lighten-3">friend</v-chip>
+                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -175,17 +180,17 @@
                     <v-icon class="Villager--text" x-large left>
                       mdi-human-female
                     </v-icon>
-                    10 minutes - Healthcare
+                    #healthcare
                   </h3>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Meet Dr. Fairfield wellness checkup">
+                  label="I can wait in a short line">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Villager">children welcome</v-chip>
-                  <v-chip small color="Villager">face coverings provided</v-chip>
+                  <v-chip small color="Villager lighten-3">children welcome</v-chip>
+                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -201,17 +206,17 @@
                     <v-icon class="Data--text" x-large left>
                       mdi-human-greeting
                     </v-icon>
-                    2 hours - Volunteering
+                    #volunteering
                   </h3>
                 </v-list-item-title>
                 <v-checkbox
-                  label="Assist with Code for Good">
+                  label="I can lift 20 pounds">
                 </v-checkbox>
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Data">children welcome</v-chip>
-                  <v-chip small color="Data">face coverings provided</v-chip>
+                  <v-chip color="Villager lighten-3">children welcome</v-chip>
+                  <v-chip color="Villager lighten-3">face coverings provided</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
@@ -230,7 +235,7 @@
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title>{{enterContext}}</v-list-item-title>
-            <v-list-item-subtitle>My World</v-list-item-subtitle>
+            <v-list-item-subtitle>Find {{mapContext}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-spacer></v-spacer>
@@ -317,12 +322,12 @@
       </div>
      <v-btn
       class="ma-5"
-      :color="!connected ? 'Villager' : 'Site'"
+      :color="!connected ? 'Villager' : 'Villager'"
       x-large
       :disabled="connecting"
       @click="actorIsReady">
        <v-icon left>
-         {{ !connected ? 'mdi-power-plug mdi-rotate-90' : 'mdi-dots-horizontal' }}
+         {{ !connected ? 'mdi-power-plug mdi-rotate-90' : 'mdi-format-list-numbered' }}
        </v-icon>
        {{ !connected ? 'Login' : 'My Path' }}
      </v-btn>
@@ -370,7 +375,7 @@
               dark
               large
               color="Villager"
-              @click="setPurpose('mdi-plus', 'Other')"
+              @click="setPurpose('mdi-plus', 'Other', 'Something else')"
             >
               <v-icon size="40" color="white">mdi-plus</v-icon>
             </v-btn>
@@ -387,7 +392,7 @@
                 dark
                 large
                 color="Villager"
-                @click="setPurpose('mdi-chart-bubble', 'Models')"
+                @click="setPurpose('mdi-chart-bubble', 'Models', 'Data and Information')"
               >
               <v-icon size="40" color="white">mdi-chart-bubble</v-icon>
             </v-btn>
@@ -404,7 +409,7 @@
               dark
               large
               color="Villager"
-              @click="setPurpose('mdi-earth', 'Neighbors')"
+              @click="setPurpose('mdi-earth', 'Neighbors', 'Services')"
             >
               <v-icon size="40" color="white">mdi-earth</v-icon>
             </v-btn>
@@ -562,7 +567,7 @@
       <v-card>
         <v-toolbar flat>
           <v-icon color="Villager">{{purposeIcon}}</v-icon>
-          <v-card-title>{{enterContext}}</v-card-title>
+          <v-card-title>{{mapContext}}</v-card-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -877,7 +882,7 @@
     >
       <v-icon left class="mb-1">{{purposeIcon}}</v-icon>
       <span>
-        {{enterContext}}
+        {{mapContext}}
       </span>
       <template v-slot:action="{ attrs }">
         <v-btn
@@ -979,9 +984,10 @@ export default {
         this.statusSnackbar = true
       }, 1300)
     },
-    setPurpose: function (icon, enterContext) {
+    setPurpose: function (icon, enterContext, mapContext) {
       this.purposeIcon = icon
       this.enterContext = enterContext
+      this.mapContext = mapContext
     },
     acceptPathwayItem: function () {
       this.pathwaysMenu = false
@@ -1453,6 +1459,7 @@ export default {
     claimDescription: 'Claim this?',
     snackbar: true,
     enterContext: 'Neighbors',
+    mapContext: 'Services',
     purposeIcon: 'mdi-earth',
     zoom: 11,
     mapCenter: latLng(42.9634, -85.6681),
