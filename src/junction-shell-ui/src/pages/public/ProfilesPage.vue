@@ -238,15 +238,15 @@ export default {
           detail: 'This includes any persons who identify as person'
         }, {
           image: 'https://th.bing.com/th/id/OIP.5Kg9Z3D3Xg3jT9gFTNn0SQHaFi?pid=ImgDet&rs=1',
-          question: 'Do you want to activate something?',
-          detail: 'This includes something that isn\'t yours but you know about'
+          question: 'Do you want to do something?',
+          detail: 'This includes maybe doing things that you but you know about'
         }, {
-          image: 'https://th.bing.com/th/id/OIP.Xy8iyZ1ZiG4-rfssyZjR-QHaFj?pid=ImgDet&rs=1',
-          question: 'Do you know where the activation is happening?',
+          image: 'https://static.wixstatic.com/media/e73c83_c9088fadec404f70a392764974eb2d70~mv2.jpg/v1/crop/x_0,y_39,w_1152,h_689/fill/w_930,h_557,al_c,q_85,usm_0.66_1.00_0.01/municipalphoto.webp',
+          question: 'Do you know where the thing is happening?',
           detail: 'Can you locate points of interest on a map?'
         }, {
           image: 'https://www.reviewpro.com/wp-content/uploads/2018/12/business-business-people-calendar-1187439.jpg',
-          question: 'Do you know when the activation is happening?',
+          question: 'Do you know when the thing is happening?',
           detail: 'Can you set dates on a calendar? Dates can be past, present, or in the future.'
         }
       ]
