@@ -38,7 +38,6 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
-  
           <v-list dense two-items>
             <v-list-item>
               <v-list-item-action>
@@ -103,8 +102,8 @@
           :loading="!profileComplete"
           @click="skillsDialog = true">
           <v-icon>
-            mdi-human-greeting
-          </v-icon>  
+            mdi-human
+          </v-icon>
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn
@@ -130,12 +129,23 @@
           </v-card-title>
 
           <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="Villager white--text" outlined class="ma-5 pa-10">
+              <v-icon left>
+                mdi-human-greeting
+              </v-icon>
+              More Cards
+            </v-btn>
+
+          </v-card-actions>
 
         </v-card>
         <v-card
           tile
           outlined
-          elevation="20"
+          elevation="5"
+          class="card-texture mt-16"
           v-show="!profileComplete"
           :loading="true"
           v-touch="{
@@ -160,13 +170,13 @@
             {{validationMessage}}
           </v-progress-linear>
           </template>
-          <v-img
+          <!-- <v-img
             v-if="!confirmed"
             v-touch="{
               right: () => nextProfileQuestion(),
               left: () => playChime()
             }"
-          src="swipe2.gif"></v-img>
+          src="swipe2.gif"></v-img> -->
           <v-img
             tile
             height="150"
@@ -322,6 +332,9 @@ export default {
 }
 </script>
 <style>
+.card-texture {
+  background: url('/card-texture.png');
+}
 .scale-big-small {
     -webkit-animation:scale 2s linear infinite;
     -moz-animation:scale 2s linear infinite;
