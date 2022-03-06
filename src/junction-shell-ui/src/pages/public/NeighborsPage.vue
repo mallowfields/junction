@@ -296,14 +296,14 @@
       <div
         ref="mapContainer"
         width="100%"
-        style="width: 100vw; z-index:-1; height: calc(100vh - 170px);">
+        style="width: 100vw; z-index:-1; height: calc(100vh - 60px);">
         <l-map
           ref="map"
           :zoom="zoom"
           :center="center"
           :options="mapOptions"
           :attributionControl="false"
-          style="height: calc(100vh - 170px); width: 100vw;"
+          style="height: calc(100vh - 60px); width: 100vw;"
         >
           <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
@@ -331,18 +331,7 @@
           />
         </l-map>
       </div>
-     <v-btn
-      class="ma-5"
-      :color="!connected ? 'Villager' : 'Villager'"
-      x-large
-      :disabled="connecting"
-      @click="actorIsReady">
-       <v-icon left>
-         {{ !connected ? 'mdi-power-plug mdi-rotate-90' : 'mdi-format-list-numbered' }}
-       </v-icon>
-       {{ !connected ? 'Login' : 'My Path' }}
-     </v-btn>
-     <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
       <v-speed-dial
           v-show="showFab"
           id="networkFab"
@@ -805,13 +794,13 @@
     >
         <h1 class="h1">
           <v-icon>
-            mdi-human-greeting
+            mdi-all-inclusive
           </v-icon>
           Welcome
         </h1>
         <v-divider class="my-2"></v-divider>
         <div class="caption">
-          Login successful
+          (8) services available
         </div>
 
       <template v-slot:action="{ attrs }">

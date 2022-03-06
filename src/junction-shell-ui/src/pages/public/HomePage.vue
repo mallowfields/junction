@@ -1,9 +1,9 @@
 <template>
-  <v-card class="pa-2" flat outlined tile>
+  <v-card class="ma-1" flat outlined tile>
     <v-list class="d-flex flex-column justify-start">
       <v-list-item-subtitle
         class="text-center grey--text caption">
-        junction
+        menu
       </v-list-item-subtitle>
       <v-list-item-group
         >
@@ -15,7 +15,7 @@
             <v-icon :color="item.color">{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-if="item.description">
+            <v-list-item-title v-if="item.title">
               {{item.title}}
             </v-list-item-title>
             <v-list-item-subtitle v-if="item.description">
@@ -43,7 +43,7 @@
               :color="item.color">{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-if="item.description">
+            <v-list-item-title v-if="item.title">
               {{item.title}}
             </v-list-item-title>
             <v-list-item-subtitle v-if="item.description">
