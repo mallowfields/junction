@@ -85,7 +85,7 @@ export default {
         }, {
           title: 'Command',
           href: '/command-center',
-          icon: 'mdi-charity',
+          icon: 'mdi-shield-check',
           color: 'Data',
           description: 'Real-time Service Management'
         }, {
