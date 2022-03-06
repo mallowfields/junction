@@ -1,10 +1,15 @@
 <template>
   <v-app>
-    <v-app-bar app color="grey darken-4" dark elevation="5">
+    <v-app-bar
+      app
+      dark
+      elevation="2">
       <v-app-bar-nav-icon
         @click.stop="bottomMenu = !bottomMenu"
       ></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <v-icon color="Villager" left>mdi-all-inclusive</v-icon>
+      Junction
       <app-settings></app-settings>
     </v-app-bar>
 
