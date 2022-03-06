@@ -787,10 +787,10 @@
     <v-snackbar
       v-model="statusSnackbar"
       :timeout="-1"
-      absolute
       top
-      color="Villager accent-4"
-      elevation="24"
+      class="pt-14"
+      color=""
+      elevation="10"
     >
         <h1 class="h1">
           <v-icon>
