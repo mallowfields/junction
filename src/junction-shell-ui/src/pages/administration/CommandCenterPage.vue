@@ -481,6 +481,7 @@ import 'leaflet/dist/leaflet.css'
 import apiClient from '@/mixin/api-client'
 import entityTypes from '@/mixin/entity-types'
 import moment from 'moment'
+
 export default {
   mixins: [apiClient, entityTypes],
   components: { LMap, LTileLayer, LControlFullscreen, LCircleMarker, LGeoJson },
@@ -491,15 +492,18 @@ export default {
   async created () {
     const response = await fetch('/geojson/GRHealth_ChildrenInPoverty.geojson')
     const geojson = await response.json()
-    const response2 = await fetch('/geojson/Grand_Rapids_Race_And_Ethnicity.geojson')
-    const geojson2 = await response2.json()
+    // const response2 = await fetch('/geojson/Grand_Rapids_Race_And_Ethnicity.geojson')
+    // const geojson2 = await response2.json()
     // const response3 = await fetch('/geojson/Demolished_Property_Map.geojson')
     // const geojson3 = await response3.json()
     const response3 = await fetch('/geojson/City_of_Grand_Rapids_Wards.geojson')
     const geojson3 = await response3.json()
+    const response4 = await fetch('/geojson/Suspended_Self_Impact_Map.geojson')
+    const geojson4 = await response4.json()
     this.loadedGeojson.push(geojson)
     // this.loadedGeojson.push(geojson2)
     this.loadedGeojson.push(geojson3)
+    this.loadedGeojson.push(geojson4)
   },
   computed: {
     options () {
