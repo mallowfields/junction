@@ -461,7 +461,7 @@
 </template>
 
 <script>
-import { latLng } from 'leaflet'
+import { latLng, marker, icon } from 'leaflet'
 import { LMap, LTileLayer, LCircleMarker, LGeoJson } from 'vue2-leaflet'
 import LControlFullscreen from 'vue2-leaflet-fullscreen'
 import LFreeDraw from 'vue2-leaflet-freedraw'
@@ -508,6 +508,15 @@ export default {
   computed: {
     options () {
       return {
+        pointToLayer: function (feature, latlng) {
+          var customIcon = icon({
+            iconUrl: 'custom-marker.png',
+            iconSize: [80, 86],
+            iconAnchor: [0, 0],
+            popupAnchor: [0, -28]
+          })
+          return marker(latlng, { icon: customIcon })
+        },
         onEachFeature: this.onEachFeatureFunction
       }
     },
