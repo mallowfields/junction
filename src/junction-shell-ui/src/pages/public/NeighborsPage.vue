@@ -224,8 +224,8 @@
                 <v-chip-group
                   column
                 >
-                  <v-chip color="Villager lighten-3">children welcome</v-chip>
-                  <v-chip color="Villager lighten-3">face coverings provided</v-chip>
+                  <v-chip small color="Villager lighten-3">children welcome</v-chip>
+                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
