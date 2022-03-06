@@ -18,7 +18,7 @@
       app
       temporary
       bottom
-      src="/grey-gradient-background.jpg"
+      src="/card-texture.png"
     >
       <page-list></page-list>
     </v-navigation-drawer>

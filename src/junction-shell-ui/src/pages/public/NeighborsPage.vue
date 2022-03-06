@@ -12,18 +12,18 @@
       bottom
       mini-variant
       elevation="24"
-      src="/grey-gradient-background.jpg"
+      src="/card-texture.png"
       @transitionend="checkFab"
     >
       <v-toolbar
         width="100%"
         dense
         color="Villager"
-        class="mb-5">
+        class="mb-2">
         <v-icon left>
-          mdi-format-list-numbered
+          mdi-all-inclusive
         </v-icon>
-        <div class="caption small">(8) connections in your path</div>
+        <div class="caption small">Junction</div>
         <v-spacer></v-spacer>
         <v-divider vertical class="mx-5"></v-divider>
         <div>
@@ -36,24 +36,35 @@
       </v-toolbar>
       <v-btn-toggle
         dense
-        dark
-        class="ml-5"
+        class="ml-2"
       >
-        <v-btn color="Villager" @click="goToProfiles">
-          <v-icon left>
+        <v-btn small @click="goToProfiles">
+          <v-icon color="Villager" left>
             mdi-human
           </v-icon>
           <span>Profiles</span>
         </v-btn>
 
-        <v-btn color="Villager" @click="goToClaims">
-          <v-icon left >
+        <v-btn small @click="goToClaims">
+          <v-icon color="Villager" left>
             mdi-room-service-outline
           </v-icon>
           <span>Claims</span>
         </v-btn>
+
+        <v-btn small>
+          <v-icon color="Villager" left>
+            mdi-tune
+          </v-icon>
+          <span>filters</span>
+        </v-btn>
+        <v-btn color="Villager" small class="px-7">
+          <v-icon  class="white--text" small>
+            mdi-settings
+          </v-icon>
+        </v-btn>
       </v-btn-toggle>
-      <v-card class="ma-2 pa-0">
+      <v-card class="ma-2 pa-0" tile>
           <v-list dense>
             <v-list-item two-line>
               <v-list-item-content>
@@ -64,7 +75,7 @@
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-            <v-divider class="my-2"></v-divider>
+            <v-divider></v-divider>
             <v-list-item
               two-line
               v-touch="{
@@ -72,30 +83,34 @@
               }">
               <v-list-item-content>
                 <v-list-item-title>
-                  <h3>
-                    <v-icon class="Site--text" x-large left>
-                      mdi-cash-100
-                  </v-icon>
-                  #sanitization, $45.50
-                  </h3>
-                  <v-list-item-subtitle class="ma-5">12:00PM (in 19 minutes)</v-list-item-subtitle>
+                  <h1 class="ma-1">
+                  #sanitization
+                  </h1>
                 </v-list-item-title>
-                <v-checkbox
+                <v-list-item-subtitle
+                  class="mx-1">
+                  <v-spacer></v-spacer>
+                  <v-icon class="Site--text mb-1" right>
+                    mdi-cash-100
+                  </v-icon>
+                  $45.50
+                </v-list-item-subtitle>
+                <!-- <v-checkbox
                   label="I can clean and sanitize this space">
                 </v-checkbox>
                 <v-checkbox
                   label="I can work alongside other people">
-                </v-checkbox>
+                </v-checkbox> -->
                 <v-chip-group
                   column
                 >
-                  <v-chip small color="Villager lighten-3">face coverings</v-chip>
-                  <v-chip small color="Villager lighten-3">gloves</v-chip>
-                  <v-chip small color="Villager lighten-3">food</v-chip>
+                  <v-chip small color="Villager lighten-1">face coverings</v-chip>
+                  <v-chip small color="Villager lighten-1">gloves</v-chip>
+                  <v-chip small color="Villager lighten-1">food</v-chip>
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
-            <v-divider class="my-2"></v-divider>
+            <v-divider></v-divider>
             <v-list-item
               two-line
               v-touch="{
@@ -107,13 +122,13 @@
                     <v-icon class="Site--text" x-large left>
                       mdi-cash-100
                     </v-icon>
-                    #petcare, $15.50
+                    #petcare
                   </h3>
-                  <v-list-item-subtitle class="ma-5">3:00PM (in 3 hours 19 minutes))</v-list-item-subtitle>
+                  <v-list-item-subtitle class="ma-5">$15.50</v-list-item-subtitle>
                 </v-list-item-title>
-                <v-checkbox
+                <!-- <v-checkbox
                   label="I can walk medium sized dogs">
-                </v-checkbox>
+                </v-checkbox> -->
                 <v-chip-group
                   column
                 >
@@ -122,7 +137,7 @@
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
-            <v-divider class="my-2"></v-divider>
+            <v-divider></v-divider>
             <v-list-item
               two-line
               v-touch="{
@@ -137,9 +152,9 @@
                     #healthcare
                   </h3>
                 </v-list-item-title>
-                <v-checkbox
+                <!-- <v-checkbox
                   label="I will need a ride to the hospital">
-                </v-checkbox>
+                </v-checkbox> -->
                 <v-chip-group
                   column
                 >
@@ -163,12 +178,12 @@
                     #vote
                   </h3>
                 </v-list-item-title>
-                <v-checkbox
+                <!-- <v-checkbox
                   label="I am already registered to vote in my district">
                 </v-checkbox>
                 <v-checkbox
                   label="I will need a ride">
-                </v-checkbox>
+                </v-checkbox> -->
                 <v-chip-group
                   column
                 >
@@ -177,7 +192,7 @@
                 </v-chip-group>
               </v-list-item-content>
             </v-list-item>
-            <v-divider class="my-2"></v-divider>
+            <v-divider></v-divider>
             <v-list-item
               two-line
               v-touch="{
@@ -187,40 +202,14 @@
                 <v-list-item-title>
                   <h3>
                     <v-icon class="Villager--text" x-large left>
-                      mdi-human-female
-                    </v-icon>
-                    #healthcare
-                  </h3>
-                </v-list-item-title>
-                <v-checkbox
-                  label="I can wait in a short line">
-                </v-checkbox>
-                <v-chip-group
-                  column
-                >
-                  <v-chip small color="Villager lighten-3">children welcome</v-chip>
-                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
-                </v-chip-group>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider class="my-2"></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }">
-              <v-list-item-content>
-                <v-list-item-title>
-                  <h3>
-                    <v-icon class="Data--text" x-large left>
                       mdi-human-greeting
                     </v-icon>
                     #volunteering
                   </h3>
                 </v-list-item-title>
-                <v-checkbox
+                <!-- <v-checkbox
                   label="I can lift 20 pounds">
-                </v-checkbox>
+                </v-checkbox> -->
                 <v-chip-group
                   column
                 >
@@ -778,6 +767,7 @@ export default {
     },
     acceptPathwayItem: function () {
       this.pathwaysMenu = false
+      this.claimsDialog = true
     },
     redrawMap: async function () {
       return new Promise((resolve) => {

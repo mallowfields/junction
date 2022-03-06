@@ -91,32 +91,6 @@
         </v-card>
       </v-dialog>
       <v-card flat tile fluid>
-        <v-card-title>
-          <v-btn
-          class="Villager"
-          text
-          outlined
-          elevation="5"
-          icon
-          x-large
-          :loading="!profileComplete"
-          @click="skillsDialog = true">
-          <v-icon>
-            mdi-human
-          </v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn
-            x-large
-            class="px-5"
-            color="Villager"
-            :loading="!profileComplete"
-            :disabled="!profileComplete"
-            @click="goToHomeMap">
-            <v-icon left>mdi-rocket</v-icon>
-            Start
-          </v-btn>
-        </v-card-title>
         <v-card
           tile
           flat
@@ -130,14 +104,37 @@
 
           <v-divider></v-divider>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="Villager white--text" outlined class="ma-5 pa-10">
+            <v-btn
+              small
+              color="Villager white--text"
+              outlined>
               <v-icon left>
                 mdi-human-greeting
               </v-icon>
-              More Cards
+              More
             </v-btn>
 
+            <v-btn
+              small
+              color="Villager white--text"
+              outlined
+              :loading="!profileComplete"
+              @click="skillsDialog = true">
+              <v-icon left>
+                mdi-human
+              </v-icon>
+              Skills
+            </v-btn>
+            <v-btn
+              x-large
+              class="ml-4"
+              color="Villager white--text"
+              :loading="!profileComplete"
+              :disabled="!profileComplete"
+              @click="goToHomeMap">
+              <v-icon left>mdi-earth</v-icon>
+              Neighbors
+            </v-btn>
           </v-card-actions>
 
         </v-card>
@@ -145,7 +142,7 @@
           tile
           outlined
           elevation="5"
-          class="card-texture mt-16"
+          class="ma-2 card-texture"
           v-show="!profileComplete"
           :loading="true"
           v-touch="{
