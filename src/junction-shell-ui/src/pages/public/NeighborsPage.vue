@@ -690,14 +690,14 @@
       persistent
       v-model="networkOptionsDialog">
       <v-card>
-        <v-toolbar flat>
-          <v-icon color="Villager">mdi-chart-bubble</v-icon>
-          <v-card-subtitle>Add Information</v-card-subtitle>
+        <v-toolbar color="Villager" flat>
+          <v-icon color="white">{{purposeIcon}}</v-icon>
+          <v-card-subtitle class="white--text">{{enterContext}} Options</v-card-subtitle>
           <v-spacer></v-spacer>
           <v-btn
             icon
             @click="networkOptionsDialog = false">
-            <v-icon>mdi-close</v-icon>
+            <v-icon color="white">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <v-divider></v-divider>
