@@ -7,6 +7,8 @@
   >
     <v-card tile flat>
       <v-toolbar
+        dark
+        tiled
       >
         <v-btn
           icon
