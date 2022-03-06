@@ -288,15 +288,22 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      ></v-progress-linear>
-
+      <v-btn
+        fab
+        dark
+        small
+        left
+        absolute
+        style="border-radius: 0%; top: calc(100vh - 76px);"
+        @click="actorIsReady"
+      >
+        <v-icon size="20" color="Villager">mdi-all-inclusive</v-icon>
+      </v-btn>
       <div
         ref="mapContainer"
         width="100%"
         style="width: 100vw; z-index:-1; height: calc(100vh - 60px);">
+
         <l-map
           ref="map"
           :zoom="zoom"
@@ -418,7 +425,6 @@
         </v-tooltip>
       </v-speed-dial>
     </v-card>
-
     <v-dialog
       v-model="shareViewDialog"
       width="500">
@@ -475,109 +481,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      v-model="siteModificationDialog"
-      width="78">
-      <v-card class="pb-3">
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-tooltip
-            bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                text
-                class="mt-3"
-                icon
-                x-large
-                outlined
-                @click="goToSite(selectedNode)">
-                <v-icon
-                  size="70">mdi-rocket</v-icon>
-              </v-btn>
-            </template>
-                Launch
-          </v-tooltip>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog
-      v-model="nodeModificationDialog"
-      :width="200">
-      <v-card class="pb-3">
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-tooltip
-            bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                text
-                class="mt-3"
-                icon
-                large
-                @click="editDialog = true">
-                <v-icon>mdi-tune</v-icon>
-              </v-btn>
-            </template>
-                Edit
-          </v-tooltip>
-          <!-- <v-tooltip
-            bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                color="amber"
-                icon
-                large
-                class="mt-3 ml-4"
-                @click="automationDialog = true">
-                <v-icon>mdi-auto-fix</v-icon>
-              </v-btn>
-            </template>
-            Automation
-          </v-tooltip> -->
-          <v-tooltip
-            v-if="isTool"
-            bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                v-if="isTool"
-                color="blue"
-                icon
-                large
-                class="mt-3 ml-4"
-                @click="toolDialog = true">
-                <v-icon>mdi-hammer-wrench</v-icon>
-              </v-btn>
-            </template>
-            Tool
-          </v-tooltip>
-          <v-tooltip
-            v-if="!isTool"
-            bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                color="Site"
-                icon
-                large
-                class="mt-3 ml-4"
-                @click="siteDialog = true">
-                <v-icon>mdi-web</v-icon>
-              </v-btn>
-            </template>
-            Sites
-          </v-tooltip>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+
     <v-dialog
       width="600"
       flat
