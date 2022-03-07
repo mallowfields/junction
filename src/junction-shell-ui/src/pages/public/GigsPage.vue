@@ -19,7 +19,7 @@
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title>{{enterContext}}</v-list-item-title>
-            <v-list-item-subtitle>Services</v-list-item-subtitle>
+            <v-list-item-subtitle>$242.50</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-spacer></v-spacer>
@@ -80,7 +80,7 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-icon :color="connectionProgressColor" left>
-              mdi-room-service-outline
+              mdi-star-circle-outline
             </v-icon>
             <div>{{activeProfile.title}}</div>
             <v-spacer></v-spacer>
@@ -207,9 +207,9 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  Verified Service
+                  Verified Gig
                 </v-list-item-title>
-                <v-list-item-subtitle class="caption">This is an Officially Supported Service</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption">This is an Officially Supported Gig</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item dense two-line>
@@ -218,9 +218,9 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  Tested Service
+                  Tested Gig
                 </v-list-item-title>
-                <v-list-item-subtitle class="caption">This service has been Tested Recently</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption">This Gig has been Tested Recently</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item dense two-line>
@@ -229,9 +229,9 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  Secure Service
+                  Secure Gig
                 </v-list-item-title>
-                <v-list-item-subtitle class="caption">This service uses Secured Resources</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption">This Gig uses Secured Resources</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item dense two-line>
@@ -240,9 +240,9 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  Public Service
+                  Public Gig
                 </v-list-item-title>
-                <v-list-item-subtitle class="caption ">This service backed by a non-profit organization</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption ">This gig is backed by a non-profit organization</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -409,7 +409,7 @@
                   </v-icon>
                 </v-btn>
               </template>
-              Claims
+              Gigs
             </v-tooltip>
           </template>
           <v-tooltip
@@ -439,12 +439,12 @@
               dark
               large
               color="Villager"
-              @click="setPurpose('mdi-room-service-outline', 'Claims')"
+              @click="setPurpose('mdi-star-circle-outline', 'Gigs')"
             >
-              <v-icon size="40" color="white">mdi-room-service-outline</v-icon>
+              <v-icon size="40" color="white">mdi-star-circle-outline</v-icon>
             </v-btn>
           </template>
-          Service
+          Gig
         </v-tooltip>
       </v-speed-dial>
     </v-card>
@@ -516,8 +516,8 @@ export default {
     validated: false,
     validationMessage: 'SWIPE RIGHT TO CONNECT',
     activeProfile: {},
-    enterContext: 'Claims',
-    purposeIcon: 'mdi-room-service-outline',
+    enterContext: 'Gigs',
+    purposeIcon: 'mdi-star-circle-outline',
 
     fab: false,
     organizationName: null,
@@ -535,32 +535,32 @@ export default {
         action: 'a few seconds ago',
         headline: 'Neighborly assistance with a project',
         subtitle: `Villager`,
-        title: 'Neighborly Service'
+        title: 'Neighborly Gig'
       }, {
         action: '1 week ago',
-        headline: 'My neighborhood utilities service',
+        headline: 'My neighborhood utilities gig',
         subtitle: `Villager`,
-        title: 'City Service'
+        title: 'City Gig'
       }, {
         action: '1 month ago',
         headline: 'Subsidy for 6 months at a co-working space',
         subtitle: `Villager`,
-        title: 'Entrepreneur'
+        title: 'Entrepreneur Gig'
       }, {
         action: '5 months ago',
         headline: 'Subsidy for startup mentorship',
         subtitle: `Villager`,
-        title: 'Mentorship'
+        title: 'Mentorship Gig'
       }, {
         action: '5 months ago',
         headline: 'Subsidy for 500 miles of public transportation',
         subtitle: `Villager`,
-        title: 'Transportation Service'
+        title: 'Transportation Gig'
       }, {
         action: '6 months ago',
         headline: 'Subsidy for family Healthcare',
         subtitle: `Villager`,
-        title: 'Family Healthcare'
+        title: 'Family Healthcare Gig'
       }
     ]
   })

@@ -142,7 +142,6 @@
                   </v-icon>
                 </v-btn>
               </template>
-              Service
             </v-tooltip>
           </template>
           <v-tooltip
@@ -444,7 +443,7 @@
       rounded="pill"
       elevation="24"
     >
-      3 Claims in this area!
+      3 gigs in this area!
 
       <template v-slot:action="{ attrs }">
         <v-btn

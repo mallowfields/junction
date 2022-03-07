@@ -45,11 +45,11 @@
           <span>Profiles</span>
         </v-btn>
 
-        <v-btn small @click="goToClaims">
+        <v-btn small @click="goToGigs">
           <v-icon color="Villager" left>
-            mdi-room-service-outline
+            mdi-star-circle-outline
           </v-icon>
-          <span>Claims</span>
+          <span>Gigs</span>
         </v-btn>
 
         <v-btn small>
@@ -371,7 +371,7 @@
               dark
               large
               color="Villager"
-              @click="setPurpose('mdi-plus', 'Other', 'Something else')"
+              @click="setPurpose('mdi-plus', 'Other', 'Something Else')"
             >
               <v-icon size="40" color="white">mdi-plus</v-icon>
             </v-btn>
@@ -405,7 +405,7 @@
               dark
               large
               color="Villager"
-              @click="setPurpose('mdi-earth', 'Neighbors', 'Services')"
+              @click="setPurpose('mdi-earth', 'Neighbors', 'Gigs')"
             >
               <v-icon size="40" color="white">mdi-earth</v-icon>
             </v-btn>
@@ -442,7 +442,7 @@
       width="600"
       flat
       persistent
-      v-model="claimsDialog">
+      v-model="gigsDialog">
       <v-card>
         <v-toolbar flat>
           <v-icon color="Villager">{{purposeIcon}}</v-icon>
@@ -450,7 +450,7 @@
           <v-spacer></v-spacer>
           <v-btn
             icon
-            @click="claimsDialog = false">
+            @click="gigsDialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
@@ -463,7 +463,7 @@
             class="px-8 white--text"
             x-large
             color="Villager"
-            @click="claimsDialog = false; actorIsReady();">
+            @click="gigsDialog = false; actorIsReady();">
             <v-icon left>mdi-human-greeting</v-icon>
             yes
           </v-btn>
@@ -656,22 +656,25 @@
       color="Villager accent-4"
       rounded="pill"
       elevation="24"
+      v-touch="{
+        right: () => {snackbar = false; gigsDialog = true}
+      }"
     >
       <v-icon left class="mb-1">{{purposeIcon}}</v-icon>
       <span>
-        {{mapContext}}
+        (3) {{mapContext}}
       </span>
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="Villager"
+          color="Villager darken-2"
           class="claim-bounce"
           v-bind="attrs"
           rounded
-          @click="snackbar = false; claimsDialog = true"
+          @click="snackbar = false; gigsDialog = true"
         >
           Claim
           <v-icon>
-            mdi-room-service-outline
+            mdi-star-circle-outline
           </v-icon>
         </v-btn>
       </template>
@@ -693,7 +696,7 @@
         </h1>
         <v-divider class="my-2"></v-divider>
         <div class="caption">
-          (8) services available
+          (8) gigs available
         </div>
 
       <template v-slot:action="{ attrs }">
@@ -767,7 +770,7 @@ export default {
     },
     acceptPathwayItem: function () {
       this.pathwaysMenu = false
-      this.claimsDialog = true
+      this.gigsDialog = true
     },
     redrawMap: async function () {
       return new Promise((resolve) => {
@@ -840,8 +843,8 @@ export default {
       this.$router.push(site)
       this.close()
     },
-    goToClaims: function () {
-      let site = `/claims`
+    goToGigs: function () {
+      let site = `/gigs`
       this.$router.push(site)
       this.close()
     }
@@ -852,11 +855,11 @@ export default {
     },
     pathwaysMenu: false,
     shareViewDialog: false,
-    claimsDialog: false,
+    gigsDialog: false,
     claimDescription: 'Claim this?',
     snackbar: true,
     enterContext: 'Neighbors',
-    mapContext: 'Services',
+    mapContext: 'Gigs',
     purposeIcon: 'mdi-earth',
     zoom: 11,
     mapCenter: latLng(42.9634, -85.6681),
@@ -976,35 +979,35 @@ export default {
 
 @-moz-keyframes claim {
   0% {
-    -moz-transform: scale(1); transform: scale(1)
+    -moz-transform: translateX(0); transform: translateX(0)
   }
   50% {
-    -moz-transform: scale(1.1); transform: scale(1.1)
+    -moz-transform: translateX(10px); transform: translateX(10px)
   }
   100% {
-    -moz-transform: scale(1); transform: scale(1)
+    -moz-transform: translateX(0); transform: translateX(0)
   }
 }
 @-webkit-keyframes claim {
   0% {
-    -webkit-transform: scale(1); transform: scale(1);
+    -webkit-transform: translateX(0); transform: translateX(0)
   }
   50% {
-    -webkit-transform: scale(1.25); transform: scale(1.25);
+    -webkit-transform: translateX(10px); transform: translateX(10px)
   }
   100% {
-    -webkit-transform: scale(1); transform: scale(1)
+    -webkit-transform: translateX(0); transform: translateX(0)
   }
 }
 @keyframes claim {
   0% {
-    -webkit-transform: scale(1); transform: scale(1)
+    -webkit-transform: translateX(0); transform: translateX(0)
   }
   50% {
-    -webkit-transform: scale(1.25); transform: scale(1.25)
+    -webkit-transform: translateX(10px); transform: translateX(10px)
   }
   100% {
-    -webkit-transform: scale(1); transform: scale(1)
+    -webkit-transform: translateX(0); transform: translateX(0)
   }
 }
 </style>

@@ -55,11 +55,11 @@ export default {
           color: 'Villager',
           description: 'My world'
         }, {
-          title: 'Claims',
-          href: '/claims',
-          icon: 'mdi-room-service-outline',
+          title: 'Gigs',
+          href: '/gigs',
+          icon: 'mdi-star-circle-outline',
           color: 'Villager',
-          description: 'My claimed services and offerings'
+          description: 'My claimed gigs'
         }, {
           title: 'Models',
           href: '/models',
@@ -70,12 +70,12 @@ export default {
       ],
       adminLinks: [
         {
-          title: 'Service',
-          href: '/service-center',
-          icon: 'mdi-room-service',
+          title: 'GigCenter',
+          href: '/gig-center',
+          icon: 'mdi-star-circle-outline',
           color: 'Data',
           disabled: true,
-          description: 'Create and Manage services'
+          description: 'Create and Manage Gigs'
         }, {
           title: 'Process',
           href: '/process-center',
@@ -87,7 +87,7 @@ export default {
           href: '/command-center',
           icon: 'mdi-shield-check',
           color: 'Data',
-          description: 'Real-time Service Management'
+          description: 'Real-time Gig Management'
         }, {
           title: 'Referrals',
           href: '/referrals',

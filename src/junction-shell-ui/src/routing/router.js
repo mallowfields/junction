@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import HomePage from '@/pages/public/HomePage.vue'
 import ProfilesPage from '@/pages/public/ProfilesPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
-import ClaimsPage from '@/pages/public/ClaimsPage.vue'
+import GigsPage from '@/pages/public/GigsPage.vue'
 import ModelsPage from '@/pages/public/ModelsPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
@@ -23,9 +23,9 @@ const routes = [
     path: '/neighbors',
     component: NeighborsPage
   }, {
-    name: 'claims',
-    path: '/claims',
-    component: ClaimsPage
+    name: 'gigs',
+    path: '/gigs',
+    component: GigsPage
   }, {
     name: 'models',
     path: '/models',
