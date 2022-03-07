@@ -80,142 +80,41 @@
               two-line
               v-touch="{
                 right: () => acceptPathwayItem()
-              }">
+              }"
+              v-for="gig in gigs"
+              :key="gig.moniker"
+              >
               <v-list-item-content>
                 <v-list-item-title>
                   <h1 class="ma-1">
-                  #sanitization
+                    <v-icon left>
+                      mdi-all-inclusive
+                    </v-icon>
+                  {{ gig.moniker }}
                   </h1>
                 </v-list-item-title>
                 <v-list-item-subtitle
+                  v-show="gig.pay"
                   class="mx-1">
                   <v-spacer></v-spacer>
                   <v-icon class="Site--text mb-1" right>
                     mdi-cash-100
                   </v-icon>
-                  $45.50
+                  {{ gig.pay }}
                 </v-list-item-subtitle>
-                <!-- <v-checkbox
-                  label="I can clean and sanitize this space">
-                </v-checkbox>
-                <v-checkbox
-                  label="I can work alongside other people">
-                </v-checkbox> -->
+                <v-list-item-subtitle
+                  class="pa-2">
+                  {{ gig.description }}
+                </v-list-item-subtitle>
                 <v-chip-group
+                  v-show="gig.chips"
                   column
+                  v-for="chip in gig.chips"
+                  :key="chip"
                 >
-                  <v-chip small color="Villager lighten-1">face coverings</v-chip>
-                  <v-chip small color="Villager lighten-1">gloves</v-chip>
-                  <v-chip small color="Villager lighten-1">food</v-chip>
-                </v-chip-group>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }">
-              <v-list-item-content>
-                <v-list-item-title>
-                  <h3>
-                    <v-icon class="Site--text" x-large left>
-                      mdi-cash-100
-                    </v-icon>
-                    #petcare
-                  </h3>
-                  <v-list-item-subtitle class="ma-5">$15.50</v-list-item-subtitle>
-                </v-list-item-title>
-                <!-- <v-checkbox
-                  label="I can walk medium sized dogs">
-                </v-checkbox> -->
-                <v-chip-group
-                  column
-                >
-                  <v-chip small color="Villager lighten-3">animals</v-chip>
-                  <v-chip small color="Villager lighten-3">gloves</v-chip>
-                </v-chip-group>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }">
-              <v-list-item-content>
-                <v-list-item-title>
-                  <h3>
-                    <v-icon class="Villager--text" x-large left>
-                      mdi-human-pregnant
-                    </v-icon>
-                    #healthcare
-                  </h3>
-                </v-list-item-title>
-                <!-- <v-checkbox
-                  label="I will need a ride to the hospital">
-                </v-checkbox> -->
-                <v-chip-group
-                  column
-                >
-                  <v-chip small color="Villager lighten-3">children</v-chip>
-                  <v-chip small color="Villager lighten-3">face coverings</v-chip>
-                </v-chip-group>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider class="my-2"></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }">
-              <v-list-item-content>
-                <v-list-item-title>
-                  <h3>
-                    <v-icon class="Villager--text" x-large left>
-                      mdi-vote
-                    </v-icon>
-                    #vote
-                  </h3>
-                </v-list-item-title>
-                <!-- <v-checkbox
-                  label="I am already registered to vote in my district">
-                </v-checkbox>
-                <v-checkbox
-                  label="I will need a ride">
-                </v-checkbox> -->
-                <v-chip-group
-                  column
-                >
-                  <v-chip small color="Villager lighten-3">friend</v-chip>
-                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
-                </v-chip-group>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }">
-              <v-list-item-content>
-                <v-list-item-title>
-                  <h3>
-                    <v-icon class="Villager--text" x-large left>
-                      mdi-human-greeting
-                    </v-icon>
-                    #volunteering
-                  </h3>
-                </v-list-item-title>
-                <!-- <v-checkbox
-                  label="I can lift 20 pounds">
-                </v-checkbox> -->
-                <v-chip-group
-                  column
-                >
-                  <v-chip small color="Villager lighten-3">children welcome</v-chip>
-                  <v-chip small color="Villager lighten-3">face coverings provided</v-chip>
-                </v-chip-group>
+                  <v-chip small color="Villager lighten-1">{{ chip }}</v-chip>
+                 </v-chip-group>
+                <v-divider class="my-2"></v-divider>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -856,6 +755,47 @@ export default {
     pathwaysMenu: false,
     shareViewDialog: false,
     gigsDialog: false,
+    gigs: [
+      {
+        moniker: 'Neighborly Gig',
+        description: 'Neighborly assistance with a project',
+        pay: '$18.20',
+        chips: [
+          'face coverings', 'gloves', 'food'
+        ]
+      }, {
+        moniker: 'City Gig',
+        description: 'Neighborly utilities gig',
+        chips: [
+          'outside', 'gloves', 'food'
+        ]
+      }, {
+        moniker: 'Entrepreneur Gig',
+        description: 'Co-working subsidy for gigging',
+        chips: [
+          'face coverings', 'co-working', 'food'
+        ]
+      }, {
+        moniker: 'Mentorship Gig',
+        description: 'Mentorship subsidy for gigging',
+        chips: [
+          'face coverings', 'children'
+        ]
+      }, {
+        moniker: 'Transportation Gig',
+        description: 'Transportation subsidy for gigging',
+        pay: '$33.00',
+        chips: [
+          'face coverings', 'fuel'
+        ]
+      }, {
+        moniker: 'Family Healthcare Gig',
+        description: 'Healthcare subsidy for gigging',
+        chips: [
+          'face coverings', 'transportation'
+        ]
+      }
+    ],
     claimDescription: 'Claim this?',
     snackbar: true,
     enterContext: 'Neighbors',
