@@ -195,6 +195,7 @@
           <v-list dense>
             <v-list-item
               two-line
+              @click="connectProfile()"
               v-touch="{
                 right: () => connectProfile()
               }"
@@ -244,24 +245,26 @@
             <template v-for="(item, index) in businesses">
               <v-list-item
                 :key="item.row_id"
+                @click="viewProfile(item)"
                 v-touch="{
                   right: () => viewProfile(item)
                 }">
                 <template v-slot:default="{ active }">
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-icon small left class="mb-1">
+                      <div class="caption">{{index+1}}.</div>
+                      <v-icon small left color="Villager" class="mb-1">
                         {{purposeIcon}}
                       </v-icon>
                       {{item.name}}
                     </v-list-item-title>
 
                     <v-list-item-subtitle
-                      class="caption"
+                      class="caption ml-8"
                     >
                       {{item.about}}
                     </v-list-item-subtitle>
-
+                    <v-divider class="my-3 mx-5"></v-divider>
                   </v-list-item-content>
 
                   <v-list-item-action>
