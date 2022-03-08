@@ -46,7 +46,7 @@
         <v-divider></v-divider>
         <v-img
           width="300px"
-          src="https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-48@2x.png">
+          :src="coverImage">
 
         </v-img>
 
@@ -95,6 +95,7 @@ export default {
     this.setUserName()
     this.playChime()
     this.fancyLoading()
+    this.rotateImage()
     this.isAdmin = this.$store.state.viewMode === 'Admin'
   },
   methods: {
@@ -122,6 +123,12 @@ export default {
       setTimeout(() => {
         this.pageLoading = false
       }, 1500)
+    },
+    rotateImage: function () {
+      this.coverImage = this.coverImages[Math.floor(Math.random() * this.coverImages.length)]
+      setInterval(() => {
+        this.coverImage = this.coverImages[Math.floor(Math.random() * this.coverImages.length)]
+      }, 2300)
     }
   },
   data: () => ({
@@ -131,11 +138,12 @@ export default {
     isAdmin: false,
     userName: null,
     userRole: null,
+    coverImage: 'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-24.png',
     coverImages: [
       'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-24.png',
-      // 'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-46@2x.png',
-      // 'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-41@2x.png',
-      // 'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-40@2x.png',
+      'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-46@2x.png',
+      'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-41@2x.png',
+      'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-40@2x.png',
       'https://normalwasneverenough.org/wp-content/uploads/2021/08/Mask-Group-48@2x.png'
     ]
   })
