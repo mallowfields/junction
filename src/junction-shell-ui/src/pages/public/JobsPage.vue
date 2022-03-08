@@ -385,8 +385,6 @@ export default {
         .then((response) => {
           this.businesses = response.data.data
           this.loadingBusinesses = false
-          console.log('jobs')
-          console.log(this.businesses)
         })
     },
     viewProfile: function (item, event) {
