@@ -17,7 +17,7 @@
       v-model="bottomMenu"
       app
       temporary
-      bottom
+      :bottom="$vuetify.breakpoint.smAndUp ? false : true"
       src="/card-texture.png"
     >
       <page-list></page-list>

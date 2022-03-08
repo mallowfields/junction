@@ -1,77 +1,15 @@
 <template>
-  <v-card class="ma-1" flat outlined tile>
-    <v-list class="d-flex flex-column justify-start">
-      <v-list-item-subtitle
-        class="text-center grey--text caption">
-        menu
-      </v-list-item-subtitle>
-      <v-list-item-group
-        >
-        <v-list-item
-          v-for="(item, i) in primaryLinks"
-          :key="item.title"
-          @click="setActivePage(item, i)">
-          <v-list-item-icon>
-            <v-icon :color="item.color">{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-if="item.title">
-              {{item.title}}
-            </v-list-item-title>
-            <v-list-item-subtitle v-if="item.description">
-              {{item.description}}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider
-          v-if="adminLinks.length > 0 ">
-        </v-divider>
-        <v-list-item-subtitle
-          v-if="adminLinks.length > 0 "
-          class="text-center grey--text caption"
-          >
-          administration
-        </v-list-item-subtitle>
-        <v-list-item
-          v-for="(item, i) in adminLinks"
-          :key="item.title"
-          :disabled="item.disabled"
-          @click="setActivePage(item, i+3)">
-          <v-list-item-icon>
-            <v-icon
-              :disabled="item.disabled"
-              :color="item.color">{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-if="item.title">
-              {{item.title}}
-            </v-list-item-title>
-            <v-list-item-subtitle v-if="item.description">
-              {{item.description}}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item
-          v-for="(item, i) in resourceLinks"
-          :key="item.title"
-          @click="setActivePage(item, i+5)">
-          <v-list-item-icon>
-            <v-icon :color="item.color">{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="secondary--text">{{
-              item.title
-            }}</v-list-item-title>
-            <v-list-item-title v-if="item.description">
-              {{item.title}}
-            </v-list-item-title>
-            <v-list-item-subtitle v-if="item.description">
-              {{item.description}}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+  <v-card class="ma-1" flat outlined tile max-width="300px">
+    <v-card-text>
+      Welcome {{this.userName}},  use the menu.
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-text class="caption Villager--text">
+      <v-icon left>
+        mdi-all-inclusive
+      </v-icon>
+      You are viewing as {{this.viewMode}}
+    </v-card-text>
   </v-card>
 </template>
 
@@ -94,13 +32,6 @@ export default {
       const userName = this.$store.state.userName
       this.userName = userName
     },
-    setActivePage: function (item, i) {
-      if (this.$route.path !== item.href) {
-        this.$store.commit('activePage', i)
-        this.$router.push(item.href)
-        this.playChime()
-      }
-    },
     playChime: function () {
       this.chiming = true
       var audio = new Audio('greeting.mp3')
@@ -121,43 +52,3 @@ export default {
   })
 }
 </script>
-<style>
-.scale-big-small {
-    -webkit-animation:scale 2s linear infinite;
-    -moz-animation:scale 2s linear infinite;
-    animation:scale 2s linear infinite;
-}
-@-moz-keyframes scale {
-  0% {
-    -moz-transform: scale(1); transform: scale(1)
-  }
-  50% {
-    -moz-transform: scale(2); transform: scale(2)
-  }
-  100% {
-    -moz-transform: scale(1); transform: scale(1)
-  }
-}
-@-webkit-keyframes scale {
-  0% {
-    -webkit-transform: scale(1); transform: scale(1)
-  }
-  50% {
-    -webkit-transform: scale(2); transform: scale(2)
-  }
-  100% {
-    -webkit-transform: scale(1); transform: scale(1)
-  }
-}
-@keyframes scale {
-  0% {
-    -webkit-transform: scale(1); transform: scale(1)
-  }
-  50% {
-    -webkit-transform: scale(2); transform: scale(2)
-  }
-  100% {
-    -webkit-transform: scale(1); transform: scale(1)
-  }
-}
-</style>

@@ -45,20 +45,11 @@
           <v-subheader>Models and Information</v-subheader>
           <v-list-item one-line>
             <v-list-item-action>
-              <v-switch v-model="vendorMode" color="Villager"></v-switch>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Vendor Mode</v-list-item-title>
-              <v-list-item-subtitle>Enable features for vendors</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item one-line>
-            <v-list-item-action>
               <v-switch v-model="allowLocationRequests" color="Villager"></v-switch>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Location Information</v-list-item-title>
-              <v-list-item-subtitle>Enable features for navigation</v-list-item-subtitle>
+              <v-list-item-title>Location Services</v-list-item-title>
+              <v-list-item-subtitle>Enable GPS features</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>

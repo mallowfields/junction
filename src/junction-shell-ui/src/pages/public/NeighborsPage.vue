@@ -84,7 +84,8 @@
               v-for="gig in gigs"
               :key="gig.moniker"
               >
-              <v-list-item-content>
+              <v-list-item-content
+                @click="acceptPathwayItem()">
                 <v-list-item-title>
                   <h1 class="ma-1">
                     <v-icon color="Villager" left>
@@ -190,7 +191,7 @@
       <div
         ref="mapContainer"
         width="100%"
-        style="width: 100vw; z-index:-1; height: calc(100vh - 60px);">
+        :style="`width: 100vw; z-index:-1; overflow:hidden; height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '75px' : '66px'});`">
 
         <l-map
           ref="map"
@@ -198,7 +199,7 @@
           :center="center"
           :options="mapOptions"
           :attributionControl="false"
-          style="height: calc(100vh - 60px); width: 100vw;"
+          :style="`height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '67px' : '66px'}); width: 100vw;`"
         >
           <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
@@ -226,6 +227,15 @@
           />
         </l-map>
       </div>
+      <v-progress-linear
+        color="Villager"
+        buffer-value="30"
+        value="25"
+        height="10"
+        striped
+        stream
+        absolute
+      ></v-progress-linear>
       <v-spacer></v-spacer>
       <v-speed-dial
           v-show="showFab"
@@ -391,6 +401,7 @@
           rounded
           class="px-5"
           label="name"
+          value="Anonymous"
           :disabled="connecting"
           outlined>
         </v-text-field>
@@ -408,6 +419,7 @@
           dense
           class="px-5"
           label="phone number"
+          value="555-456-4254"
           :disabled="connecting"
           outlined>
         </v-text-field>

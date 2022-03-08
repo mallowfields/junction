@@ -90,7 +90,7 @@
           </v-list>
         </v-card>
       </v-dialog>
-      <v-card flat tile fluid>
+      <v-card flat tile fluid class="d-flex flex-column align-center">
         <v-card
           tile
           flat
@@ -101,47 +101,12 @@
             </v-icon>
             <h3 class="ma-2">Thank you!</h3>
           </v-card-title>
-
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-btn
-              small
-              color="Villager white--text"
-              outlined>
-              <v-icon left>
-                mdi-human-greeting
-              </v-icon>
-              More
-            </v-btn>
-
-            <v-btn
-              small
-              color="Villager white--text"
-              outlined
-              :loading="!profileComplete"
-              @click="skillsDialog = true">
-              <v-icon left>
-                mdi-human
-              </v-icon>
-              Skills
-            </v-btn>
-            <v-btn
-              x-large
-              class="ml-4"
-              color="Villager white--text"
-              :loading="!profileComplete"
-              :disabled="!profileComplete"
-              @click="goToHomeMap">
-              <v-icon left>mdi-earth</v-icon>
-              Neighbors
-            </v-btn>
-          </v-card-actions>
-
         </v-card>
         <v-card
           tile
           outlined
           elevation="5"
+          width="400px"
           class="ma-2 card-texture"
           v-show="!profileComplete"
           :loading="true"
@@ -158,6 +123,7 @@
               class="Villager--text"
               stream
               striped
+              v-show="$vuetify.breakpoint.smAndUp ? false : true"
               :indeterminate="!confirming"
             >
             <v-icon small color="Villager" v-show="!confirming" left>
@@ -167,13 +133,6 @@
             {{validationMessage}}
           </v-progress-linear>
           </template>
-          <!-- <v-img
-            v-if="!confirmed"
-            v-touch="{
-              right: () => nextProfileQuestion(),
-              left: () => playChime()
-            }"
-          src="swipe2.gif"></v-img> -->
           <v-img
             tile
             height="150"
@@ -199,6 +158,19 @@
               </v-icon>
               SKIP
             </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="Villager"
+              x-large
+              v-show="$vuetify.breakpoint.smAndUp ? true : false"
+              @click="nextProfileQuestion()"
+            >
+              <v-icon left>
+                mdi-check
+              </v-icon>
+              yes
+            </v-btn>
+
           </v-card-actions>
           <v-progress-linear
             :color="connectionProgressColor"

@@ -1,10 +1,10 @@
 <template>
-  <v-card>
+  <v-card tile>
     <v-toolbar absolute width="100%" dense color="Villager darken-3">
       <v-spacer>
 
       </v-spacer>
-      <div class="caption small Villager--text">Public</div>
+      <div class="caption small Villager--text">menu</div>
     </v-toolbar>
     <v-list-item-subtitle
       class="pt-5 text-center grey--text caption">
@@ -36,13 +36,14 @@
 
         <v-toolbar fixed dense color="Data darken-1">
           <v-spacer></v-spacer>
-          <div class="caption small white--text">Administration</div>
+          <div class="caption small white--text">administration</div>
         </v-toolbar>
 
         <v-list-item
           v-for="(item, i) in adminLinks"
           :key="item.title"
           :disabled="item.disabled"
+          v-show="!item.disabled"
           color="Data"
           @click="setActivePage(item, i+3)">
           <v-list-item-icon>
