@@ -27,7 +27,7 @@
         <v-spacer></v-spacer>
         <v-divider vertical class="mx-5"></v-divider>
         <div>
-          <div class="caption small white--text">$282.00</div>
+          <div class="caption small white--text">$782.00</div>
           <div class="caption x-small yellow--text">usd</div>
         </div>
         <v-icon class="ma-3 scale-big-small white--text" size="20">
@@ -38,11 +38,11 @@
         dense
         class="ml-2"
       >
-        <v-btn small @click="goToProfiles">
+        <v-btn small @click="goToJobs">
           <v-icon color="Villager" left>
-            mdi-human
+            mdi-domain
           </v-icon>
-          <span>Profiles</span>
+          <span>Jobs</span>
         </v-btn>
 
         <v-btn small @click="goToGigs">
@@ -87,8 +87,8 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <h1 class="ma-1">
-                    <v-icon left>
-                      mdi-all-inclusive
+                    <v-icon color="Villager" left>
+                      {{ gig.icon }}
                     </v-icon>
                   {{ gig.moniker }}
                   </h1>
@@ -631,13 +631,14 @@ import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 // https://github.com/vUdav/vue2-leaflet-locatecontrol
 
 // https://github.com/fega/vue2-leaflet-geosearch
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import VGeosearch from 'vue2-leaflet-geosearch';
+import { OpenStreetMapProvider } from 'leaflet-geosearch'
+import VGeosearch from 'vue2-leaflet-geosearch'
 
 import 'leaflet/dist/leaflet.css'
 import entityTypes from '@/mixin/entity-types'
 import apiClient from '@/mixin/api-client'
 import moment from 'moment'
+
 export default {
   mixins: [apiClient, entityTypes],
   components: { LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider },
@@ -737,8 +738,8 @@ export default {
       this.$router.push(site, () => this.$router.go(0))
       this.close()
     },
-    goToProfiles: function () {
-      let site = `/profiles`
+    goToJobs: function () {
+      let site = `/jobs`
       this.$router.push(site)
       this.close()
     },
@@ -750,8 +751,10 @@ export default {
   },
   data: () => ({
     geosearchOptions: { // Important part Here
-      provider: new OpenStreetMapProvider(),
+      provider: new OpenStreetMapProvider()
     },
+    businesses: [],
+    loadingBusinesses: false,
     pathwaysMenu: false,
     shareViewDialog: false,
     gigsDialog: false,
@@ -760,37 +763,44 @@ export default {
         moniker: 'Neighborly Gig',
         description: 'Neighborly assistance with a project',
         pay: '$18.20',
+        icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'gloves', 'food'
         ]
       }, {
-        moniker: 'City Gig',
-        description: 'Neighborly utilities gig',
+        moniker: 'Local Job',
+        description: 'Neighborly utilities job',
+        icon: 'mdi-domain',
         chips: [
           'outside', 'gloves', 'food'
         ]
       }, {
         moniker: 'Entrepreneur Gig',
         description: 'Co-working subsidy for gigging',
+        icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'co-working', 'food'
         ]
       }, {
         moniker: 'Mentorship Gig',
         description: 'Mentorship subsidy for gigging',
+        icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'children'
         ]
       }, {
-        moniker: 'Transportation Gig',
-        description: 'Transportation subsidy for gigging',
-        pay: '$33.00',
+        moniker: 'Transportation Job',
+        description: 'Work in local transportation',
+        icon: 'mdi-domain',
+        pay: '$33.00/hr',
         chips: [
-          'face coverings', 'fuel'
+          'face coverings', 'fuel included'
         ]
       }, {
-        moniker: 'Family Healthcare Gig',
-        description: 'Healthcare subsidy for gigging',
+        moniker: 'Family Healthcare Job',
+        description: 'Family healthcare job',
+        icon: 'mdi-domain',
+        pay: '$52.27/hr',
         chips: [
           'face coverings', 'transportation'
         ]

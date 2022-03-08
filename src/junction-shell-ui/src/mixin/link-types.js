@@ -47,25 +47,31 @@ export default {
           href: '/profiles',
           icon: 'mdi-human-greeting',
           color: 'Villager',
-          description: 'My skills and preferences'
+          description: 'My Skills'
         }, {
           title: 'Neighbors',
           href: '/neighbors',
           icon: 'mdi-earth',
           color: 'Villager',
-          description: 'My world'
+          description: 'My World'
         }, {
           title: 'Gigs',
           href: '/gigs',
           icon: 'mdi-star-circle-outline',
           color: 'Villager',
-          description: 'My claimed gigs'
+          description: 'My Gigs'
+        }, {
+          title: 'Jobs',
+          href: '/jobs',
+          icon: 'mdi-domain',
+          color: 'Villager',
+          description: 'My Jobs'
         }, {
           title: 'Models',
           href: '/models',
           icon: 'mdi-chart-bubble',
           color: 'Villager',
-          description: 'My data and workflows'
+          description: 'My Workflows'
         }
       ],
       adminLinks: [

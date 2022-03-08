@@ -5,6 +5,7 @@ import HomePage from '@/pages/public/HomePage.vue'
 import ProfilesPage from '@/pages/public/ProfilesPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
 import GigsPage from '@/pages/public/GigsPage.vue'
+import JobsPage from '@/pages/public/JobsPage.vue'
 import ModelsPage from '@/pages/public/ModelsPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
@@ -26,6 +27,10 @@ const routes = [
     name: 'gigs',
     path: '/gigs',
     component: GigsPage
+  }, {
+    name: 'jobs',
+    path: '/jobs',
+    component: JobsPage
   }, {
     name: 'models',
     path: '/models',
