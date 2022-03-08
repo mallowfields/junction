@@ -4,7 +4,7 @@
       :indeterminate="true"
       :size="inline ? 32 : 128"
       :width="inline ? 4 : 8"
-      color="main"
+      color="Villager"
     ></v-progress-circular>
   </div>
 </template>

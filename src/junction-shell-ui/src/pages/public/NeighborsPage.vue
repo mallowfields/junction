@@ -577,52 +577,47 @@
       </span>
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="Villager darken-2"
-          class="claim-bounce"
+          color="Villager lighten-4"
           v-bind="attrs"
           rounded
+          outlined
           @click="snackbar = false; gigsDialog = true"
         >
-          Claim
-          <v-icon>
-            mdi-star-circle-outline
+          <v-icon left>
+            mdi-check
           </v-icon>
+          Claim
         </v-btn>
       </template>
     </v-snackbar>
 
     <v-snackbar
       v-model="statusSnackbar"
-      :timeout="-1"
       top
-      class="pt-14"
-      color=""
+      class="pt-16"
+      color="Villager"
       elevation="10"
     >
-        <h1 class="h1">
-          <v-icon>
-            mdi-all-inclusive
-          </v-icon>
-          Welcome
-        </h1>
-        <v-divider class="my-2"></v-divider>
-        <div class="caption">
-          (8) gigs available
-        </div>
+      <v-icon
+        class="left claim-bounce">
+        mdi-bell
+      </v-icon>
+      <v-spacer>
 
+      </v-spacer>
+      success
       <template v-slot:action="{ attrs }">
         <v-btn
           color="white"
           v-bind="attrs"
-          text
+          icon
           class="px-5"
-          outlined
+          x-large
           @click="statusSnackbar = false;"
         >
-          <v-icon left>
-            mdi-check
+          <v-icon>
+            mdi-close
           </v-icon>
-          ok
         </v-btn>
       </template>
     </v-snackbar>
@@ -679,6 +674,7 @@ export default {
       this.purposeIcon = icon
       this.enterContext = enterContext
       this.mapContext = mapContext
+      this.statusSnackbar = true
     },
     acceptPathwayItem: function () {
       this.pathwaysMenu = false
@@ -710,6 +706,7 @@ export default {
         this.hereDialog = false
         this.showFab = false
         this.pathwaysMenu = true
+        this.statusSnackbar = true
         return
       }
 

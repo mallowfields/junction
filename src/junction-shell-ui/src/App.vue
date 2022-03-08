@@ -49,6 +49,9 @@ export default {
   mounted: function () {
     this.setDisplayTheme()
     this.setSideBarMode()
+    setTimeout(() => {
+      this.user = true
+    }, 1300)
   },
   methods: {
     setDisplayTheme: function () {
@@ -60,7 +63,7 @@ export default {
     },
     setSideBarMode: function () {
       if (this.$vuetify.breakpoint.smAndUp) {
-        this.bottomMenu = true
+        this.bottomMenu = false
       } else {
         this.bottomMenu = false
       }
@@ -71,7 +74,7 @@ export default {
     connectionProgressColor: 'Villager',
     snackbar: true,
     validated: false,
-    user: true,
+    user: false,
     organizationName: null,
     bottomMenu: false
   })
