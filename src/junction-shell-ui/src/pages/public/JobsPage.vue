@@ -264,7 +264,6 @@
                     >
                       {{item.about}}
                     </v-list-item-subtitle>
-                    <v-divider class="my-3 mx-5"></v-divider>
                   </v-list-item-content>
 
                   <v-list-item-action>
@@ -355,6 +354,10 @@
                   </v-list-item-action>
                 </template>
               </v-list-item>
+              <v-divider
+                v-if="index < businesses.length - 1"
+                :key="index"
+              ></v-divider>
             </template>
           </v-list-item-group>
         </v-list>

@@ -268,18 +268,18 @@
                 <template v-slot:default="{ active }">
                   <v-list-item-content>
                     <v-list-item-title>
-                      <v-icon small left>
+                      <div class="caption">{{index+1}}.</div>
+                      <v-icon small left color="Villager" class="mb-1">
                         {{purposeIcon}}
                       </v-icon>
                       {{item.title}}
                     </v-list-item-title>
 
                     <v-list-item-subtitle
-                      class="caption"
+                      class="caption ml-8"
                     >
                       {{item.headline}}
                     </v-list-item-subtitle>
-
                   </v-list-item-content>
 
                   <v-list-item-action>
