@@ -108,7 +108,8 @@
           outlined
           elevation="5"
           width="400px"
-          class="ma-2 card-texture"
+          class="ma-2"
+          :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
           v-show="!profileComplete"
           :loading="true"
           v-touch="{
@@ -302,9 +303,6 @@ export default {
 }
 </script>
 <style>
-.card-texture {
-  background: url('/card-texture.png');
-}
 .scale-big-small {
     -webkit-animation:scale 2s linear infinite;
     -moz-animation:scale 2s linear infinite;

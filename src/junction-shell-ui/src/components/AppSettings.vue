@@ -1,15 +1,15 @@
 <template>
-  <v-btn icon @click="showSettings">
-    <v-icon>mdi-dots-vertical</v-icon>
+  <v-btn class="ml-5" icon @click="showSettings">
+    <v-icon small>mdi-settings</v-icon>
     <v-dialog
-      fullscreen
-      transition="dialog-bottom-transition"
+      width="500"
+      transition="dialog-top-transition"
       v-model="settingsDialog">
-      <v-card>
+      <v-card tile>
         <v-toolbar
           flat
           class="mb-3">
-          <v-icon>
+          <v-icon small color="Villager lighten-3">
             mdi-settings
           </v-icon>
           <v-card-title>
@@ -26,30 +26,18 @@
         </v-toolbar>
         <v-card-subtitle>
         <v-list three line>
+          <v-subheader>Display</v-subheader>
           <v-divider></v-divider>
-          <v-subheader>Display Theme</v-subheader>
           <v-list-item>
             <v-switch
               v-model="isDark"
               @click="darkMode"
-              color="green"
+              color="Villager"
               class="mr-3">
             </v-switch>
             <v-list-item-content>
               <v-list-item-title>Dark Theme</v-list-item-title>
               <v-list-item-subtitle>Dark theme for low light areas</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-divider></v-divider>
-          <v-subheader>Models and Information</v-subheader>
-          <v-list-item one-line>
-            <v-list-item-action>
-              <v-switch v-model="allowLocationRequests" color="Villager"></v-switch>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Location Services</v-list-item-title>
-              <v-list-item-subtitle>Enable GPS features</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>

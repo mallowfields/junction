@@ -246,6 +246,7 @@
           <v-list dense>
             <v-list-item
               two-line
+              @click="connectProfile"
               v-touch="{
                 right: () => connectProfile()
               }"
@@ -288,6 +289,7 @@
             <template v-for="(item, index) in items">
               <v-list-item
                 :key="item.title"
+                @click="viewProfile(item)"
                 v-touch="{
                   right: () => viewProfile(item)
                 }">

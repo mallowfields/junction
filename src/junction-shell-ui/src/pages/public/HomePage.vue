@@ -32,7 +32,7 @@
         </v-btn>
       </template>
 
-      <v-card>
+      <v-card tile>
         <v-card-title>
           <v-icon left x-large color="Villager">
             mdi-all-inclusive

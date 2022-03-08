@@ -19,7 +19,7 @@
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title>{{enterContext}}</v-list-item-title>
-            <v-list-item-subtitle>$242.50</v-list-item-subtitle>
+            <v-list-item-subtitle>$742.50 earned this week</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-spacer></v-spacer>
@@ -189,6 +189,7 @@
           <v-list dense>
             <v-list-item
               two-line
+              @click="connectProfile"
               v-touch="{
                 right: () => connectProfile()
               }"
@@ -197,7 +198,7 @@
               <v-list-item-content>
                 <v-list-item-title class="d-flex caption align-center justify-content justify-center white--text">
                   <v-icon right class="mr-5" size="50" color="white">{{ !validated ? "mdi-power-plug mdi-rotate-90" : "mdi-content-cut" }}</v-icon>
-                  {{validationMessage}}
+                  {{ validationMessage }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -259,6 +260,7 @@
           >
             <template v-for="(item, index) in items">
               <v-list-item
+                @click="viewProfile(item)"
                 :key="item.title"
                 v-touch="{
                   right: () => viewProfile(item)
@@ -459,6 +461,7 @@ export default {
   components: { },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
+    this.validationMessage = 'SWIPE RIGHT TO CONNECT'
   },
   methods: {
     viewProfile: function (item, event) {
@@ -477,10 +480,10 @@ export default {
         this.connectionProgressValue = 100
         this.validationMessage = 'CONNECTED!'
       }, 3000)
-
       setTimeout(() => {
         this.connectionProgressColor = 'Villager'
         this.connectionProgressValue = 100
+        console.log(this.$vuetify.breakpoint.smAndUp)
         this.validationMessage = 'SWIPE RIGHT TO DISCONNECT'
         this.validated = true
       }, 6000)
@@ -489,7 +492,7 @@ export default {
       this.validated = false
       this.connectionProgressColor = 'grey'
       this.connectionProgressValue = 30
-      this.validationMessage = 'SWIPE RIGHT TO CONNECT'
+      this.validationMessage = 'SWIPE RIGHT TO DISCONNECT'
     },
     goBack: function () {
       this.$router.push('/')
@@ -514,7 +517,7 @@ export default {
     connectionProgressValue: 10,
     connectionProgressColor: 'grey',
     validated: false,
-    validationMessage: 'SWIPE RIGHT TO CONNECT',
+    validationMessage: 'READY',
     activeProfile: {},
     enterContext: 'Gigs',
     purposeIcon: 'mdi-star-circle-outline',

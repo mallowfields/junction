@@ -18,7 +18,7 @@
       app
       temporary
       :bottom="$vuetify.breakpoint.smAndUp ? false : true"
-      src="/card-texture.png"
+      :src="$store.state.displayTheme === 'dark' ? '/grey-gradient-background.jpg' : '/card-texture.png'"
     >
       <page-list></page-list>
     </v-navigation-drawer>

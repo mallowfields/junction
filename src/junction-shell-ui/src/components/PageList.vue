@@ -94,22 +94,14 @@ export default {
     addKeyBoardListeners: function () {
       window.addEventListener('keydown', (event) => {
         const ctrlPressed = event.ctrlKey
-        const gPressed = event.code === 'KeyG'
-        const mPressed = event.code === 'KeyM'
         const onePressed = event.code === 'Digit1'
         const twoPressed = event.code === 'Digit2'
         const threePressed = event.code === 'Digit3'
         const fourPressed = event.code === 'Digit4'
         const fivePressed = event.code === 'Digit5'
         const sixPressed = event.code === 'Digit6'
-        if (ctrlPressed && gPressed) {
-          event.preventDefault()
-          this.graphDialog = !this.graphDialog
-        }
-        if (ctrlPressed && mPressed) {
-          event.preventDefault()
-          this.mapDialog = !this.mapDialog
-        }
+        const sevenPressed = event.code === 'Digit7'
+ 
         if (ctrlPressed && onePressed) {
           event.preventDefault()
           this.activeItem = 0
@@ -135,19 +127,26 @@ export default {
           event.preventDefault()
           this.activeItem = 3
           this.setActivePage({
-            href: '/models'
+            href: '/jobs'
           }, this.activeItem)
         }
         if (ctrlPressed && fivePressed) {
           event.preventDefault()
           this.activeItem = 4
           this.setActivePage({
-            href: '/process-center'
+            href: '/models'
           }, this.activeItem)
         }
         if (ctrlPressed && sixPressed) {
           event.preventDefault()
           this.activeItem = 5
+          this.setActivePage({
+            href: '/process-center'
+          }, this.activeItem)
+        }
+        if (ctrlPressed && sevenPressed) {
+          event.preventDefault()
+          this.activeItem = 6
           this.setActivePage({
             href: '/command-center'
           }, this.activeItem)

@@ -11,8 +11,8 @@
       temporary
       bottom
       mini-variant
-      elevation="24"
-      src="/card-texture.png"
+      elevation="0"
+      :src="$store.state.displayTheme === 'dark' ? '/grey-gradient-background.jpg' : '/card-texture.png'"
       @transitionend="checkFab"
     >
       <v-toolbar
@@ -52,13 +52,13 @@
           <span>Gigs</span>
         </v-btn>
 
-        <v-btn small>
+        <v-btn  disabled small>
           <v-icon color="Villager" left>
             mdi-tune
           </v-icon>
           <span>filters</span>
         </v-btn>
-        <v-btn color="Villager" small class="px-7">
+        <v-btn disabled color="Villager" small class="px-7">
           <v-icon  class="white--text" small>
             mdi-settings
           </v-icon>
@@ -348,14 +348,14 @@
       </v-card>
     </v-dialog>
     <v-dialog
-      width="600"
+      width="400"
       flat
       persistent
       v-model="gigsDialog">
       <v-card>
         <v-toolbar flat>
           <v-icon color="Villager">{{purposeIcon}}</v-icon>
-          <v-card-title>{{mapContext}}</v-card-title>
+          <v-card-title>{{claimDescription}}</v-card-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -364,7 +364,7 @@
           </v-btn>
         </v-toolbar>
         <v-card-text class="caption">
-          {{claimDescription}}
+          Do you want this?
         </v-card-text>
         <v-card-actions class="justify-center">
           <v-btn
