@@ -33,13 +33,37 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          :color="item.color"
+          v-if="socialJusticePowers"
+          v-for="(item, i) in socialJusticeLinks"
+          :key="item.title"
+          :disabled="item.disabled"
+          @click="setActivePage(item, i)">
+          <v-list-item-icon>
+            <v-icon x-large :color="item.color">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
 
-        <v-toolbar fixed dense color="Data darken-1">
+          <v-list-item-content>
+            <v-list-item-title :class="item.color + '--text'">
+            <h4>
+              {{item.title}}
+            </h4>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-toolbar
+          fixed
+          dense
+          color="Data darken-1"
+          v-if="adminPowers">
           <v-spacer></v-spacer>
           <div class="caption small white--text">administration</div>
         </v-toolbar>
 
         <v-list-item
+          v-if="adminPowers"
           v-for="(item, i) in adminLinks"
           :key="item.title"
           :disabled="item.disabled"
@@ -89,6 +113,8 @@ export default {
     this.getActivePage()
     this.setActiveItem()
     this.addKeyBoardListeners()
+    this.adminPowers = JSON.parse(this.$store.state.adminPowers)
+    this.socialJusticePowers = JSON.parse(this.$store.state.socialJusticePowers)
   },
   methods: {
     addKeyBoardListeners: function () {
@@ -101,7 +127,7 @@ export default {
         const fivePressed = event.code === 'Digit5'
         const sixPressed = event.code === 'Digit6'
         const sevenPressed = event.code === 'Digit7'
- 
+
         if (ctrlPressed && onePressed) {
           event.preventDefault()
           this.activeItem = 0
@@ -152,13 +178,6 @@ export default {
           }, this.activeItem)
         }
       })
-
-      //     setActivePage: function (item, i) {
-      // if (this.$route.path !== item.href) {
-      //   this.$store.commit('activePage', i)
-      //   this.$router.push(item.href)
-      // }
-    // }
     },
     getActivePage: function () {
       this.activePage = this.$store.state.activePage
@@ -177,7 +196,9 @@ export default {
     activePage: null,
     graphDialog: false,
     mapDialog: false,
-    activeItem: null
+    activeItem: null,
+    adminPowers: false,
+    socialJusticePowers: false
   })
 }
 </script>

@@ -6,6 +6,8 @@ export default {
   methods: {
     setCurrentViewMode: function () {
       this.viewMode = this.$store.state.viewMode
+      this.adminPowers = this.$store.state.adminPowers
+      this.socialJusticePowers = this.$store.state.socialJusticePowers
     },
     setVisibleLinks: function () {
       switch (this.viewMode) {
@@ -40,6 +42,8 @@ export default {
   },
   data () {
     return {
+      adminPowers: null,
+      socialJusticePowers: null,
       viewMode: null,
       primaryLinks: [
         {
@@ -48,30 +52,30 @@ export default {
           icon: 'mdi-human-greeting',
           color: 'Villager',
           description: 'My Skills'
-        }, {
+        }
+      ],
+      socialJusticeLinks: [
+        {
           title: 'Neighbors',
           href: '/neighbors',
           icon: 'mdi-earth',
           color: 'Villager',
+          socialJusticePower: true,
           description: 'My World'
         }, {
           title: 'Gigs',
           href: '/gigs',
           icon: 'mdi-star-circle-outline',
           color: 'Villager',
+          socialJusticePower: true,
           description: 'My Gigs'
         }, {
           title: 'Jobs',
           href: '/jobs',
           icon: 'mdi-domain',
           color: 'Villager',
+          socialJusticePower: true,
           description: 'My Jobs'
-        }, {
-          title: 'Models',
-          href: '/models',
-          icon: 'mdi-chart-bubble',
-          color: 'Villager',
-          description: 'My Workflows'
         }
       ],
       adminLinks: [
@@ -82,6 +86,12 @@ export default {
           color: 'Data',
           disabled: true,
           description: 'Create and Manage Gigs'
+        }, {
+          title: 'Models',
+          href: '/models',
+          icon: 'mdi-chart-bubble',
+          color: 'Data',
+          description: 'My Workflows'
         }, {
           title: 'Process',
           href: '/process-center',

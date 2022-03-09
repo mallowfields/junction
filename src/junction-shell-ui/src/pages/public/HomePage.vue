@@ -5,10 +5,7 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-text class="caption Villager--text">
-      <v-icon left color="Villager">
-        mdi-all-inclusive
-      </v-icon>
-      You are viewing as {{this.viewMode}}
+      2202.0.1 Social Justice Shell
     </v-card-text>
     <v-dialog
       v-model="coverDialog"

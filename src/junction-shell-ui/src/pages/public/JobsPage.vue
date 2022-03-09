@@ -244,7 +244,7 @@
           >
             <template v-for="(item, index) in businesses">
               <v-list-item
-                :key="item.row_id"
+                :key="item.name"
                 @click="viewProfile(item)"
                 v-touch="{
                   right: () => viewProfile(item)
@@ -427,7 +427,7 @@ export default {
       this.$router.push('/')
     },
     goToCommand: function () {
-      this.$router.push('/command-center')
+      this.$router.push('/neighbors')
     },
     goToProcessCenter: function () {
       this.$router.push('/process-center')

@@ -498,7 +498,7 @@ export default {
       this.$router.push('/')
     },
     goToCommand: function () {
-      this.$router.push('/command-center')
+      this.$router.push('/neighbors')
     },
     goToProcessCenter: function () {
       this.$router.push('/process-center')

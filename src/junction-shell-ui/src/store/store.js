@@ -16,12 +16,22 @@ const store = new Vuex.Store({
     viewMode: localStorage.getItem('viewMode') || 'Admin',
     displayTheme: localStorage.getItem('displayTheme') || 'light',
     relatedTo: parse(localStorage.getItem('relatedTo')) || null,
-    activePage: localStorage.getItem('activePage') || null
+    activePage: localStorage.getItem('activePage') || null,
+    socialJusticePowers: localStorage.getItem('socialJusticePowers') || false,
+    adminPowers: localStorage.getItem('adminPowers') || false
   },
   mutations: {
     viewMode (state, mode) {
       state.viewMode = mode
       localStorage.setItem('viewMode', mode)
+    },
+    socialJusticePowers (state, value) {
+      state.socialJusticePowers = value
+      localStorage.setItem('socialJusticePowers', value)
+    },
+    adminPowers (state, value) {
+      state.adminPowers = value
+      localStorage.setItem('adminPowers', value)
     },
     userName (state, mode) {
       state.userName = mode
