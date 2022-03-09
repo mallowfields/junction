@@ -47,6 +47,8 @@
               <v-btn
                 color="Villager"
                 x-large
+                block
+                rounded
                 class="white--text"
                 :outlined="socialJusticePowers"
                 @click="toggleSocialJusticePowers">
@@ -64,6 +66,8 @@
               <v-btn
                 color="Data"
                 x-large
+                block
+                rounded
                 class="white--text"
                 :outlined="adminPowers"
                 @click="toggleAdminPowers">
@@ -81,6 +85,8 @@
               <v-btn
                 color="blue"
                 x-large
+                block
+                rounded
                 class="white--text"
                 :outlined="casualPowers"
                 @click="toggleCasualPowers">
