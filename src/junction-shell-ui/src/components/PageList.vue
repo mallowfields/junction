@@ -86,6 +86,49 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-toolbar
+          fixed
+          dense
+          color="blue darken-1"
+          v-if="casualPowers">
+          <v-spacer></v-spacer>
+          <div class="caption small white--text">casual</div>
+        </v-toolbar>
+
+        <v-list-item
+          v-if="casualPowers"
+          v-for="(item, i) in casualLinks"
+          :key="item.title"
+          :disabled="item.disabled"
+          v-show="!item.disabled"
+          color="blue"
+          @click="setActivePage(item, i+3)">
+          <v-list-item-icon>
+            <v-img
+              icon
+              src="casual.png"
+              contain
+              width="10px"
+              height="20px"
+              class="ma-0">
+            </v-img>
+            <v-icon
+              x-large
+              :disabled="item.disabled"
+              :color="item.color">{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title :class="(item.disabled ? 'grey' : item.color) + '--text'">
+            <h4>
+              {{
+                item.title
+              }}
+            </h4>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item
           v-for="(item, i) in resourceLinks"
           :key="item.title"
@@ -115,6 +158,7 @@ export default {
     this.addKeyBoardListeners()
     this.adminPowers = JSON.parse(this.$store.state.adminPowers)
     this.socialJusticePowers = JSON.parse(this.$store.state.socialJusticePowers)
+    this.casualPowers = JSON.parse(this.$store.state.casualPowers)
   },
   methods: {
     addKeyBoardListeners: function () {
@@ -127,7 +171,14 @@ export default {
         const fivePressed = event.code === 'Digit5'
         const sixPressed = event.code === 'Digit6'
         const sevenPressed = event.code === 'Digit7'
+        const casualPressed = event.code === 'Backquote'
 
+        if (ctrlPressed && casualPressed) {
+          event.preventDefault()
+          this.setActivePage({
+            href: '/casual'
+          }, this.activeItem)
+        }
         if (ctrlPressed && onePressed) {
           event.preventDefault()
           this.activeItem = 0
@@ -198,7 +249,8 @@ export default {
     mapDialog: false,
     activeItem: null,
     adminPowers: false,
-    socialJusticePowers: false
+    socialJusticePowers: false,
+    casualPowers: false
   })
 }
 </script>

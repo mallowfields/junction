@@ -18,7 +18,8 @@ const store = new Vuex.Store({
     relatedTo: parse(localStorage.getItem('relatedTo')) || null,
     activePage: localStorage.getItem('activePage') || null,
     socialJusticePowers: localStorage.getItem('socialJusticePowers') || false,
-    adminPowers: localStorage.getItem('adminPowers') || false
+    adminPowers: localStorage.getItem('adminPowers') || false,
+    casualPowers: localStorage.getItem('casualPowers') || false
   },
   mutations: {
     viewMode (state, mode) {
@@ -32,6 +33,10 @@ const store = new Vuex.Store({
     adminPowers (state, value) {
       state.adminPowers = value
       localStorage.setItem('adminPowers', value)
+    },
+    casualPowers (state, value) {
+      state.casualPowers = value
+      localStorage.setItem('casualPowers', value)
     },
     userName (state, mode) {
       state.userName = mode

@@ -78,6 +78,15 @@ export default {
           description: 'My Jobs'
         }
       ],
+      casualLinks: [
+        {
+          title: 'Casual',
+          href: '/casual',
+          icon: 'mdi-human-greeting',
+          color: 'blue',
+          description: 'Casual'
+        }
+      ],
       adminLinks: [
         {
           title: 'GigCenter',

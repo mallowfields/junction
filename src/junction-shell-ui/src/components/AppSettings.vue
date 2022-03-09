@@ -46,13 +46,14 @@
               <v-list-item-subtitle class="caption">Community tools for neighborhoods</v-list-item-subtitle>
               <v-btn
                 color="Villager"
+                x-large
                 class="white--text"
                 :outlined="socialJusticePowers"
                 @click="toggleSocialJusticePowers">
                 <v-icon left class="mr-5">
                   mdi-human-greeting
                 </v-icon>
-                  {{ socialJusticePowers ? `Disable` : 'Enable'}} Powers
+                  {{ socialJusticePowers ? `Release` : 'Enable'}} Powers
               </v-btn>
             </v-list-item-content>
           </v-list-item>
@@ -62,13 +63,37 @@
               <v-list-item-subtitle class="caption">Administration tools for neighborhoods</v-list-item-subtitle>
               <v-btn
                 color="Data"
+                x-large
                 class="white--text"
                 :outlined="adminPowers"
                 @click="toggleAdminPowers">
                 <v-icon left class="mr-5">
                   mdi-charity
                 </v-icon>
-                  {{ adminPowers ? `Disable` : 'Enable'}} Powers
+                  {{ adminPowers ? `Release` : 'Enable'}} Powers
+              </v-btn>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="blue--text">Casual</v-list-item-title>
+              <v-list-item-subtitle class="caption">Tools for casual content</v-list-item-subtitle>
+              <v-btn
+                color="blue"
+                x-large
+                class="white--text"
+                :outlined="casualPowers"
+                @click="toggleCasualPowers">
+                <v-spacer></v-spacer>
+                <v-img
+                  src="casual.png"
+                  contain
+                  width="10px"
+                  height="20px"
+                  :class="$vuetify.breakpoint.smAndUp ? 'mr-0' : 'mr-2'">
+                </v-img>
+                  {{ casualPowers ? `Release` : 'Enable'}} Powers
+                  <v-spacer :class="$vuetify.breakpoint.smAndUp ? 'ml-8' : 'mr-1'"></v-spacer>
               </v-btn>
             </v-list-item-content>
           </v-list-item>
@@ -108,6 +133,7 @@ export default {
     setCurrentPowers: function () {
       this.socialJusticePowers = JSON.parse(this.$store.state.socialJusticePowers)
       this.adminPowers = JSON.parse(this.$store.state.adminPowers)
+      this.casualPowers = JSON.parse(this.$store.state.casualPowers)
     },
     setCurrentAccount: function () {
       this.profile = this.$store.state.profile
@@ -153,10 +179,17 @@ export default {
     },
     toggleSocialJusticePowers: function () {
       this.$store.commit('socialJusticePowers', !this.socialJusticePowers)
+      this.$router.push('/')
       this.window.location.reload()
     },
     toggleAdminPowers: function () {
       this.$store.commit('adminPowers', !this.adminPowers)
+      this.$router.push('/')
+      this.window.location.reload()
+    },
+    toggleCasualPowers: function () {
+      this.$store.commit('casualPowers', !this.casualPowers)
+      this.$router.push('/')
       this.window.location.reload()
     }
   },
@@ -173,7 +206,8 @@ export default {
     currentTheme: null,
     isDark: true,
     adminPowers: false,
-    socialJusticePowers: false
+    socialJusticePowers: false,
+    casualPowers: false
   })
 }
 </script>

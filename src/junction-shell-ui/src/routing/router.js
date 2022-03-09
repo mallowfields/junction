@@ -7,6 +7,7 @@ import NeighborsPage from '@/pages/public/NeighborsPage.vue'
 import GigsPage from '@/pages/public/GigsPage.vue'
 import JobsPage from '@/pages/public/JobsPage.vue'
 import ModelsPage from '@/pages/public/ModelsPage.vue'
+import CasualPage from '@/pages/public/CasualPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
 
@@ -19,6 +20,10 @@ const routes = [
     name: 'profiles',
     path: '/profiles',
     component: ProfilesPage
+  }, {
+    name: 'casual',
+    path: '/casual',
+    component: CasualPage
   }, {
     name: 'neighbors',
     path: '/neighbors',
