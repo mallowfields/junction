@@ -49,6 +49,7 @@
                 x-large
                 block
                 rounded
+                :disabled="togglingSocialJusticePower"
                 class="white--text"
                 :outlined="socialJusticePowers"
                 @click="toggleSocialJusticePowers">
@@ -68,6 +69,7 @@
                 x-large
                 block
                 rounded
+                :disabled="togglingAdminPower"
                 class="white--text"
                 :outlined="adminPowers"
                 @click="toggleAdminPowers">
@@ -87,6 +89,7 @@
                 x-large
                 block
                 rounded
+                :disabled="togglingCasualPower"
                 class="white--text"
                 :outlined="casualPowers"
                 @click="toggleCasualPowers">
@@ -184,16 +187,19 @@ export default {
       this.$store.commit('organizationName', this.organizationName)
     },
     toggleSocialJusticePowers: function () {
+      this.togglingSocialJusticePower = true
       this.$store.commit('socialJusticePowers', !this.socialJusticePowers)
       this.$router.push('/')
       this.window.location.reload()
     },
     toggleAdminPowers: function () {
+      this.togglingAdminPower = true
       this.$store.commit('adminPowers', !this.adminPowers)
       this.$router.push('/')
       this.window.location.reload()
     },
     toggleCasualPowers: function () {
+      this.togglingCasualPower = true
       this.$store.commit('casualPowers', !this.casualPowers)
       this.$router.push('/')
       this.window.location.reload()
@@ -213,7 +219,10 @@ export default {
     isDark: true,
     adminPowers: false,
     socialJusticePowers: false,
-    casualPowers: false
+    casualPowers: false,
+    togglingSocialJusticePower: false,
+    togglingAdminPower: false,
+    togglingCasualPower: false
   })
 }
 </script>
