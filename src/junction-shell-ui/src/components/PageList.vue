@@ -105,14 +105,6 @@
           color="blue"
           @click="setActivePage(item, i+3)">
           <v-list-item-icon>
-            <v-img
-              icon
-              src="casual.png"
-              contain
-              width="10px"
-              height="20px"
-              class="ma-0">
-            </v-img>
             <v-icon
               x-large
               :disabled="item.disabled"

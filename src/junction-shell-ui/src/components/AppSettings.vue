@@ -1,23 +1,27 @@
 <template>
   <v-btn
     class="ml-1"
-    icon
+    text
     @click="showSettings">
-    <v-icon small>mdi-settings</v-icon>
+    <v-icon color="Villager" left>mdi-all-inclusive</v-icon>
+      Junction
     <v-dialog
       width="500"
+      fullscreen
       transition="dialog-top-transition"
       v-model="settingsDialog">
       <v-card tile>
         <v-toolbar
-          color="primary"
           flat>
-          <v-icon small class="white--text">mdi-settings</v-icon>
+          <v-icon
+            :color="$vuetify.theme.dark ? 'Villager' : 'primary'"
+            left>mdi-all-inclusive</v-icon>
+          Junction
           <v-spacer></v-spacer>
           <v-btn
             @click="settingsDialog = false"
             icon>
-            <v-icon class="white--text">
+            <v-icon>
               mdi-close
             </v-icon>
           </v-btn>
@@ -53,9 +57,6 @@
                 class="white--text"
                 :outlined="socialJusticePowers"
                 @click="toggleSocialJusticePowers">
-                <v-icon left class="mr-5">
-                  mdi-human-greeting
-                </v-icon>
                   {{ socialJusticePowers ? `Release` : 'Enable'}} Powers
               </v-btn>
             </v-list-item-content>
@@ -73,16 +74,15 @@
                 class="white--text"
                 :outlined="adminPowers"
                 @click="toggleAdminPowers">
-                <v-icon left class="mr-5">
-                  mdi-charity
-                </v-icon>
                   {{ adminPowers ? `Release` : 'Enable'}} Powers
               </v-btn>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="blue--text">Casual</v-list-item-title>
+              <v-list-item-title class="blue--text">
+                Casual
+              </v-list-item-title>
               <v-list-item-subtitle class="caption">Tools for casual content</v-list-item-subtitle>
               <v-btn
                 color="blue"
@@ -93,16 +93,7 @@
                 class="white--text"
                 :outlined="casualPowers"
                 @click="toggleCasualPowers">
-                <v-spacer></v-spacer>
-                <v-img
-                  src="casual.png"
-                  contain
-                  width="10px"
-                  height="20px"
-                  :class="$vuetify.breakpoint.smAndUp ? 'mr-0' : 'mr-2'">
-                </v-img>
                   {{ casualPowers ? `Release` : 'Enable'}} Powers
-                  <v-spacer :class="$vuetify.breakpoint.smAndUp ? 'ml-8' : 'mr-1'"></v-spacer>
               </v-btn>
             </v-list-item-content>
           </v-list-item>

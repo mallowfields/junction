@@ -8,8 +8,6 @@
         @click.stop="bottomMenu = !bottomMenu"
       ></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <v-icon color="Villager" left>mdi-all-inclusive</v-icon>
-      Junction
       <app-settings></app-settings>
     </v-app-bar>
 
