@@ -4,9 +4,6 @@
       Welcome,  use the menu.
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-text class="caption Villager--text">
-      2202.0.1 Social Justice Shell
-    </v-card-text>
     <v-dialog
       v-model="coverDialog"
       width="500"

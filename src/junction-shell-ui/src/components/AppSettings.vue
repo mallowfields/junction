@@ -1,10 +1,11 @@
 <template>
   <v-btn
-    class="ml-1"
     text
+    outlined
+    rounded
     @click="showSettings">
     <v-icon color="Villager" left>mdi-all-inclusive</v-icon>
-      Junction
+      powers
     <v-dialog
       width="500"
       fullscreen
@@ -28,22 +29,6 @@
         </v-toolbar>
         <v-card-subtitle>
         <v-list three line>
-          <v-subheader>Display</v-subheader>
-          <v-divider></v-divider>
-          <v-list-item>
-            <v-switch
-              v-model="isDark"
-              @click="darkMode"
-              color="Villager"
-              class="mr-3">
-            </v-switch>
-            <v-list-item-content>
-              <v-list-item-title>Dark Theme</v-list-item-title>
-              <v-list-item-subtitle>Dark theme for low light areas</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-subheader>Power Tools</v-subheader>
-          <v-divider></v-divider>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="Villager--text">Social Justice</v-list-item-title>
@@ -97,6 +82,57 @@
               </v-btn>
             </v-list-item-content>
           </v-list-item>
+          <v-divider class="my-2"></v-divider>
+          <v-subheader>Accessability</v-subheader>
+          <v-list-item>
+            <v-switch
+              v-model="isDark"
+              @click="darkMode"
+              color="Villager"
+              class="mr-3">
+            </v-switch>
+            <v-list-item-content>
+              <v-list-item-title>Dark Theme</v-list-item-title>
+              <v-list-item-subtitle>Dark theme for low light areas</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-switch
+              v-model="soundEffects"
+              disabled
+              color="Villager"
+              class="mr-3">
+            </v-switch>
+            <v-list-item-content>
+              <v-list-item-title>Sound Effects</v-list-item-title>
+              <v-list-item-subtitle>Play sound effects</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-btn
+              @click="window.open('https://github.com/mallowfields/junction', '_blank')"
+              icon>
+              <v-img
+                contain
+                width="30"
+                height="30"
+                src="github.png"
+              ></v-img>
+            </v-btn>
+            <v-card-text class="caption">
+              mallowfields/junction
+            </v-card-text>
+          </v-card-actions>
+          <v-subheader class="caption">
+          <v-btn
+            x-small
+            text
+            class="lowercase--text"
+            @click="window.open('https://mallowfields.com', '_blank')">
+            Hosted by Mallowfields
+          </v-btn>
+          </v-subheader>
         </v-list>
         </v-card-subtitle>
       </v-card>
@@ -208,6 +244,7 @@ export default {
     settingsDialog: false,
     currentTheme: null,
     isDark: true,
+    soundEffects: true,
     adminPowers: false,
     socialJusticePowers: false,
     casualPowers: false,
