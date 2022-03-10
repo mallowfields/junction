@@ -47,11 +47,11 @@ export default {
       viewMode: null,
       primaryLinks: [
         {
-          title: 'Profiles',
-          href: '/profiles',
-          icon: 'mdi-human-greeting',
+          title: 'Polls',
+          href: '/polls',
+          icon: 'mdi-vote',
           color: 'Villager',
-          description: 'My Skills'
+          description: 'My skills and preferences'
         }
       ],
       socialJusticeLinks: [

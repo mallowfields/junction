@@ -18,7 +18,7 @@
         </v-btn>
         <v-list-item two-line>
           <v-list-item-content>
-            <v-list-item-title>Profiles</v-list-item-title>
+            <v-list-item-title>Polls</v-list-item-title>
             <v-list-item-subtitle>My skills and preferences</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>

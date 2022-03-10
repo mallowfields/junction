@@ -175,7 +175,7 @@ export default {
           event.preventDefault()
           this.activeItem = 0
           this.setActivePage({
-            href: '/profiles'
+            href: '/polls'
           }, this.activeItem)
         }
         if (ctrlPressed && twoPressed) {
