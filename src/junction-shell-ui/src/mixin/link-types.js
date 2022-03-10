@@ -50,7 +50,6 @@ export default {
           title: 'Polls',
           href: '/polls',
           icon: 'mdi-vote',
-          color: 'Villager',
           description: 'My skills and preferences'
         }
       ],
