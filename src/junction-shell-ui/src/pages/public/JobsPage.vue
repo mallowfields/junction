@@ -5,6 +5,43 @@
     hide-overlay
     transition="dialog-bottom-transition"
   >
+    <v-dialog
+      fullscreen
+      hide-overlay
+      transition="dialog-left-transition"
+      v-model="website">
+      <v-card class="ma-0" flat outlined tile>
+        <v-toolbar
+          dark
+          tile
+        >
+          <v-btn
+            icon
+            @click="website = false"
+          >
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-list-item two-line>
+            <v-list-item-content>
+              <v-list-item-title>Data Source</v-list-item-title>
+              <v-list-item-subtitle>@jessachalla</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <iframe
+          :src="iframeSrc"
+          width="100%"
+          marginwidth="0"
+          marginheight="0"
+          hspace="0"
+          vspace="0"
+          frameborder="0"
+          style="min-height: calc(100vh - 170px)"
+          >
+        </iframe>
+      </v-card>
+    </v-dialog>
     <v-card tile flat>
       <v-toolbar
         dark
@@ -19,7 +56,7 @@
         <v-list-item two-line>
           <v-list-item-content>
             <v-list-item-title>{{enterContext}}</v-list-item-title>
-            <v-list-item-subtitle>Businesses</v-list-item-subtitle>
+            <v-list-item-subtitle>Businesses and Workplaces</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-spacer></v-spacer>
@@ -179,6 +216,7 @@
             <v-btn
               small
               text
+              disabled
               color="Villager">
               <v-icon left>mdi-web</v-icon>
               website
@@ -187,6 +225,7 @@
             <v-btn
               small
               text
+              disabled
               color="Villager">
               <v-icon left>mdi-phone</v-icon>
               call business
@@ -210,18 +249,28 @@
             </v-list-item>
             <v-list-item dense two-line>
               <v-list-item-icon>
-                <v-icon class="mt-5" color="Villager">mdi-shield-check</v-icon>
+                <v-btn
+                  icon
+                  class="mt-1"
+                  color="Villager">
+                  <v-icon>mdi-shield-check</v-icon>
+                </v-btn>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
-                  Verified Job
+                  Claim
                 </v-list-item-title>
-                <v-list-item-subtitle class="caption">This is an Officially Supported Gig</v-list-item-subtitle>
+                <v-list-item-subtitle class="caption">Is this your business?</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item dense two-line>
               <v-list-item-icon>
-                <v-icon class="mt-5 scale-big-small" color="Villager">mdi-heart</v-icon>
+                <v-btn
+                  icon
+                  class="mt-1"
+                  color="Villager">
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>
@@ -244,15 +293,34 @@
           >
             <template v-for="(item, index) in businesses">
               <v-list-item
-                :key="item.name"
-                @click="viewProfile(item)"
-                v-touch="{
-                  right: () => viewProfile(item)
-                }">
+                :key="item.name">
                 <template v-slot:default="{ active }">
                   <v-list-item-content>
                     <v-list-item-title>
-                      <div class="caption">{{index+1}}.</div>
+                      <v-row class="my-2">
+                        <v-col class="caption">
+                          {{index+1}}.
+                          <v-btn
+                            text
+                            x-small
+                            outlined
+                            class="ml-3"
+                            @click="website = true">
+                            source
+                          </v-btn>
+                          <v-btn
+                            x-small
+                            outlined
+                            class="ml-3"
+                            color="Villager"
+                            @click="viewProfile(item)">
+                            connect
+                          </v-btn>
+                        </v-col>
+                          <v-spacer></v-spacer>
+                        <v-col class="caption">
+                        </v-col>
+                      </v-row>
                       <v-icon small left color="Villager" class="mb-1">
                         {{purposeIcon}}
                       </v-icon>
@@ -442,6 +510,8 @@ export default {
     }
   },
   data: () => ({
+    website: false,
+    iframeSrc: 'http://jessachalla.com/bipoc/',
     profileDialog: false,
     businesses: [],
     loadingBusinesses: false,

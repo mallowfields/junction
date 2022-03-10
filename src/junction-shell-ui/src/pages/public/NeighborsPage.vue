@@ -495,8 +495,6 @@
       v-model="networkOptionsDialog">
       <v-card>
         <v-toolbar color="Villager" flat>
-          <v-icon color="white">{{purposeIcon}}</v-icon>
-          <v-card-subtitle class="white--text">{{enterContext}} Options</v-card-subtitle>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -523,34 +521,6 @@
               <v-list-item-content>
                 <v-list-item-title>Volunteer</v-list-item-title>
                 <v-list-item-subtitle>Share ways you can help</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider class="my-5"></v-divider>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Villager" class="ml-2 mt-2">mdi-image</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Image</v-list-item-title>
-                <v-list-item-subtitle>Add an image</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Villager" class="ml-2 mt-2">mdi-video</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Video</v-list-item-title>
-                <v-list-item-subtitle>Add a video</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Villager" class="ml-2 mt-2">mdi-microphone</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Audio</v-list-item-title>
-                <v-list-item-subtitle>Add audio</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -769,45 +739,45 @@ export default {
     gigsDialog: false,
     gigs: [
       {
-        moniker: 'Neighborly Gig',
-        description: 'Neighborly assistance with a project',
+        moniker: 'Gig',
+        description: 'unclaimed gig',
         pay: '$18.20',
         icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'gloves', 'food'
         ]
       }, {
-        moniker: 'Local Job',
-        description: 'Neighborly utilities job',
+        moniker: 'Job',
+        description: 'unclaimed job',
         icon: 'mdi-domain',
         chips: [
           'outside', 'gloves', 'food'
         ]
       }, {
-        moniker: 'Entrepreneur Gig',
-        description: 'Co-working subsidy for gigging',
+        moniker: 'Gig',
+        description: 'unclaimed entrepreneurship gig',
         icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'co-working', 'food'
         ]
       }, {
-        moniker: 'Mentorship Gig',
-        description: 'Mentorship subsidy for gigging',
+        moniker: 'Gig',
+        description: 'unclaimed mentorship gig',
         icon: 'mdi-star-circle',
         chips: [
           'face coverings', 'children'
         ]
       }, {
-        moniker: 'Transportation Job',
-        description: 'Work in local transportation',
+        moniker: 'Job',
+        description: 'unclaimed',
         icon: 'mdi-domain',
         pay: '$33.00/hr',
         chips: [
           'face coverings', 'fuel included'
         ]
       }, {
-        moniker: 'Family Healthcare Job',
-        description: 'Family healthcare job',
+        moniker: 'Job',
+        description: 'unclaimed healthcare job',
         icon: 'mdi-domain',
         pay: '$52.27/hr',
         chips: [
