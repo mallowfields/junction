@@ -563,7 +563,8 @@
       :timeout="5000"
       absolute
       centered
-      bottom
+      top
+      class="pt-14"
       color="Villager accent-4"
       rounded="pill"
       elevation="24"
@@ -579,8 +580,8 @@
         <v-btn
           color="Villager lighten-4"
           v-bind="attrs"
-          rounded
-          outlined
+          text
+          class="claim-bounce"
           @click="snackbar = false; gigsDialog = true"
         >
           <v-icon left>
@@ -598,8 +599,7 @@
       color="Villager"
       elevation="10"
     >
-      <v-icon
-        class="left claim-bounce">
+      <v-icon>
         mdi-bell
       </v-icon>
       <v-spacer>
@@ -892,7 +892,8 @@ export default {
     attribution: '',
     withTooltip: latLng(47.41422, -1.250482),
     mapOptions: {
-      zoomSnap: 0.5
+      zoomSnap: 0.5,
+      zoomControl: false
     },
     showDevMessage: false,
     showMap: true,
