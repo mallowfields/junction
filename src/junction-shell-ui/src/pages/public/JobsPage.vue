@@ -305,13 +305,12 @@
                             x-small
                             outlined
                             class="ml-3"
-                            @click="website = true">
+                            @click="window.open('https://jessachalla.com/bipoc', '_blank')">
                             source
                           </v-btn>
                           <v-btn
                             x-small
-                            outlined
-                            class="ml-3"
+                            class="ml-3 class"
                             color="Villager"
                             @click="viewProfile(item)">
                             connect

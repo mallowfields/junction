@@ -3,6 +3,8 @@
     <v-card-text>
       Welcome,  use the menu.
     </v-card-text>
+    <v-img src="/qr-demo.png"></v-img>
+
     <v-divider></v-divider>
     <v-dialog
       v-model="coverDialog"
