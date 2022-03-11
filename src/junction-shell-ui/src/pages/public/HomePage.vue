@@ -129,6 +129,7 @@ export default {
       this.userName = userName
     },
     playChime: function () {
+      return
       this.chiming = true
       var audio = new Audio('greeting.mp3')
       audio.volume = 0.25

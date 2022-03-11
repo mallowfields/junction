@@ -236,6 +236,7 @@ export default {
   },
   methods: {
     playChime: function () {
+      return
       var audio = new Audio('greeting.mp3')
       this.chiming = true
       audio.volume = 0.5
