@@ -197,7 +197,7 @@
               >
               <v-list-item-content>
                 <v-list-item-title class="d-flex caption align-center justify-content justify-center white--text">
-                  <v-icon right class="mr-5" size="50" color="white">{{ !validated ? "mdi-power-plug mdi-rotate-90" : "mdi-content-cut" }}</v-icon>
+                  <v-icon right class="mr-5" size="50" color="white">{{ !validated ? "mdi-navigation mdi-rotate-90" : "mdi-content-cut" }}</v-icon>
                   {{ validationMessage }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -461,7 +461,7 @@ export default {
   components: { },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
-    this.validationMessage = 'SWIPE RIGHT TO CONNECT'
+    this.validationMessage = 'CONNECT'
   },
   methods: {
     viewProfile: function (item, event) {
@@ -484,7 +484,7 @@ export default {
         this.connectionProgressColor = 'Villager'
         this.connectionProgressValue = 100
         console.log(this.$vuetify.breakpoint.smAndUp)
-        this.validationMessage = 'SWIPE RIGHT TO DISCONNECT'
+        this.validationMessage = 'DISCONNECT'
         this.validated = true
       }, 6000)
     },
@@ -492,7 +492,7 @@ export default {
       this.validated = false
       this.connectionProgressColor = 'grey'
       this.connectionProgressValue = 30
-      this.validationMessage = 'SWIPE RIGHT TO DISCONNECT'
+      this.validationMessage = 'DISCONNECT'
     },
     goBack: function () {
       this.$router.push('/')

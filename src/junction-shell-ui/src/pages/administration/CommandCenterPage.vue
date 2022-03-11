@@ -99,7 +99,7 @@
       x-large
       @click="actorIsReady">
        <v-icon left>
-         mdi-power-plug
+         mdi-navigation mdi-rotate-90
        </v-icon>
        connect
      </v-btn>

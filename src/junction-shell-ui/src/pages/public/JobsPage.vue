@@ -486,7 +486,7 @@ export default {
       setTimeout(() => {
         this.connectionProgressColor = 'Villager'
         this.connectionProgressValue = 100
-        this.validationMessage = 'SWIPE RIGHT TO WITHDRAW'
+        this.validationMessage = 'WITHDRAW'
         this.validated = true
       }, 6000)
     },
@@ -494,7 +494,7 @@ export default {
       this.validated = false
       this.connectionProgressColor = 'grey'
       this.connectionProgressValue = 30
-      this.validationMessage = 'SWIPE RIGHT TO APPLY'
+      this.validationMessage = 'APPLY'
     },
     goBack: function () {
       this.$router.push('/')
@@ -523,7 +523,7 @@ export default {
     connectionProgressValue: 10,
     connectionProgressColor: 'grey',
     validated: false,
-    validationMessage: 'SWIPE RIGHT TO APPLY',
+    validationMessage: 'APPLY',
     activeProfile: {},
     enterContext: 'Jobs',
     purposeIcon: 'mdi-domain',

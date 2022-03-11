@@ -517,7 +517,7 @@ export default {
       setTimeout(() => {
         this.connectionProgressColor = 'Data'
         this.connectionProgressValue = 100
-        this.validationMessage = 'SWIPE RIGHT TO DISCONNECT'
+        this.validationMessage = 'DISCONNECT'
         this.validated = true
       }, 6000)
     },
@@ -525,7 +525,7 @@ export default {
       this.validated = false
       this.connectionProgressColor = 'grey'
       this.connectionProgressValue = 30
-      this.validationMessage = 'SWIPE RIGHT TO CONNECT'
+      this.validationMessage = 'CONNECT'
     },
     goBack: function () {
       this.$router.push('/')
@@ -990,7 +990,7 @@ export default {
     connectionProgressValue: 10,
     connectionProgressColor: 'grey',
     validated: false,
-    validationMessage: 'SWIPE RIGHT TO CONNECT',
+    validationMessage: 'CONNECT',
     activeProfile: {},
     enterContext: 'Intake',
     snackbar: true,
