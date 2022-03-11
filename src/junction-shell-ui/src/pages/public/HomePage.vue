@@ -4,7 +4,31 @@
       Welcome,  use the menu.
     </v-card-text>
     <v-img src="/qr-demo.png"></v-img>
+    <v-card-actions>
+      <v-row>
+        <v-col v-show="$vuetify.breakpoint.smAndUp">
+        </v-col>
+        <v-col>
+          <v-col>
+            <v-row class="caption mb-2">
+              sponsored by
+            </v-row>
+            <v-row>
+              <v-divider></v-divider>
+            </v-row>
+            <v-row>
+              <v-img
+                width="220px"
+                src="sponsors.png">
+              </v-img>
+            </v-row>
+          </v-col>
+        </v-col>
+        <v-col v-show="$vuetify.breakpoint.smAndUp">
 
+        </v-col>
+      </v-row>
+    </v-card-actions>
     <v-divider></v-divider>
     <v-dialog
       v-model="coverDialog"
@@ -78,24 +102,6 @@
           </v-btn>
         </v-card-actions>
         <v-divider></v-divider>
-        <v-card-actions>
-          <v-row>
-            <v-col v-show="$vuetify.breakpoint.smAndUp">
-
-            </v-col>
-            <v-col class="caption Data--text">
-              sponsored by
-              <v-img
-                :style="$vuetify.breakpoint.smAndUp ? 'max-width: 600px' : 'max-width: calc(100vw - 40px)'"
-                src="sponsors.png">
-              </v-img>
-
-            </v-col>
-            <v-col v-show="$vuetify.breakpoint.smAndUp">
-
-            </v-col>
-          </v-row>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-card>
