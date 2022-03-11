@@ -118,22 +118,6 @@
           }"
         >
           <template slot="progress">
-            <v-progress-linear
-              :color="profileSkipped ? 'grey lighten-1' : 'Villager'"
-              height="30"
-              value="100"
-              class="Villager--text"
-              stream
-              striped
-              v-show="$vuetify.breakpoint.smAndUp ? false : true"
-              :indeterminate="!confirming"
-            >
-            <v-icon small color="Villager" v-show="!confirming" left>
-              {{!chiming ? "mdi-human-greeting" : "mdi-volume-high"}}
-            </v-icon>
-            <v-icon x-large v-show="confirming && !profileSkipped" color="white">mdi-check</v-icon>
-            {{validationMessage}}
-          </v-progress-linear>
           </template>
           <v-img
             tile
@@ -164,7 +148,7 @@
             <v-btn
               color="Villager"
               x-large
-              v-show="$vuetify.breakpoint.smAndUp ? true : false"
+              class="pr-5"
               @click="nextProfileQuestion()"
             >
               <v-icon left>
