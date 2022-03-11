@@ -38,7 +38,7 @@
                 x-large
                 block
                 rounded
-                :disabled="togglingSocialJusticePower"
+                :loading="togglingSocialJusticePower"
                 class="white--text"
                 :outlined="socialJusticePowers"
                 @click="toggleSocialJusticePowers">
@@ -55,7 +55,7 @@
                 x-large
                 block
                 rounded
-                :disabled="togglingAdminPower"
+                :loading="togglingAdminPower"
                 class="white--text"
                 :outlined="adminPowers"
                 @click="toggleAdminPowers">
@@ -74,7 +74,7 @@
                 x-large
                 block
                 rounded
-                :disabled="togglingCasualPower"
+                :loading="togglingCasualPower"
                 class="white--text"
                 :outlined="casualPowers"
                 @click="toggleCasualPowers">
@@ -213,23 +213,25 @@ export default {
     setOrganizationName: function () {
       this.$store.commit('organizationName', this.organizationName)
     },
+    reloadWindow: function () {
+      setTimeout(() => {
+        this.window.location.reload()
+      }, 1000)
+    },
     toggleSocialJusticePowers: function () {
       this.togglingSocialJusticePower = true
       this.$store.commit('socialJusticePowers', !this.socialJusticePowers)
-      this.$router.push('/')
-      this.window.location.reload()
+      this.reloadWindow()
     },
     toggleAdminPowers: function () {
       this.togglingAdminPower = true
       this.$store.commit('adminPowers', !this.adminPowers)
-      this.$router.push('/')
-      this.window.location.reload()
+      this.reloadWindow()
     },
     toggleCasualPowers: function () {
       this.togglingCasualPower = true
       this.$store.commit('casualPowers', !this.casualPowers)
-      this.$router.push('/')
-      this.window.location.reload()
+      this.reloadWindow()
     }
   },
   data: () => ({
