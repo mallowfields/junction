@@ -246,7 +246,7 @@ export default {
     settingsDialog: false,
     currentTheme: null,
     isDark: true,
-    soundEffects: true,
+    soundEffects: false,
     adminPowers: false,
     socialJusticePowers: false,
     casualPowers: false,
