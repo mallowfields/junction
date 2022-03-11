@@ -80,18 +80,18 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-row>
-            <v-col>
+            <v-col v-show="$vuetify.breakpoint.smAndUp">
 
             </v-col>
-            <v-col class="caption">
+            <v-col class="caption Data--text">
               sponsored by
               <v-img
-                style="max-width: 600px"
+                :style="$vuetify.breakpoint.smAndUp ? 'max-width: 600px' : 'max-width: calc(100vw - 40px)'"
                 src="sponsors.png">
               </v-img>
 
             </v-col>
-            <v-col>
+            <v-col v-show="$vuetify.breakpoint.smAndUp">
 
             </v-col>
           </v-row>
