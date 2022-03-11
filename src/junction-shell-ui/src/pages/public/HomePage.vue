@@ -77,6 +77,25 @@
             start
           </v-btn>
         </v-card-actions>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-row>
+            <v-col>
+
+            </v-col>
+            <v-col class="caption">
+              sponsored by
+              <v-img
+                style="max-width: 600px"
+                src="sponsors.png">
+              </v-img>
+
+            </v-col>
+            <v-col>
+
+            </v-col>
+          </v-row>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-card>
