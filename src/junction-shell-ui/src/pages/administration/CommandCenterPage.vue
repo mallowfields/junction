@@ -398,29 +398,7 @@
         </v-list>
       </v-card>
     </v-dialog>
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="5000"
-      absolute
-      centered
-      bottom
-      color="Data accent-4"
-      rounded="pill"
-      elevation="24"
-    >
-      3 gigs in this area!
 
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="white"
-          text
-          v-bind="attrs"
-          @click="goToProcessCenter"
-        >
-          open
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-dialog>
 </template>
 
