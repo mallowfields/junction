@@ -242,7 +242,7 @@
               >
               <v-list-item-content>
                 <v-list-item-title class="d-flex caption align-center justify-content justify-center white--text">
-                  <v-icon right class="mr-5" size="50" color="white">{{ !validated ? "mdi-power-plug mdi-rotate-90" : "mdi-content-cut" }}</v-icon>
+                  <v-icon right class="mr-5" size="50" color="white">{{ !validated ? "mdi-navigation mdi-rotate-90" : "mdi-content-cut" }}</v-icon>
                   {{validationMessage}}
                 </v-list-item-title>
               </v-list-item-content>
@@ -306,7 +306,7 @@
                             color="Villager"
                             @click="viewProfile(item)">
                             <v-icon small class="mr-2">
-                              mdi-power-plug mdi-rotate-90
+                              mdi-navigation mdi-rotate-90
                             </v-icon>
                             apply
                           </v-btn>
@@ -314,8 +314,11 @@
                             text
                             x-small
                             outlined
-                            class="ml-3"
+                            class="ml-3 Villager--text"
                             @click="window.open('https://jessachalla.com/bipoc', '_blank')">
+                            <v-icon small class="mr-2" color="Villager">
+                              mdi-chart-bubble
+                            </v-icon>
                             source
                           </v-btn>
                         </v-col>
