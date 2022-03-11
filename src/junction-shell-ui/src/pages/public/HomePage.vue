@@ -61,7 +61,7 @@
         </v-card-title>
 
         <v-card-text>
-          2022.0.1 Social Justice Shell
+          2022.0.1
         </v-card-text>
         <v-divider></v-divider>
         <v-img

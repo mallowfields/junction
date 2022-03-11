@@ -194,26 +194,26 @@ export default {
       activeQuestionIndex: 0,
       profileQuestion: {
         image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
-        question: 'Are you a person with a smartphone?',
-        detail: 'The smartphone requires a data-plan through a provider or a WIFI connection'
+        question: 'Are you have a smartphone?',
+        detail: ''
       },
       profileQuestions: [
         {
           image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
-          question: 'Are you a person with a smartphone?',
-          detail: 'This includes any persons who identify as person'
+          question: 'Do you have a smartphone?',
+          detail: ''
         }, {
           image: 'https://th.bing.com/th/id/OIP.5Kg9Z3D3Xg3jT9gFTNn0SQHaFi?pid=ImgDet&rs=1',
           question: 'Do you want to do something?',
-          detail: 'This includes maybe doing things that you but you know about'
+          detail: ''
         }, {
           image: 'https://static.wixstatic.com/media/e73c83_c9088fadec404f70a392764974eb2d70~mv2.jpg/v1/crop/x_0,y_39,w_1152,h_689/fill/w_930,h_557,al_c,q_85,usm_0.66_1.00_0.01/municipalphoto.webp',
-          question: 'Do you know where the thing is happening?',
-          detail: 'Can you locate points of interest on a map?'
+          question: 'Do you know where?',
+          detail: ''
         }, {
           image: 'https://www.reviewpro.com/wp-content/uploads/2018/12/business-business-people-calendar-1187439.jpg',
-          question: 'Do you know when the thing is happening?',
-          detail: 'Can you set dates on a calendar? Dates can be past, present, or in the future.'
+          question: 'Do you know when?',
+          detail: ''
         }
       ]
     }
