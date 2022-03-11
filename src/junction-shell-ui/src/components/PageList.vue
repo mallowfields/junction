@@ -60,7 +60,7 @@
           color="Data darken-1"
           v-if="adminPowers">
           <v-divider class="mr-2"></v-divider>
-          <v-icon small color="white">
+          <v-icon small color="Data lighten-2">
             mdi-charity
           </v-icon>
           <v-divider class="ml-2"></v-divider>

@@ -157,14 +157,6 @@
           </template>
 
           <v-list>
-            <v-list-item>
-              <v-list-item-title class="caption">
-                <v-icon left>
-                  mdi-crosshairs-gps
-                </v-icon>
-                enable gps
-              </v-list-item-title>
-            </v-list-item>
             <v-list-item
               @click="shareViewDialog = true">
               <v-list-item-title class="caption">
