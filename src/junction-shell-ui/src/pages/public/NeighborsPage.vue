@@ -9,9 +9,9 @@
       v-model="pathwaysMenu"
       app
       temporary
-      bottom
-      mini-variant
+      :bottom="$vuetify.breakpoint.smAndUp ? false : true"
       elevation="0"
+      width="400px"
       :src="$store.state.displayTheme === 'dark' ? '/grey-gradient-background.jpg' : '/card-texture.png'"
       @transitionend="checkFab"
     >
