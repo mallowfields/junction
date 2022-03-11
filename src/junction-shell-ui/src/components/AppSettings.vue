@@ -32,12 +32,12 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="Villager--text">Social Justice</v-list-item-title>
-              <v-list-item-subtitle class="caption">Community tools for neighborhoods</v-list-item-subtitle>
+              <v-list-item-subtitle class="caption mb-2">Community powers for neighborhoods</v-list-item-subtitle>
               <v-btn
                 color="Villager"
                 x-large
-                block
                 rounded
+                style="max-width: 320px;"
                 :loading="togglingSocialJusticePower"
                 class="white--text"
                 :outlined="socialJusticePowers"
@@ -46,14 +46,15 @@
               </v-btn>
             </v-list-item-content>
           </v-list-item>
+          <v-divider class="my-2"></v-divider>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="Data--text">Administration</v-list-item-title>
-              <v-list-item-subtitle class="caption">Administration tools for neighborhoods</v-list-item-subtitle>
+              <v-list-item-subtitle class="caption mb-2">Community powers for administration</v-list-item-subtitle>
               <v-btn
                 color="Data"
                 x-large
-                block
+                style="max-width: 320px;"
                 rounded
                 :loading="togglingAdminPower"
                 class="white--text"
@@ -63,16 +64,17 @@
               </v-btn>
             </v-list-item-content>
           </v-list-item>
+          <v-divider class="my-2"></v-divider>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="blue--text">
                 Casual
               </v-list-item-title>
-              <v-list-item-subtitle class="caption">Tools for casual content</v-list-item-subtitle>
+              <v-list-item-subtitle class="caption mb-2">Community powers for casual content</v-list-item-subtitle>
               <v-btn
                 color="blue"
                 x-large
-                block
+                style="max-width: 320px;"
                 rounded
                 :loading="togglingCasualPower"
                 class="white--text"
@@ -83,7 +85,9 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider class="my-2"></v-divider>
-          <v-subheader>Accessability</v-subheader>
+          <v-subheader>
+            Visual Accessability
+          </v-subheader>
           <v-list-item>
             <v-switch
               v-model="isDark"
@@ -96,6 +100,10 @@
               <v-list-item-subtitle>Dark theme for low light areas</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+          <v-divider class="my-2"></v-divider>
+          <v-subheader>
+            Audio Accessability
+          </v-subheader>
           <v-list-item>
             <v-switch
               v-model="soundEffects"
