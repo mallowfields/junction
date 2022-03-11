@@ -301,19 +301,22 @@
                         <v-col class="caption">
                           {{index+1}}.
                           <v-btn
+                            x-small
+                            class="ml-3 white--text"
+                            color="Villager"
+                            @click="viewProfile(item)">
+                            <v-icon small class="mr-2">
+                              mdi-power-plug mdi-rotate-90
+                            </v-icon>
+                            apply
+                          </v-btn>
+                          <v-btn
                             text
                             x-small
                             outlined
                             class="ml-3"
                             @click="window.open('https://jessachalla.com/bipoc', '_blank')">
                             source
-                          </v-btn>
-                          <v-btn
-                            x-small
-                            class="ml-3 class"
-                            color="Villager"
-                            @click="viewProfile(item)">
-                            connect
                           </v-btn>
                         </v-col>
                           <v-spacer></v-spacer>
