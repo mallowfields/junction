@@ -360,7 +360,7 @@
                 <v-icon color="Data" class="ml-2 mt-2">mdi-crosshairs</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Set Boundary</v-list-item-title>
+                <v-list-item-title>Set Scope</v-list-item-title>
                 <v-list-item-subtitle>Set geospatial bounds</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -395,38 +395,11 @@
             <v-list-item
               @click="geoJsonDialog = true">
               <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-chart-timeline-variant</v-icon>
+                <v-icon color="Data" class="ml-2 mt-2">mdi-map</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>GeoJSON</v-list-item-title>
-                <v-list-item-subtitle>Show geographic data by neighbors</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-image</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Photos</v-list-item-title>
-                <v-list-item-subtitle>Show photos by neighbors</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-video</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Video</v-list-item-title>
-                <v-list-item-subtitle>Show videos by neighbors</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-microphone</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Audio</v-list-item-title>
-                <v-list-item-subtitle>Show audio by neighbors</v-list-item-subtitle>
+                <v-list-item-subtitle>Load .geojson formated geographic data</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
