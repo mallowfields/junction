@@ -1,10 +1,11 @@
 <template>
   <v-card tile>
     <v-toolbar absolute width="100%" dense color="Villager darken-3">
-      <v-spacer>
-
-      </v-spacer>
-      <div class="caption small Villager--text">menu</div>
+      <v-divider class="mr-2"></v-divider>
+      <v-icon small color="Villager">
+        mdi-all-inclusive
+      </v-icon>
+      <v-divider class="ml-2"></v-divider>
     </v-toolbar>
     <v-list-item-subtitle
       class="pt-5 text-center grey--text caption">
@@ -58,8 +59,11 @@
           dense
           color="Data darken-1"
           v-if="adminPowers">
-          <v-spacer></v-spacer>
-          <div class="caption small white--text">administration</div>
+          <v-divider class="mr-2"></v-divider>
+          <v-icon small color="white">
+            mdi-charity
+          </v-icon>
+          <v-divider class="ml-2"></v-divider>
         </v-toolbar>
 
         <v-list-item

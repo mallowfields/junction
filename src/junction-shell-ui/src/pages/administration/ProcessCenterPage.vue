@@ -1004,7 +1004,7 @@ export default {
       fillColor: 'white'
     },
     center: latLng(42.9634, -85.6681),
-    url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2VuZGVsbGpvc2VwaCIsImEiOiJja3IxZ252YWkxYm00MnBvNzhudWpvZGhvIn0.10YRNB3jfk6CedUpgXfPBA',
+    url: process.env.VUE_APP_MAPBOX_URL,
     attribution: '',
     withTooltip: latLng(47.41422, -1.250482),
     mapOptions: {

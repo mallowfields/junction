@@ -27,7 +27,7 @@
         <v-spacer></v-spacer>
         <v-divider vertical class="mx-5"></v-divider>
         <div>
-          <div class="caption small white--text">$782.00</div>
+          <div class="caption small white--text">$0.00</div>
           <div class="caption x-small yellow--text">usd</div>
         </div>
         <v-icon class="ma-3 scale-big-small white--text" size="20">
@@ -183,10 +183,12 @@
         small
         left
         absolute
+        width="100px"
         style="border-radius: 0%; top: calc(100vh - 76px);"
         @click="actorIsReady"
       >
-        <v-icon size="20" color="Villager">mdi-all-inclusive</v-icon>
+        <v-icon size="20" class="mr-2" color="Villager">mdi-all-inclusive</v-icon>
+        $0.00
       </v-btn>
       <div
         ref="mapContainer"
