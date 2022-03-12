@@ -204,13 +204,13 @@
             :attribution="attribution"
           >
           </l-tile-layer>
-          <l-circle-marker
-            :lat-lng="circleMarker.center"
-            :radius="circleMarker.radius"
-            :color="circleMarker.color"
-            :fillColor="circleMarker.fillColor"
+          <l-marker
+            ref="dragMarker"
+            :lat-lng="markerDragged ? lastMarkerPosition : circleMarker.center"
+            :icon="getMarkerIcon"
+            :draggable="true"
+            @dragend="markerMoved"
           />
-
           <l-circle-marker
             v-for="marker in marker.partners"
             :key="marker.moniker"
@@ -525,8 +525,8 @@
 </template>
 
 <script>
-import { latLng } from 'leaflet'
-import { LMap, LTileLayer, LCircleMarker, LGeoJson } from 'vue2-leaflet'
+import { latLng, icon } from 'leaflet'
+import { LMap, LTileLayer, LCircleMarker, LGeoJson, LMarker} from 'vue2-leaflet'
 import LControlFullscreen from 'vue2-leaflet-fullscreen'
 import LFreeDraw from 'vue2-leaflet-freedraw'
 // https://github.com/Esurnir/vue2-leaflet-freedraw
@@ -548,12 +548,28 @@ import moment from 'moment'
 
 export default {
   mixins: [apiClient, entityTypes],
-  components: { LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider },
+  components: { LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider, LMarker },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
   },
+  computed: {
+    getMarkerIcon () {
+      return icon({
+        iconUrl: 'custom-marker-villager.png',
+        iconSize: [120, 120],
+        iconAnchor: [0, 0],
+        popupAnchor: [0, -28]
+      })
+    }
+  },
   methods: {
+    markerMoved: function (event) {
+      console.log('moved')
+      this.markerDragged = true
+      this.networkOptionsDialog = true
+      this.lastMarkerPosition = this.$refs.dragMarker.mapObject['_latlng']
+    },
     goHome: function () {
       this.$router.push('/')
     },
@@ -721,6 +737,8 @@ export default {
     mapContext: 'Gigs',
     purposeIcon: 'mdi-earth',
     zoom: 11,
+    markerDragged: false,
+    lastMarkerPosition: latLng(42.9634, -85.6681),
     mapCenter: latLng(42.9634, -85.6681),
     circleMarker: {
       center: latLng(42.9634, -85.6681),
