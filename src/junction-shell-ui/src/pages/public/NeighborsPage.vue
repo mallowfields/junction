@@ -669,10 +669,10 @@ export default {
     gigsDialog: false,
     gigs: [
       {
-        moniker: 'Gig',
-        description: 'unclaimed gig',
-        pay: '$18.20',
-        icon: 'mdi-star-circle',
+        moniker: 'Promotion',
+        description: 'Language services subsidy',
+        pay: '$5000 yearly',
+        icon: 'mdi-tag-outline',
         chips: [
           'face coverings', 'gloves', 'food'
         ]
@@ -691,25 +691,25 @@ export default {
           'face coverings', 'co-working', 'food'
         ]
       }, {
-        moniker: 'Gig',
-        description: 'unclaimed mentorship gig',
-        icon: 'mdi-star-circle',
+        moniker: 'Mentorship Program',
+        description: 'K-12',
+        icon: 'mdi-school',
         chips: [
           'face coverings', 'children'
         ]
       }, {
-        moniker: 'Job',
-        description: 'unclaimed',
-        icon: 'mdi-domain',
-        pay: '$33.00/hr',
+        moniker: 'Transportation Gig',
+        description: null,
+        icon: 'mdi-train-car',
+        pay: '$33.00 hourly',
         chips: [
-          'face coverings', 'fuel included'
+          'face coverings', 'fuel included', 'drivers license'
         ]
       }, {
-        moniker: 'Job',
-        description: 'unclaimed healthcare job',
+        moniker: 'Indoor Job',
+        description: 'tax assistance',
         icon: 'mdi-domain',
-        pay: '$52.27/hr',
+        pay: '$52.27 hourly',
         chips: [
           'face coverings', 'transportation'
         ]

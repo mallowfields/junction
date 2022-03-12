@@ -1,7 +1,7 @@
 <template>
   <v-card class="ma-1" flat outlined tile max-width="300px">
     <v-card-text>
-      Welcome,  use the menu.
+      scan to connect to another device
     </v-card-text>
     <v-img src="/qr-demo.png"></v-img>
     <v-card-actions>

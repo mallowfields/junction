@@ -53,23 +53,31 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-      <!-- gps, share -->
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      ></v-progress-linear>
-
+      <v-btn
+        fab
+        dark
+        small
+        left
+        absolute
+        width="100px"
+        style="border-radius: 0%; top: calc(100vh - 76px);"
+        @click="actorIsReady"
+      >
+        <v-icon size="20" class="mr-2" color="Data">mdi-navigation mdi-rotate-90</v-icon>
+        0
+      </v-btn>
       <div
         ref="mapContainer"
         width="100%"
-        style="width: 100vw; z-index:-1; height: calc(100vh - 170px);">
+        :style="`width: 100vw; z-index:-1; overflow:hidden; height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '75px' : '66px'});`">
+
         <l-map
           ref="map"
           :zoom="zoom"
           :center="center"
           :options="mapOptions"
           :attributionControl="false"
-          style="height: calc(100vh - 170px); width: 100vw;"
+          :style="`height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '67px' : '66px'}); width: 100vw;`"
         >
           <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
@@ -80,11 +88,10 @@
             :attribution="attribution"
           >
           </l-tile-layer>
-          <l-circle-marker
+          <l-marker
             :lat-lng="circleMarker.center"
-            :radius="circleMarker.radius"
-            :color="circleMarker.color"
-            :fillColor="circleMarker.fillColor"
+            :icon="getMarkerIcon"
+            :draggable="true"
           />
           <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
             :geojson="geoData"
@@ -93,16 +100,16 @@
           </l-geo-json>
         </l-map>
       </div>
-     <v-btn
-      class="ma-5"
-      color="Data"
-      x-large
-      @click="actorIsReady">
-       <v-icon left>
-         mdi-navigation mdi-rotate-90
-       </v-icon>
-       connect
-     </v-btn>
+      <v-progress-linear
+        color="Data"
+        buffer-value="30"
+        value="25"
+        height="10"
+        striped
+        stream
+        absolute
+      ></v-progress-linear>
+      <v-spacer></v-spacer>
       <v-speed-dial
           v-show="showFab"
           id="networkFab"
@@ -180,9 +187,9 @@
               dark
               large
               color="Data"
-              @click="setPurpose('mdi-earth', 'Neighbors')"
+              @click="setPurpose('mdi-home-heart', 'Neighbors')"
             >
-              <v-icon size="40" color="white">mdi-earth</v-icon>
+              <v-icon size="40" color="white">mdi-home-heart</v-icon>
             </v-btn>
           </template>
           Homes
@@ -404,7 +411,7 @@
 
 <script>
 import { latLng, marker, icon } from 'leaflet'
-import { LMap, LTileLayer, LCircleMarker, LGeoJson } from 'vue2-leaflet'
+import { LMap, LTileLayer, LCircleMarker, LGeoJson, LMarker } from 'vue2-leaflet'
 import LControlFullscreen from 'vue2-leaflet-fullscreen'
 import LFreeDraw from 'vue2-leaflet-freedraw'
 // https://github.com/Esurnir/vue2-leaflet-freedraw
@@ -426,7 +433,7 @@ import moment from 'moment'
 
 export default {
   mixins: [apiClient, entityTypes],
-  components: { LMap, LTileLayer, LControlFullscreen, LCircleMarker, LGeoJson },
+  components: { LMap, LTileLayer, LControlFullscreen, LCircleMarker, LMarker, LGeoJson },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
@@ -442,10 +449,10 @@ export default {
     const geojson3 = await response3.json()
     const response4 = await fetch('/geojson/Suspended_Self_Impact_Map.geojson')
     const geojson4 = await response4.json()
-    this.loadedGeojson.push(geojson)
+    // this.loadedGeojson.push(geojson)
     // this.loadedGeojson.push(geojson2)
     this.loadedGeojson.push(geojson3)
-    this.loadedGeojson.push(geojson4)
+    // this.loadedGeojson.push(geojson4)
   },
   computed: {
     options () {
@@ -462,15 +469,23 @@ export default {
         onEachFeature: this.onEachFeatureFunction
       }
     },
+    getMarkerIcon () {
+      return icon({
+        iconUrl: 'custom-marker-02.png',
+        iconSize: [120, 120],
+        iconAnchor: [0, 0],
+        popupAnchor: [0, -28]
+      })
+    },
     styleFunction () {
       const fillColor = this.fillColor // important! need touch fillColor in computed for re-calculate when change fillColor
       return () => {
         return {
           weight: 2,
           color: '#ff5722',
-          opacity: 0.25,
+          opacity: 0.06,
           fillColor: fillColor,
-          fillOpacity: 0.25
+          fillOpacity: 0.10
         }
       }
     },
@@ -561,7 +576,7 @@ export default {
     shareViewDialog: false,
     enterContext: 'Neighbors',
     snackbar: true,
-    purposeIcon: 'mdi-earth',
+    purposeIcon: 'mdi-home-heart',
     zoom: 11,
     mapCenter: latLng(42.9634, -85.6681),
     circleMarker: {
