@@ -805,7 +805,7 @@ export default {
 
     hereDialog: false,
     connecting: false,
-    connected: false,
+    connected: true,
     statusSnackbar: false,
     networkOptionsDialog: false,
     showFab: true,
