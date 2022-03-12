@@ -1,13 +1,11 @@
 <template>
   <v-btn
-    text
-    outlined
     rounded
-    class="ml-3"
+    outlined
+    :color="$vuetify.theme.dark ? 'Villager' : 'grey'"
     @click="showSettings">
-    <v-icon
-      :color="$vuetify.theme.dark ? 'Villager' : 'white'"
-    >mdi-settings</v-icon>
+    <v-icon color="Villager"left>mdi-all-inclusive</v-icon>
+      powers
     <v-dialog
       width="500"
       fullscreen
@@ -18,8 +16,8 @@
           flat>
           <v-icon
             :color="$vuetify.theme.dark ? 'Villager' : 'primary'"
-            left>mdi-settings</v-icon>
-          Settings
+            left>mdi-all-inclusive</v-icon>
+          Powers
           <v-spacer></v-spacer>
           <v-btn
             @click="settingsDialog = false"
@@ -31,53 +29,61 @@
         </v-toolbar>
         <v-card-subtitle>
         <v-list three line>
-          <v-subheader>
-            Visual Accessability
-          </v-subheader>
           <v-list-item>
-            <v-switch
-              v-model="isDark"
-              @click="darkMode"
-              color="Villager"
-              class="mr-3">
-            </v-switch>
             <v-list-item-content>
-              <v-list-item-title>Dark Theme</v-list-item-title>
-              <v-list-item-subtitle>Dark theme for low light areas</v-list-item-subtitle>
+              <v-list-item-title class="Villager--text">Social Justice</v-list-item-title>
+              <v-list-item-subtitle class="caption mb-2">Community powers for neighborhoods</v-list-item-subtitle>
+              <v-btn
+                color="Villager"
+                x-large
+                rounded
+                style="max-width: 320px;"
+                :loading="togglingSocialJusticePower"
+                class="white--text"
+                :outlined="socialJusticePowers"
+                @click="toggleSocialJusticePowers">
+                  {{ socialJusticePowers ? `Release` : 'Enable'}} Powers
+              </v-btn>
             </v-list-item-content>
           </v-list-item>
           <v-divider class="my-2"></v-divider>
-          <v-subheader>
-            Audio Accessability
-          </v-subheader>
           <v-list-item>
-            <v-switch
-              v-model="soundEffects"
-              disabled
-              color="Villager"
-              class="mr-3">
-            </v-switch>
             <v-list-item-content>
-              <v-list-item-title>Sound Effects</v-list-item-title>
-              <v-list-item-subtitle>Play sound effects</v-list-item-subtitle>
+              <v-list-item-title class="Data--text">Administration</v-list-item-title>
+              <v-list-item-subtitle class="caption mb-2">Community powers for administration</v-list-item-subtitle>
+              <v-btn
+                color="Data"
+                x-large
+                style="max-width: 320px;"
+                rounded
+                :loading="togglingAdminPower"
+                class="white--text"
+                :outlined="adminPowers"
+                @click="toggleAdminPowers">
+                  {{ adminPowers ? `Release` : 'Enable'}} Powers
+              </v-btn>
             </v-list-item-content>
           </v-list-item>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-btn
-              @click="window.open('https://github.com/mallowfields/junction', '_blank')"
-              icon>
-              <v-img
-                contain
-                width="30"
-                height="30"
-                src="github.png"
-              ></v-img>
-            </v-btn>
-            <v-card-text class="caption">
-              mallowfields/junction
-            </v-card-text>
-          </v-card-actions>
+          <v-divider class="my-2"></v-divider>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="blue--text">
+                Casual
+              </v-list-item-title>
+              <v-list-item-subtitle class="caption mb-2">Community powers for casual content</v-list-item-subtitle>
+              <v-btn
+                color="blue"
+                x-large
+                style="max-width: 320px;"
+                rounded
+                :loading="togglingCasualPower"
+                class="white--text"
+                :outlined="casualPowers"
+                @click="toggleCasualPowers">
+                  {{ casualPowers ? `Release` : 'Enable'}} Powers
+              </v-btn>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
         </v-card-subtitle>
       </v-card>

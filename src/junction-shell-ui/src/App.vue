@@ -8,6 +8,7 @@
         @click.stop="bottomMenu = !bottomMenu"
       ></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <app-powers></app-powers>
       <app-settings></app-settings>
     </v-app-bar>
 
@@ -33,6 +34,7 @@
 <script>
 import PageList from '@/components/PageList.vue'
 import AppSettings from '@/components/AppSettings.vue'
+import AppPowers from '@/components/AppPowers.vue'
 import Loading from '@/components/Loading'
 import router from '@/routing/router'
 import store from '@/store/store'
@@ -41,7 +43,7 @@ import apiClient from '@/mixin/api-client'
 export default {
   name: 'Junction',
   mixins: [apiClient],
-  components: { Loading, PageList, AppSettings },
+  components: { Loading, PageList, AppSettings, AppPowers },
   router,
   store,
   mounted: function () {
