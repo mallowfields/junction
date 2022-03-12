@@ -89,9 +89,11 @@
           >
           </l-tile-layer>
           <l-marker
-            :lat-lng="circleMarker.center"
+            ref="dragMarker"
+            :lat-lng="markerDragged ? lastMarkerPosition : circleMarker.center"
             :icon="getMarkerIcon"
             :draggable="true"
+            @dragend="markerMoved"
           />
           <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
             :geojson="geoData"
@@ -342,8 +344,8 @@
       v-model="networkOptionsDialog">
       <v-card>
         <v-toolbar flat color="Data">
-          <v-icon color="white" left>mdi-shield-check</v-icon>
-          <v-toolbar-title class="white--text">Command Center</v-toolbar-title>
+          <v-icon color="white" left>mdi-home-heart</v-icon>
+          <v-toolbar-title class="white--text">Neighbors</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -356,19 +358,10 @@
           <v-list-item-group>
             <v-list-item>
               <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-crosshairs</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Set Scope</v-list-item-title>
-                <v-list-item-subtitle>Set geospatial bounds</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
                 <v-icon color="Data" class="ml-2 mt-2">mdi-crosshairs-question</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Request Information</v-list-item-title>
+                <v-list-item-title>Ask a question</v-list-item-title>
                 <v-list-item-subtitle>Ask for information or feedback</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -377,10 +370,11 @@
                 <v-icon color="Data" class="ml-2 mt-2">mdi-checkbox-marked-circle-outline</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>Load Records</v-list-item-title>
+                <v-list-item-title>Load records</v-list-item-title>
                 <v-list-item-subtitle>Load information or feedback</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
+            <v-divider class="my-5"></v-divider>
             <v-list-item>
               <v-list-item-icon>
                 <v-icon color="Data" class="ml-2 mt-2">mdi-human-handsup</v-icon>
@@ -388,17 +382,6 @@
               <v-list-item-content>
                 <v-list-item-title>Rally Volunteers</v-list-item-title>
                 <v-list-item-subtitle>Engage and coordinate volunteers</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider class="my-5"></v-divider>
-            <v-list-item
-              @click="geoJsonDialog = true">
-              <v-list-item-icon>
-                <v-icon color="Data" class="ml-2 mt-2">mdi-map</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>GeoJSON</v-list-item-title>
-                <v-list-item-subtitle>Load .geojson formated geographic data</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -515,6 +498,11 @@ export default {
     }
   },
   methods: {
+    markerMoved: function (event) {
+      this.markerDragged = true
+      this.networkOptionsDialog = true
+      this.lastMarkerPosition = this.$refs.dragMarker.mapObject['_latlng']
+    },
     goBack: function () {
       this.$router.push('/')
     },
@@ -570,6 +558,7 @@ export default {
     geosearchOptions: {
       provider: new OpenStreetMapProvider()
     },
+    markerDragged: false,
     loadingGeoJson: false,
     geoJsonUrl: null,
     geoJsonDialog: false,
@@ -578,6 +567,7 @@ export default {
     snackbar: true,
     purposeIcon: 'mdi-home-heart',
     zoom: 11,
+    lastMarkerPosition: latLng(42.9634, -85.6681),
     mapCenter: latLng(42.9634, -85.6681),
     circleMarker: {
       center: latLng(42.9634, -85.6681),
