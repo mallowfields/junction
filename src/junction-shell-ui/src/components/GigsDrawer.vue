@@ -186,7 +186,7 @@
       tile
       class="mx-auto"
     >
-      <!-- <app-poll></app-poll> -->
+      <app-poll :questions="questions"></app-poll>
       <v-list two-line>
         <v-list-item-group
           v-model="selected"
@@ -496,6 +496,18 @@ export default {
         headline: 'Subsidy for family Healthcare',
         subtitle: `Villager`,
         title: 'Family Healthcare Gig'
+      }
+    ],
+    questions: [
+      {
+        question: 'Do you have a smartphone?',
+        detail: ''
+      }, {
+        question: 'Do you have face coverings?',
+        detail: ''
+      }, {
+        question: 'Is this your neighborhood?',
+        detail: 'The current map view'
       }
     ]
   })

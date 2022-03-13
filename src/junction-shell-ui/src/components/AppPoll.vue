@@ -1,43 +1,11 @@
 <template>
   <v-card flat tile>
-    <v-dialog
-      v-model="skillsDialog">
-      <v-card
-        tile
-        fluid
-        flat>
-        <v-toolbar flat>
-          <v-icon color="Villager">mdi-human</v-icon>
-          <v-card-title class="Villager--text caption">
-            </v-card-title>
-          <v-spacer></v-spacer>
-          <v-btn
-            icon
-            @click="skillsDialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-toolbar>
-        <v-divider></v-divider>
-        <v-list dense one-line>
-          <v-list-item
-            v-for="(item, i) in profileQuestions"
-            :key="item.question">
-            <v-list-item-action class="mr-2">
-              <v-checkbox color="Villager"></v-checkbox>
-            </v-list-item-action>
-            <v-list-item-content class="caption">
-              {{ `${i + 1} - ${item.question}` }}
-              <!-- <v-list-item-subtitle></v-list-item-title> -->
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </v-dialog>
+
     <v-card flat tile fluid class="d-flex flex-column align-center">
       <v-card
         tile
         flat
-        v-show="profileComplete">
+        v-show="pollComplete">
         <v-card-title class="d-flex justify-center align-center">
           <v-icon class="ma-3 scale-big-small red--text" size="40">
             mdi-heart
@@ -49,14 +17,13 @@
       <v-card
         tile
         outlined
-        elevation="5"
+        elevation="0"
         width="400px"
         class="ma-2"
         :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
-        v-show="!profileComplete"
-        :loading="true"
+        v-show="!pollComplete"
         v-touch="{
-          right: () => nextProfileQuestion(),
+          right: () => nextPollQuestion(),
           left: () => playChime()
         }"
       >
@@ -64,33 +31,34 @@
         </template>
         <v-img
           tile
-          height="150"
-          :src="profileQuestion.image"
+          v-show="pollQuestion.image"
+          height="110"
+          :src="pollQuestion.image"
         ></v-img>
-        <h3 class="pa-5">{{profileQuestion.question}}</h3>
+        <h2 class="pa-2">{{pollQuestion.question}}</h2>
         <v-btn
-            class="ml-8"
+            class="ml-2"
             text
             x-small
             outlined
-            @click="profileStop"
+            @click="pollStop"
           >
-            <v-icon x-small color="Villager"class="mr-1">
+            <v-icon x-small :color="color" class="mr-1">
               mdi-close-circle-outline
             </v-icon>
             SKIP
           </v-btn>
         <v-card-text>
-          <div>{{profileQuestion.detail}}</div>
+          <div>{{pollQuestion.detail}}</div>
         </v-card-text>
-
+        <v-divider></v-divider>
         <v-card-actions>
           <v-btn
-            color="Villager"
+            :color="color"
             text
             x-large
             outlined
-            :disabled="profileSkipped"
+            :disabled="pollSkipped"
             @click="skip"
           >
             <v-icon left>
@@ -100,10 +68,10 @@
           </v-btn>
           <v-spacer></v-spacer>
           <v-btn
-            color="Villager"
+            :color="color"
             x-large
             class="pr-5 white--text"
-            @click="nextProfileQuestion()"
+            @click="nextPollQuestion()"
           >
             <v-icon left>
               mdi-check
@@ -113,12 +81,9 @@
 
         </v-card-actions>
         <v-progress-linear
-          :color="connectionProgressColor"
-          buffer-value="0"
+          :color="color"
           :value="connectionProgressValue"
-          height="10"
-          striped
-          stream
+          height="5"
         ></v-progress-linear>
       </v-card>
     </v-card>
@@ -126,29 +91,14 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      chiming: false,
-      dialog: true,
-      attentionDialog: false,
-      skillsDialog: false,
-      profileSkipped: false,
-      profileComplete: false,
-      allowInfoRequests: true,
-      allowLocationRequests: true,
-      connectionProgressValue: 10,
-      connectionProgressColor: 'Villager',
-      validationMessage: 'SWIPE TO CONFIRM',
-      confirming: false,
-      confirmed: false,
-      activeQuestionIndex: 0,
-      profileQuestion: {
-        image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
-        question: 'Do you have a smartphone?',
-        detail: ''
-      },
-      profileQuestions: [
-        {
+  mounted: function () {
+    this.pollQuestion = this.questions[0]
+  },
+  props: {
+    questions: {
+      type: Array,
+      default: () => {
+        return [{
           image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
           question: 'Do you have a smartphone?',
           detail: ''
@@ -164,8 +114,31 @@ export default {
           image: 'https://www.reviewpro.com/wp-content/uploads/2018/12/business-business-people-calendar-1187439.jpg',
           question: 'Do you know when?',
           detail: ''
-        }
-      ]
+        }]
+      }
+    },
+    color: {
+      type: String,
+      default: 'Villager'
+    }
+  },
+  data () {
+    return {
+      chiming: false,
+      dialog: true,
+      attentionDialog: false,
+      skillsDialog: false,
+      pollSkipped: false,
+      pollComplete: false,
+      allowInfoRequests: true,
+      allowLocationRequests: true,
+      connectionProgressValue: 10,
+      connectionProgressColor: 'Villager',
+      validationMessage: 'SWIPE TO CONFIRM',
+      confirming: false,
+      confirmed: false,
+      activeQuestionIndex: 0,
+      pollQuestion: {}
     }
   },
   methods: {
@@ -183,30 +156,29 @@ export default {
       }, 1000)
     },
     skip: function () {
-      if (this.profileComplete) return
+      if (this.pollComplete) return
       this.confirming = true
       this.connectionProgressColor = 'Grey'
       this.validationMessage = ''
-      this.profileSkipped = true
+      this.pollSkipped = true
       setTimeout(() => {
         this.changeQuestionData()
         this.confirming = false
-        this.profileSkipped = false
+        this.pollSkipped = false
         this.connectionProgressColor = 'Villager'
         this.validationMessage = 'SWIPE TO CONFIRM'
       }, 300)
     },
-    profileStop: function () {
-      this.profileComplete = true
+    pollStop: function () {
+      this.pollComplete = true
     },
-    nextProfileQuestion: function () {
-      if (this.profileComplete) return
+    nextPollQuestion: function () {
+      if (this.pollComplete) return
       this.confirming = true
-      this.profileSkipped = false
+      this.pollSkipped = false
       this.connectionProgressColor = 'Villager'
       this.validationMessage = ''
-      this.profileComplete = false
-
+      this.pollComplete = false
       setTimeout(() => {
         if (!this.changeQuestionData()) return
         this.confirming = false
@@ -216,26 +188,20 @@ export default {
     },
     changeQuestionData: function () {
       this.activeQuestionIndex++
-      let nextQuestion = Object.assign({}, this.profileQuestions[this.activeQuestionIndex])
-      let total = this.profileQuestions.length
+      let nextQuestion = Object.assign({}, this.questions[this.activeQuestionIndex])
+      let total = this.questions.length
       let complete = this.activeQuestionIndex
       this.connectionProgressValue = (complete / total) * 100
 
-      if ((this.profileQuestions.length + 1) === this.activeQuestionIndex) return
-      if (Object.keys(nextQuestion).length === 0) return this.finishProfile()
+      if ((this.questions.length + 1) === this.activeQuestionIndex) return
+      if (Object.keys(nextQuestion).length === 0) return this.finishPoll()
 
-      this.profileQuestion = nextQuestion
+      this.pollQuestion = nextQuestion
       return true
     },
-    finishProfile: function () {
-      this.profileComplete = true
+    finishPoll: function () {
+      this.pollComplete = true
       return false
-    },
-    goToHomeMap: function () {
-      this.$router.push('/neighbors')
-    },
-    goHome: function () {
-      this.$router.push('/')
     }
   }
 }

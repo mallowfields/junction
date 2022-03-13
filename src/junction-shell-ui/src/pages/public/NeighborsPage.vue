@@ -128,7 +128,7 @@
       ></v-progress-linear>
       <v-spacer></v-spacer>
       <v-speed-dial
-          v-show="showFab"
+          v-show="false"
           id="networkFab"
           top
           left
@@ -379,12 +379,15 @@
       </v-card>
     </v-dialog>
     <v-dialog
-      width="600"
+      width="400"
       flat
       persistent
       v-model="networkOptionsDialog">
       <v-card>
         <v-toolbar color="Villager" flat>
+          <v-icon color="Villager lighten-3">
+            mdi-all-inclusive
+          </v-icon>
           <v-spacer></v-spacer>
           <v-btn
             icon
@@ -392,30 +395,7 @@
             <v-icon color="white">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
-        <app-poll></app-poll>
-        <v-divider class="my-3"></v-divider>
-        <v-list dense>
-          <v-list-item-group>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Villager" class="ml-2 mt-2">mdi-assistant</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Leave Feedback</v-list-item-title>
-                <v-list-item-subtitle>Your thoughts and ideas</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon color="Villager" class="ml-2 mt-2">mdi-human-handsup</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>Volunteer</v-list-item-title>
-                <v-list-item-subtitle>Share ways you can help</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
+        <app-poll :questions="questions"></app-poll>
       </v-card>
     </v-dialog>
   </v-dialog>
@@ -458,7 +438,7 @@ export default {
       return icon({
         iconUrl: 'custom-marker-villager.png',
         iconSize: [120, 120],
-        iconAnchor: [0, 0],
+        iconAnchor: [60, 60],
         popupAnchor: [0, -28]
       })
     }
@@ -576,6 +556,15 @@ export default {
   },
   data: () => ({
     remainingGrantFunds: '$5,000',
+    questions: [
+      {
+        question: 'Are you near this location?',
+        detail: ''
+      }, {
+        question: 'Is this your neighborhood?',
+        detail: ''
+      }
+    ],
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },

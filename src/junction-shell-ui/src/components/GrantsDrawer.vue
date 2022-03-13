@@ -223,7 +223,7 @@
       tile
       class="mx-auto"
     >
-      <app-poll></app-poll>
+      <app-poll :questions="questions" color="Site"></app-poll>
       <v-list dense three-line>
         <v-list-item-group
           v-model="selected"
@@ -566,6 +566,15 @@ export default {
         headline: 'NAACP',
         subtitle: `Villager`,
         title: 'Voting Access - Transportation'
+      }
+    ],
+    questions: [
+      {
+        question: 'Do you need a small grant?',
+        detail: ''
+      }, {
+        question: 'Is this your neighborhood?',
+        detail: 'The current map view'
       }
     ]
   })

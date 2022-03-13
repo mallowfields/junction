@@ -186,6 +186,7 @@
       tile
       class="mx-auto"
     >
+      <app-poll :questions="questions"></app-poll>
       <v-list two-line>
         <v-list-item-group
           v-model="selected"
@@ -305,7 +306,6 @@
             ></v-divider>
           </template>
         </v-list-item-group>
-        <!-- <app-poll></app-poll> -->
       </v-list>
     </v-card>
 
@@ -488,6 +488,18 @@ export default {
         headline: 'Online Job training',
         subtitle: `Villager`,
         title: 'Training'
+      }
+    ],
+    questions: [
+      {
+        question: 'Do you need housing assistance?',
+        detail: ''
+      }, {
+        question: 'Do you need transportation?',
+        detail: ''
+      }, {
+        question: 'Is this your neighborhood?',
+        detail: 'The current map view'
       }
     ]
   })
