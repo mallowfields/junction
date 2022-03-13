@@ -15,111 +15,7 @@
       :src="$store.state.displayTheme === 'dark' ? '/grey-gradient-background.jpg' : '/card-texture.png'"
       @transitionend="checkFab"
     >
-      <v-toolbar
-        width="100%"
-        dense
-        color="Villager"
-        class="mb-2">
-        <v-icon left>
-          mdi-all-inclusive
-        </v-icon>
-        <div class="caption small">Junction</div>
-        <v-spacer></v-spacer>
-        <v-divider vertical class="mx-5"></v-divider>
-        <div>
-          <div class="caption small white--text">$0.00</div>
-          <div class="caption x-small yellow--text">usd</div>
-        </div>
-        <v-icon class="ma-3 scale-big-small white--text" size="20">
-          mdi-cash-100
-        </v-icon>
-      </v-toolbar>
-      <v-btn-toggle
-        dense
-        class="ml-2"
-      >
-        <v-btn small @click="goToJobs">
-          <v-icon color="Villager" left>
-            mdi-domain
-          </v-icon>
-          <span>Jobs</span>
-        </v-btn>
-
-        <v-btn small @click="goToGigs">
-          <v-icon color="Villager" left>
-            mdi-star-circle-outline
-          </v-icon>
-          <span>Gigs</span>
-        </v-btn>
-
-        <v-btn  disabled small>
-          <v-icon color="Villager" left>
-            mdi-tune
-          </v-icon>
-          <span>filters</span>
-        </v-btn>
-        <v-btn disabled color="Villager" small class="px-7">
-          <v-icon  class="white--text" small>
-            mdi-settings
-          </v-icon>
-        </v-btn>
-      </v-btn-toggle>
-      <v-card class="ma-2 pa-0" tile>
-          <v-list dense>
-            <v-list-item two-line>
-              <v-list-item-content>
-                <v-list-item-subtitle
-                  class="text-wrap"
-                >
-                  Adjust your profile to see different path options
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item
-              two-line
-              v-touch="{
-                right: () => acceptPathwayItem()
-              }"
-              v-for="gig in gigs"
-              :key="gig.moniker"
-              >
-              <v-list-item-content
-                @click="acceptPathwayItem()">
-                <v-list-item-title>
-                  <h1 class="ma-1">
-                    <v-icon color="Villager" left>
-                      {{ gig.icon }}
-                    </v-icon>
-                  {{ gig.moniker }}
-                  </h1>
-                </v-list-item-title>
-                <v-list-item-subtitle
-                  v-show="gig.pay"
-                  class="mx-1">
-                  <v-spacer></v-spacer>
-                  <v-icon class="Site--text mb-1" right>
-                    mdi-cash-100
-                  </v-icon>
-                  {{ gig.pay }}
-                </v-list-item-subtitle>
-                <v-list-item-subtitle
-                  class="pa-2">
-                  {{ gig.description }}
-                </v-list-item-subtitle>
-                <v-chip-group
-                  v-show="gig.chips"
-                  column
-                  v-for="chip in gig.chips"
-                  :key="chip"
-                >
-                  <v-chip small color="Villager lighten-1">{{ chip }}</v-chip>
-                 </v-chip-group>
-                <v-divider class="my-2"></v-divider>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-      </v-card>
+      <neighbors-drawer></neighbors-drawer>
     </v-navigation-drawer>
     <v-card tile flat>
       <v-toolbar
@@ -180,7 +76,7 @@
         @click="actorIsReady"
       >
         <v-icon size="20" class="mr-2" color="Villager">mdi-all-inclusive</v-icon>
-        $0.00
+        {{ remainingGrantFunds }}
       </v-btn>
       <div
         ref="mapContainer"
@@ -496,7 +392,8 @@
             <v-icon color="white">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
-        <v-divider></v-divider>
+        <app-poll></app-poll>
+        <v-divider class="my-3"></v-divider>
         <v-list dense>
           <v-list-item-group>
             <v-list-item>
@@ -546,9 +443,12 @@ import entityTypes from '@/mixin/entity-types'
 import apiClient from '@/mixin/api-client'
 import moment from 'moment'
 
+import NeighborsDrawer from '@/components/NeighborsDrawer.vue'
+import AppPoll from '@/components/AppPoll.vue'
+
 export default {
   mixins: [apiClient, entityTypes],
-  components: { LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider, LMarker },
+  components: { NeighborsDrawer, AppPoll, LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider, LMarker },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
@@ -675,6 +575,7 @@ export default {
     }
   },
   data: () => ({
+    remainingGrantFunds: '$5,000',
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },

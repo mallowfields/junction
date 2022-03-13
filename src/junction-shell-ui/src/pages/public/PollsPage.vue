@@ -125,7 +125,18 @@
             :src="profileQuestion.image"
           ></v-img>
           <h3 class="pa-5">{{profileQuestion.question}}</h3>
-
+          <v-btn
+              class="ml-8"
+              text
+              x-small
+              outlined
+              @click="profileStop"
+            >
+              <v-icon x-small color="Villager"class="mr-1">
+                mdi-close-circle-outline
+              </v-icon>
+              SKIP
+            </v-btn>
           <v-card-text>
             <div>{{profileQuestion.detail}}</div>
           </v-card-text>
@@ -140,15 +151,15 @@
               @click="skip"
             >
               <v-icon left>
-                mdi-cancel
+                mdi-close
               </v-icon>
-              SKIP
+              NO
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
               color="Villager"
               x-large
-              class="pr-5"
+              class="pr-5 white--text"
               @click="nextProfileQuestion()"
             >
               <v-icon left>
@@ -166,9 +177,6 @@
             striped
             stream
           ></v-progress-linear>
-          <v-card-subtitle class="caption Villager">
-          average time to complete: 1 minute
-          </v-card-subtitle>
         </v-card>
       </v-card>
     </v-card>
@@ -194,7 +202,7 @@ export default {
       activeQuestionIndex: 0,
       profileQuestion: {
         image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
-        question: 'Are you have a smartphone?',
+        question: 'Do you have a smartphone?',
         detail: ''
       },
       profileQuestions: [
@@ -245,6 +253,9 @@ export default {
         this.connectionProgressColor = 'Villager'
         this.validationMessage = 'SWIPE TO CONFIRM'
       }, 300)
+    },
+    profileStop: function () {
+      this.profileComplete = true
     },
     nextProfileQuestion: function () {
       if (this.profileComplete) return

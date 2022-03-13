@@ -61,20 +61,6 @@ export default {
           color: 'Villager',
           socialJusticePower: true,
           description: 'My World'
-        }, {
-          title: 'Gigs',
-          href: '/gigs',
-          icon: 'mdi-star-circle-outline',
-          color: 'Villager',
-          socialJusticePower: true,
-          description: 'My Gigs'
-        }, {
-          title: 'Jobs',
-          href: '/jobs',
-          icon: 'mdi-domain',
-          color: 'Villager',
-          socialJusticePower: true,
-          description: 'My Jobs'
         }
       ],
       casualLinks: [
@@ -88,6 +74,12 @@ export default {
       ],
       adminLinks: [
         {
+          title: 'Command',
+          href: '/command-center',
+          icon: 'mdi-earth',
+          color: 'Data',
+          description: 'Real-time Gig Management'
+        }, {
           title: 'GigCenter',
           href: '/gig-center',
           icon: 'mdi-star-circle-outline',
@@ -106,12 +98,6 @@ export default {
           icon: 'mdi-human',
           color: 'Data',
           description: 'Manage Intake and Outcomes'
-        }, {
-          title: 'Command',
-          href: '/command-center',
-          icon: 'mdi-shield-check',
-          color: 'Data',
-          description: 'Real-time Gig Management'
         }, {
           title: 'Referrals',
           href: '/referrals',

@@ -4,7 +4,7 @@
     outlined
     :color="$vuetify.theme.dark ? 'Villager' : 'grey'"
     @click="showSettings">
-    <v-icon color="Villager"left>mdi-all-inclusive</v-icon>
+    <v-icon color="Villager" left>mdi-all-inclusive</v-icon>
       powers
     <v-dialog
       width="500"

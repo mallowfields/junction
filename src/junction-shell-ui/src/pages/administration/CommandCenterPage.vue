@@ -63,7 +63,7 @@
         style="border-radius: 0%; top: calc(100vh - 76px);"
         @click="actorIsReady"
       >
-        <v-icon size="20" class="mr-2" color="Data">mdi-navigation mdi-rotate-90</v-icon>
+        <v-icon size="20" class="mr-2" color="Data">mdi-all-inclusive</v-icon>
         0
       </v-btn>
       <div

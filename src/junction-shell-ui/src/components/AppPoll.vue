@@ -1,0 +1,282 @@
+<template>
+  <v-card flat tile>
+    <v-dialog
+      v-model="skillsDialog">
+      <v-card
+        tile
+        fluid
+        flat>
+        <v-toolbar flat>
+          <v-icon color="Villager">mdi-human</v-icon>
+          <v-card-title class="Villager--text caption">
+            </v-card-title>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            @click="skillsDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-divider></v-divider>
+        <v-list dense one-line>
+          <v-list-item
+            v-for="(item, i) in profileQuestions"
+            :key="item.question">
+            <v-list-item-action class="mr-2">
+              <v-checkbox color="Villager"></v-checkbox>
+            </v-list-item-action>
+            <v-list-item-content class="caption">
+              {{ `${i + 1} - ${item.question}` }}
+              <!-- <v-list-item-subtitle></v-list-item-title> -->
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-dialog>
+    <v-card flat tile fluid class="d-flex flex-column align-center">
+      <v-card
+        tile
+        flat
+        v-show="profileComplete">
+        <v-card-title class="d-flex justify-center align-center">
+          <v-icon class="ma-3 scale-big-small red--text" size="40">
+            mdi-heart
+          </v-icon>
+          <h3 class="ma-2">Thank you!</h3>
+        </v-card-title>
+
+      </v-card>
+      <v-card
+        tile
+        outlined
+        elevation="5"
+        width="400px"
+        class="ma-2"
+        :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
+        v-show="!profileComplete"
+        :loading="true"
+        v-touch="{
+          right: () => nextProfileQuestion(),
+          left: () => playChime()
+        }"
+      >
+        <template slot="progress">
+        </template>
+        <v-img
+          tile
+          height="150"
+          :src="profileQuestion.image"
+        ></v-img>
+        <h3 class="pa-5">{{profileQuestion.question}}</h3>
+        <v-btn
+            class="ml-8"
+            text
+            x-small
+            outlined
+            @click="profileStop"
+          >
+            <v-icon x-small color="Villager"class="mr-1">
+              mdi-close-circle-outline
+            </v-icon>
+            SKIP
+          </v-btn>
+        <v-card-text>
+          <div>{{profileQuestion.detail}}</div>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn
+            color="Villager"
+            text
+            x-large
+            outlined
+            :disabled="profileSkipped"
+            @click="skip"
+          >
+            <v-icon left>
+              mdi-close
+            </v-icon>
+            NO
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="Villager"
+            x-large
+            class="pr-5 white--text"
+            @click="nextProfileQuestion()"
+          >
+            <v-icon left>
+              mdi-check
+            </v-icon>
+            yes
+          </v-btn>
+
+        </v-card-actions>
+        <v-progress-linear
+          :color="connectionProgressColor"
+          buffer-value="0"
+          :value="connectionProgressValue"
+          height="10"
+          striped
+          stream
+        ></v-progress-linear>
+      </v-card>
+    </v-card>
+  </v-card>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      chiming: false,
+      dialog: true,
+      attentionDialog: false,
+      skillsDialog: false,
+      profileSkipped: false,
+      profileComplete: false,
+      allowInfoRequests: true,
+      allowLocationRequests: true,
+      connectionProgressValue: 10,
+      connectionProgressColor: 'Villager',
+      validationMessage: 'SWIPE TO CONFIRM',
+      confirming: false,
+      confirmed: false,
+      activeQuestionIndex: 0,
+      profileQuestion: {
+        image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
+        question: 'Do you have a smartphone?',
+        detail: ''
+      },
+      profileQuestions: [
+        {
+          image: 'https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vd3bj2jPe/videoblocks-closeup-man-hands-texting-mobile-phone-outdoors-unknown-guy-touching-smartphone-screen-on-city-street-unrecognizable-person-hands-using-cellphone-outside_sf9ypadkw_thumbnail-1080_01.png',
+          question: 'Do you have a smartphone?',
+          detail: ''
+        }, {
+          image: 'https://th.bing.com/th/id/OIP.5Kg9Z3D3Xg3jT9gFTNn0SQHaFi?pid=ImgDet&rs=1',
+          question: 'Do you want to do something?',
+          detail: ''
+        }, {
+          image: 'https://static.wixstatic.com/media/e73c83_c9088fadec404f70a392764974eb2d70~mv2.jpg/v1/crop/x_0,y_39,w_1152,h_689/fill/w_930,h_557,al_c,q_85,usm_0.66_1.00_0.01/municipalphoto.webp',
+          question: 'Do you know where?',
+          detail: ''
+        }, {
+          image: 'https://www.reviewpro.com/wp-content/uploads/2018/12/business-business-people-calendar-1187439.jpg',
+          question: 'Do you know when?',
+          detail: ''
+        }
+      ]
+    }
+  },
+  methods: {
+    playChime: function () {
+      return
+      var audio = new Audio('greeting.mp3')
+      this.chiming = true
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      setTimeout(() => {
+        this.chiming = false
+      }, 1000)
+    },
+    skip: function () {
+      if (this.profileComplete) return
+      this.confirming = true
+      this.connectionProgressColor = 'Grey'
+      this.validationMessage = ''
+      this.profileSkipped = true
+      setTimeout(() => {
+        this.changeQuestionData()
+        this.confirming = false
+        this.profileSkipped = false
+        this.connectionProgressColor = 'Villager'
+        this.validationMessage = 'SWIPE TO CONFIRM'
+      }, 300)
+    },
+    profileStop: function () {
+      this.profileComplete = true
+    },
+    nextProfileQuestion: function () {
+      if (this.profileComplete) return
+      this.confirming = true
+      this.profileSkipped = false
+      this.connectionProgressColor = 'Villager'
+      this.validationMessage = ''
+      this.profileComplete = false
+
+      setTimeout(() => {
+        if (!this.changeQuestionData()) return
+        this.confirming = false
+        this.connectionProgressColor = 'Villager'
+        this.validationMessage = 'SWIPE TO CONFIRM'
+      }, 800)
+    },
+    changeQuestionData: function () {
+      this.activeQuestionIndex++
+      let nextQuestion = Object.assign({}, this.profileQuestions[this.activeQuestionIndex])
+      let total = this.profileQuestions.length
+      let complete = this.activeQuestionIndex
+      this.connectionProgressValue = (complete / total) * 100
+
+      if ((this.profileQuestions.length + 1) === this.activeQuestionIndex) return
+      if (Object.keys(nextQuestion).length === 0) return this.finishProfile()
+
+      this.profileQuestion = nextQuestion
+      return true
+    },
+    finishProfile: function () {
+      this.profileComplete = true
+      return false
+    },
+    goToHomeMap: function () {
+      this.$router.push('/neighbors')
+    },
+    goHome: function () {
+      this.$router.push('/')
+    }
+  }
+}
+</script>
+<style>
+.scale-big-small {
+    -webkit-animation:scale 2s linear infinite;
+    -moz-animation:scale 2s linear infinite;
+    animation:scale 2s linear infinite;
+}
+@-moz-keyframes scale {
+  0% {
+    -moz-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -moz-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -moz-transform: scale(1); transform: scale(1)
+  }
+}
+@-webkit-keyframes scale {
+  0% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -webkit-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+}
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+  50% {
+    -webkit-transform: scale(2); transform: scale(2)
+  }
+  100% {
+    -webkit-transform: scale(1); transform: scale(1)
+  }
+}
+</style>

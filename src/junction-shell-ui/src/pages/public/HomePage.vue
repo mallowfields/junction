@@ -144,7 +144,7 @@ export default {
       this.coverDialog = true
       setTimeout(() => {
         this.pageLoading = false
-      }, 1500)
+      }, 500)
     },
     rotateImage: function () {
       this.coverImage = this.coverImages[Math.floor(Math.random() * this.coverImages.length)]
