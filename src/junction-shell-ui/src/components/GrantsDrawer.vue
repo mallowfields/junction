@@ -183,10 +183,10 @@
     </v-dialog>
     <v-dialog
     persistent
-      width="220px"
+      width="260px"
       v-model="claimGiftDialog">
-        <v-card>
-          <v-toolbar color="Villager">
+        <v-card class="pa-5">
+          <v-toolbar color="Site darken-3">
             <v-btn-toggle
             >
               <v-btn
@@ -203,16 +203,17 @@
                   :loading="requestPending"
                   @click="claimGiftDialog = false">
                 <span
-                  class="Villager--text text--lighten-3">
+                  :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
                   claim
                 </span>
 
-                <v-icon color="Villager lighten-3" right>
+                <v-icon
+                  :color="$store.state.displayTheme === 'dark' ? 'white' : 'Villager lighten-3'" right>
                   mdi-check
                 </v-icon>
               </v-btn>
             </v-btn-toggle>
-            <v-icon large right color="Villager lighten-3">
+            <v-icon large right color="Villager lighten-4">
               mdi-gift
             </v-icon>
           </v-toolbar>
@@ -258,12 +259,14 @@
                       color="Villager lighten-4"
                       @click="claimGrant(index)">
                       <span
-                        class="Site--text text--darken-3">
+                        :class="$store.state.displayTheme === 'dark' ? 'Site--text text--lighten-5' : 'Site--text text--darken-3'">
                         Give Gift
                       </span>
 
-                      <v-icon color="Site darken-3" right>
-                        mdi-cash-100
+                      <v-icon
+                        :color="$store.state.displayTheme === 'dark' ? 'Site lighten-5' : 'Site darken-3'"
+                        right>
+                        mdi-charity
                       </v-icon>
                     </v-btn>
 
@@ -272,11 +275,12 @@
                         :loading="requestPending"
                         @click="requestGrant(index)">
                       <span
-                        class="Villager--text text--lighten-3">
+                        :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
                         Request
                       </span>
 
-                      <v-icon color="Villager lighten-3" right>
+                      <v-icon
+                        :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-5' : 'Villager lighten-3'" right>
                         mdi-gift
                       </v-icon>
                     </v-btn>
