@@ -62,6 +62,13 @@
 
         <v-card-text>
           2022.0.1
+        <v-btn
+          outlined
+          small
+          text
+          @click="installApp">
+            install
+        </v-btn>
         </v-card-text>
         <v-divider></v-divider>
         <v-img
@@ -120,6 +127,16 @@ export default {
     this.isAdmin = this.$store.state.viewMode === 'Admin'
   },
   methods: {
+    installApp: function () {
+      this.installPromptEvent.prompt()
+      this.installPromptEvent.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt')
+        } else {
+          console.log('User dismissed the A2HS prompt')
+        }
+      })
+    },
     setUserRole: function () {
       const viewMode = this.$store.state.viewMode
       this.userRole = viewMode
@@ -154,6 +171,7 @@ export default {
     }
   },
   data: () => ({
+    installPromptEvent: window.installPromptEvent,
     coverDialog: false,
     pageLoading: true,
     chiming: false,
