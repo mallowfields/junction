@@ -1,34 +1,30 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    ecmaVersion: 2017,
-    sourceType: 'module'
-  },
   env: {
-    node: true,
-    es6: true
+    node: true
   },
-  globals: {
-    'BigInt': 'readonly'
-  },
+  'extends': [
+    'plugin:vue/essential',
+    '@vue/standard'
+  ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'space-before-function-paren': ['error', 'never'],
-    'no-prototype-builtins': 'off',
-    'semi': ['error', 'always'],
-    'quotes': ['error', 'single'],
-    'space-before-function-paren': ['error', {
-      'named': 'never',
-      'anonymous': 'always',
-      'asyncArrow': 'always'
-    }],
-    'no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }],
-    'import/no-duplicates': 'off'
+    'space-before-function-paren': ['error', 'always'],
+    'no-return-await': 'off'
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:import/errors',
-    'plugin:import/warnings'
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      excludedFiles: [
+        './ref/**/*'
+      ],
+      env: {
+        jest: true
+      }
+    }
   ]
 }
