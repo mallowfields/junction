@@ -1,0 +1,7 @@
+{
+  "root": "src/junction-shell-ui/dist",
+  "clean_urls": true,
+  "routes": {
+    "/**": "index.html"
+  }
+}
