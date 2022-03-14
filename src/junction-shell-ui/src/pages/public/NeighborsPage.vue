@@ -30,8 +30,8 @@
         </v-btn>
         <v-list-item two-line>
           <v-list-item-content>
-            <v-list-item-title>{{enterContext}}</v-list-item-title>
-            <v-list-item-subtitle>Find {{mapContext}}</v-list-item-subtitle>
+            <v-list-item-title>Neighbors </v-list-item-title>
+            <v-list-item-subtitle>{{ markerCategory }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-spacer></v-spacer>
@@ -100,19 +100,21 @@
             :attribution="attribution"
           >
           </l-tile-layer>
-          <l-marker
+          <!-- <l-marker
             ref="dragMarker"
             :lat-lng="markerDragged ? lastMarkerPosition : circleMarker.center"
             :icon="getMarkerIcon"
             :draggable="true"
             @dragend="markerMoved"
-          />
+          /> -->
           <l-marker
-            ref="partner"
             v-for="partner in marker.partners"
             :key="partner.moniker"
+            :visible="getPartnerVisibility(partner)"
+            ref="partner"
             :icon="getPartnerMarkerIcon(partner)"
             :draggable="true"
+            @click="markerClicked(partner)"
             :lat-lng="partner.center"
           />
         </l-map>
@@ -128,7 +130,6 @@
       ></v-progress-linear>
       <v-spacer></v-spacer>
       <v-speed-dial
-          v-show="false"
           id="networkFab"
           top
           left
@@ -168,31 +169,13 @@
               v-on="on"
               fab
               dark
-              large
               color="Villager"
-              @click="setPurpose('mdi-plus', 'Other', 'Something Else')"
+              @click="setPurpose('mdi-charity', 'all')"
             >
-              <v-icon size="40" color="white">mdi-plus</v-icon>
+              <v-icon size="40" color="white">mdi-charity</v-icon>
             </v-btn>
           </template>
-          Other
-        </v-tooltip>
-        <v-tooltip
-            left>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                fab
-                dark
-                large
-                color="Villager"
-                @click="setPurpose('mdi-chart-bubble', 'Models', 'Data and Information')"
-              >
-              <v-icon size="40" color="white">mdi-chart-bubble</v-icon>
-            </v-btn>
-          </template>
-          Models
+          All
         </v-tooltip>
         <v-tooltip
           left>
@@ -202,14 +185,109 @@
               v-on="on"
               fab
               dark
-              large
               color="Villager"
-              @click="setPurpose('mdi-earth', 'Neighbors', 'Gigs')"
+              @click="setPurpose('mdi-plus', 'other')"
             >
-              <v-icon size="40" color="white">mdi-earth</v-icon>
+              <v-icon size="40" color="white">mdi-plus</v-icon>
             </v-btn>
           </template>
-          Neighbors
+          Other
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-auto-fix', 'tech')"
+            >
+              <v-icon size="40" color="white">mdi-auto-fix</v-icon>
+            </v-btn>
+          </template>
+          Non-profit Technology
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-school', 'education')"
+            >
+              <v-icon size="40" color="white">mdi-school</v-icon>
+            </v-btn>
+          </template>
+          Education
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-star', 'women')"
+            >
+              <v-icon size="40" color="white">mdi-star</v-icon>
+            </v-btn>
+          </template>
+          Women
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-vote', 'voting')"
+            >
+              <v-icon size="40" color="white">mdi-vote</v-icon>
+            </v-btn>
+          </template>
+          Voting
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-domain', 'work')"
+            >
+              <v-icon size="40" color="white">mdi-domain</v-icon>
+            </v-btn>
+          </template>
+          Work
+        </v-tooltip>
+        <v-tooltip
+          left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              fab
+              dark
+              color="Villager"
+              @click="setPurpose('mdi-home-heart', 'housing')"
+            >
+              <v-icon size="40" color="white">mdi-home-heart</v-icon>
+            </v-btn>
+          </template>
+          Housing
         </v-tooltip>
       </v-speed-dial>
     </v-card>
@@ -353,7 +431,6 @@
             left>
             mdi-settings
           </v-icon>
-          {{$vuetify.breakpoint.smAndUp ? "contact kendell@mallowfields.com" : "contact kendell@mallowfields.com"}}
         </v-btn>
         <v-card-title class="caption">
           Login using a Service
@@ -384,18 +461,24 @@
       persistent
       v-model="networkOptionsDialog">
       <v-card>
-        <v-toolbar color="Villager" flat>
-          <v-icon color="Villager lighten-3">
-            mdi-all-inclusive
-          </v-icon>
+        <v-toolbar flat>
+            <v-toolbar-title class="Villager--text">
+              {{ activePartner.moniker }}
+            </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
             @click="networkOptionsDialog = false">
-            <v-icon color="white">mdi-close</v-icon>
+            <v-icon color="Villager">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
-        <app-poll :questions="questions"></app-poll>
+        <app-poll
+          v-show="activePartner.moniker === partner.moniker"
+          v-for="partner in marker.partners"
+          :key="partner.moniker"
+          :questions="partner.questions"
+          :story="partner.story">
+        </app-poll>
       </v-card>
     </v-dialog>
   </v-dialog>
@@ -444,6 +527,9 @@ export default {
     }
   },
   methods: {
+    getPartnerVisibility (partner) {
+      return partner.category.includes(this.markerCategory)
+    },
     getPartnerMarkerIcon (partner) {
       return icon({
         iconUrl: partner.icon,
@@ -452,10 +538,14 @@ export default {
         popupAnchor: [0, -28]
       })
     },
-    markerMoved: function (event) {
-      console.log('moved')
-      this.markerDragged = true
+    markerClicked: function (partner) {
+      console.log('clicked')
       this.networkOptionsDialog = true
+      this.activePartner = partner
+    },
+    markerMoved: function () {
+      this.networkOptionsDialog = true
+      this.markerDragged = true
       this.lastMarkerPosition = this.$refs.dragMarker.mapObject['_latlng']
     },
     goHome: function () {
@@ -474,10 +564,9 @@ export default {
         this.pathwaysMenu = true
       }, 1300)
     },
-    setPurpose: function (icon, enterContext, mapContext) {
+    setPurpose: function (icon, markerCategory) {
       this.purposeIcon = icon
-      this.enterContext = enterContext
-      this.mapContext = mapContext
+      this.markerCategory = markerCategory
       this.statusSnackbar = true
     },
     acceptPathwayItem: function () {
@@ -564,15 +653,6 @@ export default {
   },
   data: () => ({
     remainingGrantFunds: '$5,000',
-    questions: [
-      {
-        question: 'Are you near this location?',
-        detail: ''
-      }, {
-        question: 'Is this your neighborhood?',
-        detail: ''
-      }
-    ],
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },
@@ -631,9 +711,7 @@ export default {
     ],
     claimDescription: 'Claim this?',
     snackbar: true,
-    enterContext: 'Neighbors',
-    mapContext: 'Gigs',
-    purposeIcon: 'mdi-earth',
+    purposeIcon: 'mdi-charity',
     zoom: 11,
     markerDragged: false,
     lastMarkerPosition: latLng(42.9634, -85.6681),
@@ -644,71 +722,193 @@ export default {
       color: 'white',
       fillColor: 'purple'
     },
+    markerCategory: 'all',
+    activePartner: {},
     marker: {
       partners: [
         {
           moniker: 'Community Housing Connect',
+          story: 'Community Housing Connect is a free service to residents of Kent County, MI',
           center: latLng(42.97252947254143, -85.67439693255552),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-chc.png'
+          icon: 'custom-marker-chc.png',
+          category: ['all', 'housing'],
+          questions: [
+            {
+              question: 'Do you need housing assistance?',
+              detail: ''
+            }, {
+              question: 'Do you have minor dependent children in the household?',
+              detail: 'This includes persons who are pregnant.'
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'EuzenConnect',
+          story: 'Building equity into the employment ecosystem one connection at a time',
           center: latLng(42.97043760898049, -85.67471522173447),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-euzen.png'
+          icon: 'custom-marker-euzen.png',
+          category: ['all', 'work'],
+          questions: [
+            {
+              question: 'Do you need a gig or a job?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'NAACP',
+          story: 'Step up with a gift that reflects your commitment to defending our democracy. Help eliminate the racial disparities that keep us from reaching equality for all',
           center: latLng(42.93593381097306, -85.65786251021242),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-naacp.png'
+          icon: 'custom-marker-naacp.png',
+          category: ['all', 'voting', 'other'],
+          questions: [
+            {
+              question: 'Are you registered to vote?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }, {
+              question: 'Do you need transportation to your polling station?',
+              detail: ''
+            }
+          ]
         }, {
           moniker: 'Treetops Collective',
+          story: 'We started by asking questions. How can the world do a better job of welcoming refugees? How can we answer that question in our own community? How can we be a city where refugee women can sink their roots down and flourish with their families for generations to come?',
           center: latLng(42.946505929857985, -85.66705535806263),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-treetops.png'
+          icon: 'custom-marker-treetops.png',
+          category: ['all', 'women', 'education'],
+          questions: [
+            {
+              question: 'Are you a New American?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
+        }, {
+          moniker: 'Affinity Mentoring',
+          story: 'Our mission is to facilitate equitable growth in academics, social emotional skills, and self-esteem through mutually beneficial mentoring relationships. We believe in cultivating a brave space that amplifies the voices of young agents of change in a diverse and inclusive community.',
+          center: latLng(42.95896873122738, -85.68815920379656),
+          radius: 20,
+          color: 'white',
+          fillColor: 'pink',
+          icon: 'custom-marker-affinity.png',
+          category: ['all', 'education'],
+          questions: [
+            {
+              question: 'Are you a student seeking a mentor?',
+              detail: ''
+            }, {
+              question: 'Are you a mentor seeking a student?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'Mallowfields',
+          story: 'Open Source Software',
           center: latLng(42.94260261726618, -85.67807064326311),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-mallowfields.png'
+          icon: 'custom-marker-mallowfields.png',
+          category: ['all', 'tech', 'other'],
+          questions: [
+            {
+              question: 'Are you a non-profit business?',
+              detail: ''
+            }, {
+              question: 'Do you need modern software technology?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'Lions & Rabbits',
+          story: 'By meeting artists where they are, we drive and strengthen creative independence.',
           center: latLng(42.986355109074836, -85.66620189814095),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-lions.png'
+          icon: 'custom-marker-lions.png',
+          category: ['all', 'other'],
+          questions: [
+            {
+              question: 'Do you need co-working space?',
+              detail: ''
+            }, {
+              question: 'Do you need childcare?',
+              detail: ''
+            }, {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'Grand Valley State University',
           center: latLng(42.9633899227588, -85.88859055639922),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-school.png'
+          icon: 'custom-marker-school.png',
+          category: ['all', 'education'],
+          questions: [
+            {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'Fort Valley State University',
           center: latLng(32.534688671924854, -83.89550132508403),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-school.png'
+          icon: 'custom-marker-school.png',
+          category: ['all', 'education'],
+          questions: [
+            {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }, {
           moniker: 'Georgia Gwinnette College',
           center: latLng(33.97973044216388, -84.00389373600575),
           radius: 20,
           color: 'white',
           fillColor: 'pink',
-          icon: 'custom-marker-school.png'
+          icon: 'custom-marker-school.png',
+          category: ['all', 'education'],
+          questions: [
+            {
+              question: 'Is this your neighborhood?',
+              detail: 'The current map view'
+            }
+          ]
         }
       ]
     },

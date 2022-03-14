@@ -12,7 +12,67 @@
           </v-icon>
           <h3 class="ma-2">Thank you!</h3>
         </v-card-title>
+        <v-divider class="mb-1"></v-divider>
+        <v-card-text v-show="story">
+          {{ story }}
+        </v-card-text>
 
+        <v-card-actions v-show="story">
+          <v-btn-toggle
+            >
+            <v-btn
+              outlined
+              color="Villager lighten-4"
+              @click="giveGift"
+              >
+              <span
+                :class="$store.state.displayTheme === 'dark' ? 'Site--text text--lighten-5' : 'Site--text text--darken-3'">
+                Give Gift
+              </span>
+
+              <v-icon
+                :color="$store.state.displayTheme === 'dark' ? 'Site lighten-5' : 'Site darken-3'"
+                right>
+                mdi-gift
+              </v-icon>
+            </v-btn>
+            <v-snackbar
+              color="Villager"
+              class="pa-5 mt-10"
+              top
+              v-model="requestingGift"
+              :timeout="-1">
+              no gifts available
+            </v-snackbar>
+            <v-btn
+                color="Site darken-1"
+                :loading="requestingGift"
+                @click="requestGift"
+                >
+              <span
+                :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
+                Request Gift
+              </span>
+
+              <v-icon
+                :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-5' : 'Villager lighten-3'" right>
+                mdi-gift
+              </v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </v-card-actions>
+        <stripe-checkout
+          ref="checkoutRef"
+          mode="payment"
+          :pk="publishableKey"
+          :line-items="lineItems"
+          :success-url="successURL"
+          :cancel-url="cancelURL"
+          @loading="v => giftLoading = v"
+        />
+        <v-btn v-show="story" disabled color="Site" text x-small outlined rounded class="subtitle mb-3 ml-2">
+          recommended gift
+        </v-btn>
       </v-card>
       <v-card
         tile
@@ -90,7 +150,10 @@
   </v-card>
 </template>
 <script>
+
+import { StripeCheckout } from '@vue-stripe/vue-stripe'
 export default {
+  components: { StripeCheckout },
   mounted: function () {
     this.pollQuestion = this.questions[0]
   },
@@ -120,10 +183,15 @@ export default {
     color: {
       type: String,
       default: 'Villager'
+    },
+    story: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
+      requestingGift: false,
       chiming: false,
       dialog: true,
       attentionDialog: false,
@@ -138,10 +206,31 @@ export default {
       confirming: false,
       confirmed: false,
       activeQuestionIndex: 0,
-      pollQuestion: {}
+      pollQuestion: {},
+
+      publishableKey: process.env.VUE_APP_STRIPE_PK,
+      giftLoading: false,
+      lineItems: [
+        {
+          price: process.env.VUE_APP_STRIPE_PRICE_ID, // The id of the one-time price you created in your Stripe dashboard
+          quantity: 1
+        }
+      ],
+      successURL: window.location.href,
+      cancelURL: window.location.href
     }
   },
   methods: {
+    requestGift: function () {
+      this.requestingGift = true
+      setTimeout(() => {
+        this.requestingGift = false
+      }, 2000)
+    },
+    giveGift (index) {
+      // Redirected to Stripe's secure checkout page
+      this.$refs['checkoutRef'].redirectToCheckout()
+    },
     playChime: function () {
       return
       var audio = new Audio('greeting.mp3')

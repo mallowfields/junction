@@ -267,7 +267,7 @@
                       <v-icon
                         :color="$store.state.displayTheme === 'dark' ? 'Site lighten-5' : 'Site darken-3'"
                         right>
-                        mdi-charity
+                        mdi-gift
                       </v-icon>
                     </v-btn>
 
@@ -277,7 +277,7 @@
                         @click="requestGrant(index)">
                       <span
                         :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
-                        Request
+                        Request Gift
                       </span>
 
                       <v-icon
