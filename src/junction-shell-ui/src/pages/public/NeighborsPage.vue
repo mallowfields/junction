@@ -107,13 +107,13 @@
             :draggable="true"
             @dragend="markerMoved"
           />
-          <l-circle-marker
-            v-for="marker in marker.partners"
-            :key="marker.moniker"
-            :lat-lng="marker.center"
-            :radius="marker.radius"
-            :color="marker.color"
-            :fillColor="marker.fillColor"
+          <l-marker
+            ref="partner"
+            v-for="partner in marker.partners"
+            :key="partner.moniker"
+            :icon="getPartnerMarkerIcon(partner)"
+            :draggable="true"
+            :lat-lng="partner.center"
           />
         </l-map>
       </div>
@@ -444,6 +444,14 @@ export default {
     }
   },
   methods: {
+    getPartnerMarkerIcon (partner) {
+      return icon({
+        iconUrl: partner.icon,
+        iconSize: [120, 120],
+        iconAnchor: [60, 60],
+        popupAnchor: [0, -28]
+      })
+    },
     markerMoved: function (event) {
       console.log('moved')
       this.markerDragged = true
@@ -643,55 +651,64 @@ export default {
           center: latLng(42.97252947254143, -85.67439693255552),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-chc.png'
         }, {
           moniker: 'EuzenConnect',
           center: latLng(42.97043760898049, -85.67471522173447),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-euzen.png'
         }, {
           moniker: 'NAACP',
           center: latLng(42.93593381097306, -85.65786251021242),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-naacp.png'
         }, {
           moniker: 'Treetops Collective',
           center: latLng(42.946505929857985, -85.66705535806263),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-treetops.png'
         }, {
           moniker: 'Mallowfields',
           center: latLng(42.94260261726618, -85.67807064326311),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-mallowfields.png'
         }, {
           moniker: 'Lions & Rabbits',
           center: latLng(42.986355109074836, -85.66620189814095),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-lions.png'
         }, {
           moniker: 'Grand Valley State University',
           center: latLng(42.9633899227588, -85.88859055639922),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-school.png'
         }, {
           moniker: 'Fort Valley State University',
           center: latLng(32.534688671924854, -83.89550132508403),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-school.png'
         }, {
           moniker: 'Georgia Gwinnette College',
           center: latLng(33.97973044216388, -84.00389373600575),
           radius: 20,
           color: 'white',
-          fillColor: 'pink'
+          fillColor: 'pink',
+          icon: 'custom-marker-school.png'
         }
       ]
     },

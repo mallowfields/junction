@@ -209,93 +209,21 @@
                   >
                     {{item.headline}}
                   </v-list-item-subtitle>
+                  <v-card flat>
+                    <v-chip
+                      :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-3' : 'Villager lighten-4'"
+                      v-for="(tag) in item.tags"
+                      :key="tag"
+                      :class="$store.state.displayTheme === 'dark' ? 'mr-1 mt-1 Villager--text text--darken-4' : 'mr-1 mt-1'"
+                      small>{{tag}}</v-chip>
+                  </v-card>
+
                 </v-list-item-content>
 
                 <v-list-item-action>
-                  <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-                  <div v-if="enterContext ==='Intake'">
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-alert
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-alert
-                    </v-icon>
-                  </div>
-
-                  <div v-if="enterContext ==='Outcomes'">
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-av-timer
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-av-timer
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-checkbox-blank-circle
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-emoticon
-                    </v-icon>
-                  </div>
+                  <v-list-item-action-text>
+                    {{item.action}}
+                  </v-list-item-action-text>
                 </v-list-item-action>
               </template>
             </v-list-item>
@@ -464,30 +392,35 @@ export default {
     selected: [3, 4, 5, 6, 7, 8],
     items: [
       {
-        action: 'in 15 minutes',
-        headline: 'A friend you know will give you a ride',
+        action: 'now',
+        headline: '',
         subtitle: `Villager`,
-        title: 'Transportation Arrives'
+        title: 'Your ride is arriving soon',
+        tags: ['face coverings', '2 car seats', 'door to door assistance']
       }, {
         action: '2:45 PM',
-        headline: 'Arrive at healthcare appointment',
+        headline: '300 Monroe Ave NW, Grand Rapids, MI 49503',
         subtitle: `Villager`,
-        title: 'Appointment'
+        title: 'Appointment',
+        tags: ['face coverings', 'indoors', 'children welcome']
       }, {
         action: '3:30 PM',
-        headline: 'Public transportation will arrive at a stop near you',
+        headline: 'Public transportation ends at 10:00 PM today',
         subtitle: `Villager`,
-        title: 'Transportation Arrives'
+        title: 'Transportation',
+        tags: ['face coverings']
       }, {
         action: '5:30 PM',
-        headline: 'Remote help with K-12 homework',
+        headline: 'K-12 after school',
         subtitle: `Villager`,
-        title: 'Mentorship Gig'
+        title: 'K-12 Mentorship',
+        tags: ['face coverings', 'childcare']
       }, {
         action: '7:30 PM',
-        headline: 'Online Job training',
+        headline: 'Small Business training',
         subtitle: `Villager`,
-        title: 'Training'
+        title: 'Training',
+        tags: ['entrepreneurship', 'online']
       }
     ],
     questions: [

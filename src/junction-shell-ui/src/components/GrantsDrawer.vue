@@ -185,37 +185,38 @@
     persistent
       width="260px"
       v-model="claimGiftDialog">
-        <v-card class="pa-5">
+        <v-card
+          :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
+          class="pa-5">
           <v-toolbar color="Site darken-3">
+            <v-icon large left color="Villager lighten-4">
+              mdi-gift
+            </v-icon>
             <v-btn-toggle
             >
+              <v-btn
+                  color="Site darken-3"
+                  :loading="requestPending"
+                  @click="claimGiftDialog = false">
+                <v-icon
+                  :color="$store.state.displayTheme === 'dark' ? 'white' : 'Villager lighten-3'" left>
+                  mdi-check
+                </v-icon>
+                <span
+                  :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-2'">
+                  claim
+                </span>
+              </v-btn>
               <v-btn
                 outlined
                 color="Villager lighten-4"
                 @click="claimGiftDialog = false">
 
                 <v-icon color="Site darken-3">
-                  mdi-close
-                </v-icon>
-              </v-btn>
-              <v-btn
-                  color="Site darken-1"
-                  :loading="requestPending"
-                  @click="claimGiftDialog = false">
-                <span
-                  :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
-                  claim
-                </span>
-
-                <v-icon
-                  :color="$store.state.displayTheme === 'dark' ? 'white' : 'Villager lighten-3'" right>
-                  mdi-check
+                  mdi-close-circle-outline
                 </v-icon>
               </v-btn>
             </v-btn-toggle>
-            <v-icon large right color="Villager lighten-4">
-              mdi-gift
-            </v-icon>
           </v-toolbar>
         </v-card>
     </v-dialog>

@@ -212,94 +212,16 @@
                   >
                     {{item.headline}}
                   </v-list-item-subtitle>
+                  <v-card flat>
+                    <v-chip
+                      :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-3' : 'Villager lighten-4'"
+                      v-for="(tag) in item.tags"
+                      :key="tag"
+                      :class="$store.state.displayTheme === 'dark' ? 'mr-1 mt-1 Villager--text text--darken-4' : 'mr-1 mt-1'"
+                      small>{{tag}}</v-chip>
+                  </v-card>
                 </v-list-item-content>
-
-                <v-list-item-action>
-                  <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-                  <div v-if="enterContext ==='Intake'">
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-alert
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-alert
-                    </v-icon>
-                  </div>
-
-                  <div v-if="enterContext ==='Outcomes'">
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-av-timer
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-home-heart
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-av-timer
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-currency-usd
-                    </v-icon>
-                    <v-icon
-                      v-if="!active"
-                      color="grey lighten-1"
-                    >
-                      mdi-checkbox-blank-circle
-                    </v-icon>
-
-                    <v-icon
-                      v-else
-                      color="Villager darken-3"
-                    >
-                      mdi-emoticon
-                    </v-icon>
-                  </div>
-                </v-list-item-action>
+                
               </template>
             </v-list-item>
 
@@ -467,35 +389,19 @@ export default {
     selected: [3, 4, 5, 6, 7, 8],
     items: [
       {
-        action: 'a few seconds ago',
-        headline: 'Neighborly assistance with a project',
+        headline: 'Clear snow from the driveway and porch',
         subtitle: `Villager`,
-        title: 'Neighborly Gig'
+        title: 'Clear snow',
+        tags: ['lift 30 pounds', '$25.00', 'outside', 'tools provided']
       }, {
-        action: '1 week ago',
-        headline: 'My neighborhood utilities gig',
         subtitle: `Villager`,
-        title: 'City Gig'
+        title: 'Clear debris',
+        tags: ['storm drains', 'gloves provided', 'outside']
       }, {
-        action: '1 month ago',
-        headline: 'Subsidy for 6 months at a co-working space',
+        headline: 'neighborhood project',
         subtitle: `Villager`,
-        title: 'Entrepreneur Gig'
-      }, {
-        action: '5 months ago',
-        headline: 'Subsidy for startup mentorship',
-        subtitle: `Villager`,
-        title: 'Mentorship Gig'
-      }, {
-        action: '5 months ago',
-        headline: 'Subsidy for 500 miles of public transportation',
-        subtitle: `Villager`,
-        title: 'Transportation Gig'
-      }, {
-        action: '6 months ago',
-        headline: 'Subsidy for family Healthcare',
-        subtitle: `Villager`,
-        title: 'Family Healthcare Gig'
+        title: 'Deliver tools',
+        tags: ['garden tools', 'dirt / mud', '$5.00', 'tarp provided']
       }
     ],
     questions: [
