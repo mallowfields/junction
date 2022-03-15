@@ -455,7 +455,7 @@ export default {
     getMarkerIcon () {
       return icon({
         iconUrl: 'custom-marker-02.png',
-        iconSize: [120, 120],
+        iconSize: [220, 220],
         iconAnchor: [0, 0],
         popupAnchor: [0, -28]
       })
