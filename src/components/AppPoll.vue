@@ -91,11 +91,11 @@
         </template>
         <v-img
           tile
-          v-show="pollQuestion.image"
+          v-show="pollQuestion.image || pollQuestion.Image"
           height="110"
-          :src="pollQuestion.image"
+          :src="pollQuestion.image || pollQuestion.Image"
         ></v-img>
-        <h2 class="pa-2">{{pollQuestion.question}}</h2>
+        <h2 class="pa-2">{{pollQuestion.question || pollQuestion.Question}}</h2>
         <v-btn
             class="ml-2"
             text
@@ -109,7 +109,7 @@
             SKIP
           </v-btn>
         <v-card-text>
-          <div>{{pollQuestion.detail}}</div>
+          <div>{{pollQuestion.detail || pollQuestion.Detail}}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>

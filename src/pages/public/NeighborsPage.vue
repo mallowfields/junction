@@ -100,23 +100,44 @@
             :attribution="attribution"
           >
           </l-tile-layer>
+          
           <!-- <l-marker
             ref="dragMarker"
+            :visible="entityMarkerVisible"
             :lat-lng="markerDragged ? lastMarkerPosition : circleMarker.center"
-            :icon="getMarkerIcon"
+            :icon="getBlankMarkerIcon()"
             :draggable="true"
             @dragend="markerMoved"
+            @click="entityMarkerClicked"
           /> -->
-          <l-marker
+          <!-- <l-marker
             v-for="partner in marker.partners"
             :key="partner.moniker"
-            :visible="getPartnerVisibility(partner)"
             ref="partner"
+            :visible="getPartnerVisibility(marker)"
             :icon="getPartnerMarkerIcon(partner)"
             :draggable="true"
             @click="markerClicked(partner)"
             :lat-lng="partner.center"
+          /> -->
+
+           <l-marker
+            v-for="marker in markerSettings"
+            :key="marker.row_id"
+            :visible="getMarkerVisibility(marker)"
+            ref="marker"
+            :icon="getLoadedMarkerIcon(marker)"
+            :draggable="true"
+            @click="markerClicked(marker)"
+            :lat-lng="setMarkerLatLng(marker.Lat, marker.Lng)"
           />
+          <!-- <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
+            :geojson="geoData"
+            :options="options"
+            :options-style="styleFunction">
+          </l-geo-json> -->
+
+          
         </l-map>
       </div>
       <v-progress-linear
@@ -459,25 +480,48 @@
       width="400"
       flat
       persistent
-      v-model="networkOptionsDialog">
+      v-model="modelDialog">
+      <v-card>
+        <v-toolbar flat>
+          <v-spacer></v-spacer>
+          <v-btn
+            icon
+            @click="modelDialog = false">
+            <v-icon color="Villager">mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-img
+          class="ma-1"
+          width="50px"
+          height="50px"
+          contain
+          src="custom-marker-villager.png">
+        </v-img>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      width="400"
+      flat
+      persistent
+      v-model="appPollDialog">
       <v-card>
         <v-toolbar flat>
             <v-toolbar-title class="Villager--text">
-              {{ activePartner.moniker }}
+              {{ activeMarker.Marker }}
             </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
-            @click="networkOptionsDialog = false">
+            @click="appPollDialog = false">
             <v-icon color="Villager">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <app-poll
-          v-show="activePartner.moniker === partner.moniker"
-          v-for="partner in marker.partners"
-          :key="partner.moniker"
-          :questions="partner.questions"
-          :story="partner.story">
+          v-for="marker in markerSettings"
+          v-show="activeMarker.Marker === marker.Marker"
+          :key="marker.Marker"
+          :questions="marker.questions"
+          :story="marker.Story">
         </app-poll>
       </v-card>
     </v-dialog>
@@ -485,7 +529,7 @@
 </template>
 
 <script>
-import { latLng, icon } from 'leaflet'
+import { latLng, icon, marker } from 'leaflet'
 import { LMap, LTileLayer, LCircleMarker, LGeoJson, LMarker} from 'vue2-leaflet'
 import LControlFullscreen from 'vue2-leaflet-fullscreen'
 import LFreeDraw from 'vue2-leaflet-freedraw'
@@ -505,6 +549,7 @@ import 'leaflet/dist/leaflet.css'
 import entityTypes from '@/mixin/entity-types'
 import apiClient from '@/mixin/api-client'
 import moment from 'moment'
+import axios from 'axios'
 
 import NeighborsDrawer from '@/components/NeighborsDrawer.vue'
 import AppPoll from '@/components/AppPoll.vue'
@@ -515,6 +560,7 @@ export default {
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
+    this.getMarkerSettings()
   },
   computed: {
     getMarkerIcon () {
@@ -524,9 +570,81 @@ export default {
         iconAnchor: [60, 60],
         popupAnchor: [0, -28]
       })
+    },
+    styleFunction () {
+      const fillColor = this.fillColor // important! need touch fillColor in computed for re-calculate when change fillColor
+      return () => {
+        return {
+          weight: 2,
+          color: '#ff5722',
+          opacity: 0.6,
+          fillColor: fillColor,
+          fillOpacity: 0.10
+        }
+      }
+    },
+    options () {
+      return {
+        pointToLayer: function (feature, latlng) {
+          var customIcon = icon({
+            iconUrl: 'custom-marker-blank.png',
+            iconSize: [12, 12],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -28]
+          })
+          return marker(latlng, { icon: customIcon })
+        },
+        onEachFeature: this.onEachFeatureFunction
+      }
     }
   },
+  async created () {
+    const response = await fetch('/geojson/Demolished_Property_Map.geojson')
+    const geojson = await response.json()
+    this.loadedGeojson.push(geojson)
+    console.log(geojson)
+  },
   methods: {
+    async getMarkerSettings () {
+      const markers =  await this.getSettingsTab('Markers')
+      let settings = markers.map(async (row) => {
+        let result = Object.assign({}, row)
+        result.questions = await this.getSettingsTab(row.Questions)
+        console.log(`%c (${row.Marker})->(:Questions)->(:Tab ${row.Questions} ${result.questions.length})`, 'background: #000; color: #ba68c8;')
+        return result
+      })
+
+      this.markerSettings = await Promise.all(settings)
+      console.log(this.markerSettings)
+      console.log(`%c ${this.markerSettings.length} (:Markers)`, 'background: #000; color: #ba68c8;')
+    },
+    getSettingsTab (tabId) {
+      const url = process.env.VUE_APP_NO_CODE_API_PARTNER_SETTINGS
+      return new Promise ((resolve, reject) => {
+          axios({
+            method: 'get', url, 
+            params: {tabId},
+          }).then((response) => {
+            console.log(response.data.data);
+            console.log(`%c (:Public:Source)->(:GoogleSheets)->(:Tab {${tabId}})`, 'background: #000; color: #ba68c8');
+            resolve(response.data.data)
+          }).catch(reject)
+        })
+    },
+    getMarkerVisibility (marker) {
+      return marker.Category.includes(this.markerCategory)
+    },
+    getLoadedMarkerIcon (marker) {
+      return icon({
+        iconUrl: marker.Icon,
+        iconSize: [120, 120],
+        iconAnchor: [60, 60],
+        popupAnchor: [0, -28]
+      })
+    },
+    setMarkerLatLng (lat, lng) {
+      return latLng(lat, lng)
+    },
     getPartnerVisibility (partner) {
       return partner.category.includes(this.markerCategory)
     },
@@ -538,13 +656,23 @@ export default {
         popupAnchor: [0, -28]
       })
     },
-    markerClicked: function (partner) {
+    getBlankMarkerIcon () {
+      return icon({
+        iconUrl: 'custom-marker-blank.png',
+        iconSize: [120, 120],
+        iconAnchor: [60, 60],
+        popupAnchor: [0, -28]
+      })
+    },
+    entityMarkerClicked: function () {
+      this.modelDialog = true
+    },
+    markerClicked: function (marker) {
       console.log('clicked')
-      this.networkOptionsDialog = true
-      this.activePartner = partner
+      this.appPollDialog = true
+      this.activeMarker = marker
     },
     markerMoved: function () {
-      this.networkOptionsDialog = true
       this.markerDragged = true
       this.lastMarkerPosition = this.$refs.dragMarker.mapObject['_latlng']
     },
@@ -586,7 +714,8 @@ export default {
     },
     addMapListeners: function (map) {
       map.on('contextmenu', (event) => {
-        this.networkOptionsDialog = true
+        this.entityMarkerVisible = !this.entityMarkerVisible
+        this.markerDragged = false
       })
       map.on('moveend', (event) => {
         this.mapCenter = map.getCenter()
@@ -656,6 +785,9 @@ export default {
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },
+    loadedGeojson: [],
+    entityMarkerVisible: false,
+    dragStartMarkerVisible: false,
     businesses: [],
     loadingBusinesses: false,
     pathwaysMenu: false,
@@ -715,6 +847,7 @@ export default {
     zoom: 11,
     markerDragged: false,
     lastMarkerPosition: latLng(42.9634, -85.6681),
+    firstMarkerPosition: latLng(42.9634, -85.6681),
     mapCenter: latLng(42.9634, -85.6681),
     circleMarker: {
       center: latLng(42.9634, -85.6681),
@@ -723,7 +856,7 @@ export default {
       fillColor: 'purple'
     },
     markerCategory: 'all',
-    activePartner: {},
+    activeMarker: {},
     marker: {
       partners: [
         {
@@ -932,7 +1065,8 @@ export default {
     connecting: false,
     connected: true,
     statusSnackbar: false,
-    networkOptionsDialog: false,
+    modelDialog: false,
+    appPollDialog: false,
     showFab: true,
     currentTime: new Date(),
 
@@ -944,7 +1078,12 @@ export default {
     toolDialog: false,
     isTool: false,
     labelIcon: 'mdi-help',
-    dialog: true
+    dialog: true,
+
+    markerSettings: [],
+    stripeSettings: [],
+    mapBoxSettings: [],
+    partnerQuestions: []
   })
 }
 </script>
