@@ -781,7 +781,7 @@ export default {
     }
   },
   data: () => ({
-    remainingGrantFunds: '$5,000',
+    remainingGrantFunds: '$5,000.00',
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },
