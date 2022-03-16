@@ -110,20 +110,10 @@
             @dragend="markerMoved"
             @click="entityMarkerClicked"
           /> -->
-          <!-- <l-marker
-            v-for="partner in marker.partners"
-            :key="partner.moniker"
-            ref="partner"
-            :visible="getPartnerVisibility(marker)"
-            :icon="getPartnerMarkerIcon(partner)"
-            :draggable="true"
-            @click="markerClicked(partner)"
-            :lat-lng="partner.center"
-          /> -->
 
            <l-marker
             v-for="marker in markerSettings"
-            :key="marker.row_id"
+            :key="marker.row_id + marker.Marker"
             :visible="getMarkerVisibility(marker)"
             ref="marker"
             :icon="getLoadedMarkerIcon(marker)"
@@ -131,11 +121,22 @@
             @click="markerClicked(marker)"
             :lat-lng="setMarkerLatLng(marker.Lat, marker.Lng)"
           />
-          <!-- <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
+          <l-marker
+            v-for="provider in markerProviders"
+            :key="provider.row_id + provider.Marker"
+            :visible="getMarkerVisibility(provider)"
+            ref="provider"
+            :icon="getProviderMarkerIcon(provider)"
+            :draggable="true"
+            @click="markerProviderClicked(provider)"
+            :lat-lng="setMarkerLatLng(provider.Lat, provider.Lng)"
+          />
+          <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
+            :visible="markerCategory === 'housing'"
             :geojson="geoData"
             :options="options"
             :options-style="styleFunction">
-          </l-geo-json> -->
+          </l-geo-json>
 
           
         </l-map>
@@ -523,6 +524,13 @@
           :questions="marker.questions"
           :story="marker.Story">
         </app-poll>
+        <app-poll
+          v-for="provider in markerProviders"
+          v-show="activeMarker.Marker === provider.Marker"
+          :key="provider.Marker"
+          :questions="provider.questions"
+          :story="provider.Story">
+        </app-poll>
       </v-card>
     </v-dialog>
   </v-dialog>
@@ -579,7 +587,7 @@ export default {
           color: '#ff5722',
           opacity: 0.6,
           fillColor: fillColor,
-          fillOpacity: 0.10
+          fillOpacity: 0.01
         }
       }
     },
@@ -599,24 +607,44 @@ export default {
     }
   },
   async created () {
-    const response = await fetch('/geojson/Demolished_Property_Map.geojson')
-    const geojson = await response.json()
-    this.loadedGeojson.push(geojson)
-    console.log(geojson)
+    // const response = await fetch('/geojson/Demolished_Property_Map.geojson')
+    // const geojson = await response.json()
+    // this.loadedGeojson.push(geojson)
+    const response2 = await fetch('/geojson/MichiganCounties.geojson')
+    const geojson2 = await response2.json()
+    this.loadedGeojson.push(geojson2)
   },
   methods: {
     async getMarkerSettings () {
       const markers =  await this.getSettingsTab('Markers')
-      let settings = markers.map(async (row) => {
+      
+      this.markerSettings = await Promise.all(markers.map(async (row) => {
         let result = Object.assign({}, row)
-        result.questions = await this.getSettingsTab(row.Questions)
-        console.log(`%c (${row.Marker})->(:Questions)->(:Tab ${row.Questions} ${result.questions.length})`, 'background: #000; color: #ba68c8;')
-        return result
-      })
+        result.questions = row.Questions ? await await this.getSettingsTab(row.Questions) : null
+        if(row.Questions) console.log(`%c (${row.Marker})->(:Questions)->(:Tab ${row.Questions} ${result.questions.length})`, 'background: #000; color: #ba68c8;')
+        
+        let providers = row.Providers ? await this.getSettingsTab(row.Providers) : null
+        if(providers) console.log(`%c (${row.Marker})->(:Providers)->(:Tab ${row.Providers} ${providers.length})`, 'background: #444; color: #ba68c8;')
 
-      this.markerSettings = await Promise.all(settings)
+        if(providers) {
+          providers = await Promise.all(providers.map(async (provider) => {
+            let updatedProvider = Object.assign({}, provider)
+            if(provider.Questions) {
+              updatedProvider.questions = await this.getSettingsTab(provider.Questions)
+            }
+            return updatedProvider
+          }))
+        }
+
+        if(providers) this.markerProviders.push(...providers)
+
+        return result
+      }))
+
       console.log(this.markerSettings)
       console.log(`%c ${this.markerSettings.length} (:Markers)`, 'background: #000; color: #ba68c8;')
+      console.log(this.markerProviders)
+      console.log(`%c ${this.markerProviders.length} (:Providers)`, 'background: #444; color: #ba68c8;')
     },
     getSettingsTab (tabId) {
       const url = process.env.VUE_APP_NO_CODE_API_PARTNER_SETTINGS
@@ -642,11 +670,19 @@ export default {
         popupAnchor: [0, -28]
       })
     },
+    getProviderMarkerIcon (partner) {
+      return icon({
+        iconUrl: partner.Icon,
+        iconSize: [50, 50],
+        iconAnchor: [25, 25],
+        popupAnchor: [0, -28]
+      })
+    },
     setMarkerLatLng (lat, lng) {
       return latLng(lat, lng)
     },
-    getPartnerVisibility (partner) {
-      return partner.category.includes(this.markerCategory)
+    getPartnerVisibility (provider) {
+      return provider.Category.includes(this.markerCategory)
     },
     getPartnerMarkerIcon (partner) {
       return icon({
@@ -668,9 +704,15 @@ export default {
       this.modelDialog = true
     },
     markerClicked: function (marker) {
-      console.log('clicked')
+      console.log('%c marker clicked', 'color: #f00')
       this.appPollDialog = true
       this.activeMarker = marker
+    },
+    markerProviderClicked: function (provider) {
+      console.log('%c provider clicked', 'color: #f00')
+      this.appPollDialog = true
+      this.activeMarker = provider
+
     },
     markerMoved: function () {
       this.markerDragged = true
@@ -857,194 +899,6 @@ export default {
     },
     markerCategory: 'all',
     activeMarker: {},
-    marker: {
-      partners: [
-        {
-          moniker: 'Community Housing Connect',
-          story: 'Community Housing Connect is a free service to residents of Kent County, MI',
-          center: latLng(42.97252947254143, -85.67439693255552),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-chc.png',
-          category: ['all', 'housing'],
-          questions: [
-            {
-              question: 'Do you need housing assistance?',
-              detail: ''
-            }, {
-              question: 'Do you have minor dependent children in the household?',
-              detail: 'This includes persons who are pregnant.'
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'EuzenConnect',
-          story: 'Building equity into the employment ecosystem one connection at a time',
-          center: latLng(42.97043760898049, -85.67471522173447),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-euzen.png',
-          category: ['all', 'work'],
-          questions: [
-            {
-              question: 'Do you need a gig or a job?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'NAACP',
-          story: 'Step up with a gift that reflects your commitment to defending our democracy. Help eliminate the racial disparities that keep us from reaching equality for all',
-          center: latLng(42.93593381097306, -85.65786251021242),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-naacp.png',
-          category: ['all', 'voting', 'other'],
-          questions: [
-            {
-              question: 'Are you registered to vote?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }, {
-              question: 'Do you need transportation to your polling station?',
-              detail: ''
-            }
-          ]
-        }, {
-          moniker: 'Treetops Collective',
-          story: 'We started by asking questions. How can the world do a better job of welcoming refugees? How can we answer that question in our own community? How can we be a city where refugee women can sink their roots down and flourish with their families for generations to come?',
-          center: latLng(42.946505929857985, -85.66705535806263),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-treetops.png',
-          category: ['all', 'women', 'education'],
-          questions: [
-            {
-              question: 'Are you a New American?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Affinity Mentoring',
-          story: 'Our mission is to facilitate equitable growth in academics, social emotional skills, and self-esteem through mutually beneficial mentoring relationships. We believe in cultivating a brave space that amplifies the voices of young agents of change in a diverse and inclusive community.',
-          center: latLng(42.95896873122738, -85.68815920379656),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-affinity.png',
-          category: ['all', 'education'],
-          questions: [
-            {
-              question: 'Are you a student seeking a mentor?',
-              detail: ''
-            }, {
-              question: 'Are you a mentor seeking a student?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Mallowfields',
-          story: 'Open Source Software',
-          center: latLng(42.94260261726618, -85.67807064326311),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-mallowfields.png',
-          category: ['all', 'tech', 'other'],
-          questions: [
-            {
-              question: 'Are you a non-profit business?',
-              detail: ''
-            }, {
-              question: 'Do you need modern software technology?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Lions & Rabbits',
-          story: 'By meeting artists where they are, we drive and strengthen creative independence.',
-          center: latLng(42.986355109074836, -85.66620189814095),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-lions.png',
-          category: ['all', 'other'],
-          questions: [
-            {
-              question: 'Do you need co-working space?',
-              detail: ''
-            }, {
-              question: 'Do you need childcare?',
-              detail: ''
-            }, {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Grand Valley State University',
-          center: latLng(42.9633899227588, -85.88859055639922),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-school.png',
-          category: ['all', 'education'],
-          questions: [
-            {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Fort Valley State University',
-          center: latLng(32.534688671924854, -83.89550132508403),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-school.png',
-          category: ['all', 'education'],
-          questions: [
-            {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }, {
-          moniker: 'Georgia Gwinnette College',
-          center: latLng(33.97973044216388, -84.00389373600575),
-          radius: 20,
-          color: 'white',
-          fillColor: 'pink',
-          icon: 'custom-marker-school.png',
-          category: ['all', 'education'],
-          questions: [
-            {
-              question: 'Is this your neighborhood?',
-              detail: 'The current map view'
-            }
-          ]
-        }
-      ]
-    },
     center: latLng(42.9634, -85.6681),
     url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2VuZGVsbGpvc2VwaCIsImEiOiJja3IxZ252YWkxYm00MnBvNzhudWpvZGhvIn0.10YRNB3jfk6CedUpgXfPBA',
     attribution: '',
@@ -1081,6 +935,7 @@ export default {
     dialog: true,
 
     markerSettings: [],
+    markerProviders:[],
     stripeSettings: [],
     mapBoxSettings: [],
     partnerQuestions: []

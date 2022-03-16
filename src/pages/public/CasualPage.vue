@@ -7,17 +7,22 @@
         width="500"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            link
-            class="ma-1"
-            v-bind="attrs"
-            v-on="on"
-          >
+          <v-toolbar flat>
+            <v-btn
+              icon
+              small
+              class=""
+              v-bind="attrs"
+              v-on="on"
+            >
             <v-icon small>
               mdi-link
             </v-icon>
           </v-btn>
+          <v-card-subtitle>
+            {{ iframeSrc }}
+          </v-card-subtitle>
+          </v-toolbar>
         </template>
 
         <v-card>
