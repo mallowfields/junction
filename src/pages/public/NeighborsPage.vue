@@ -640,7 +640,7 @@ export default {
 
         return result
       }))
-
+      // console.log()
       console.log(this.markerSettings)
       console.log(`%c ${this.markerSettings.length} (:Markers)`, 'background: #000; color: #ba68c8;')
       console.log(this.markerProviders)
