@@ -10,9 +10,13 @@ import ModelsPage from '@/pages/public/ModelsPage.vue'
 import CasualPage from '@/pages/public/CasualPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
-
+import CoordinatedEntryAssessment from '@/forms/CoordinatedEntryAssessment.vue'
 const routes = [
   {
+    name: 'coordinatedEntryAssessment',
+    path: '/coordinated-entry-assessment',
+    component: CoordinatedEntryAssessment
+  }, {
     name: 'home',
     path: '/',
     component: HomePage
