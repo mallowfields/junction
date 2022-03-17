@@ -51,7 +51,7 @@
               small
               icon
             >
-              <v-icon>mdi-send</v-icon>
+              <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
 
@@ -65,33 +65,22 @@
                 share my view
               </v-list-item-title>
             </v-list-item>
-            <v-list-item>
-              <v-list-item-titel>
-                <v-icon>
-                  mdi-earth
-                </v-icon>
-                map
-                <v-switch>
-
-                </v-switch>
-              </v-list-item-titel>
-            </v-list-item>
           </v-list>
         </v-menu>
       </v-toolbar>
-      <v-btn
+      <!-- <v-btn
         fab
         dark
         small
-        left
+        right
         absolute
         width="120px"
-        :style="`border-radius: 0%; top: ${$vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'};`"
+        :style="`border-radius: 0%; top: ${$vuetify.breakpoint.smAndUp ? '70px' : '70px'};`"
         @click="actorIsReady"
       >
-        <v-icon size="20" class="mr-2" color="Villager">mdi-all-inclusive</v-icon>
+        <v-icon size="20" class="mr-2" color="Villager">mdi-human-greeting</v-icon>
         {{ remainingGrantFunds }}
-      </v-btn>
+      </v-btn> -->
       <div
         ref="mapContainer"
         width="100%"
@@ -108,12 +97,12 @@
           <!-- <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
           /> -->
-          <!-- <l-tile-layer
+          <l-tile-layer
             ref="tileLayer"
             :url="url"
             :attribution="attribution"
           >
-          </l-tile-layer> -->
+          </l-tile-layer>
           
           <!-- <l-marker
             ref="dragMarker"
@@ -160,11 +149,11 @@
       <v-speed-dial
           id="networkFab"
           v-show="true"
-          direction="top"
+          direction="bottom"
           absolute
           top
-          transition="slide-y-reverse-transition"
-          class="mb-1 ml-10"
+          style="top: 70px;"
+          transition="slide-y-transition"
           v-model="fab"
         >
         <template v-slot:activator>
@@ -175,14 +164,13 @@
                 v-bind="attrs"
                 v-on="on"
                 :loading="loading"
-                fab
-                color="white"
+                color="Villager"
                 x-large
               >
-                <v-icon color="Villager" v-if="fab">
+                <v-icon color="white" v-if="fab">
                   mdi-close
                 </v-icon>
-                <v-icon size="50" color="Villager" v-else>
+                <v-icon size="50" color="white" v-else>
                   {{purposeIcon}}
                 </v-icon>
               </v-btn>
@@ -198,9 +186,9 @@
               fab
               dark
               color="Villager"
-              @click="setPurpose('mdi-charity', 'all')"
+              @click="setPurpose('mdi-human-greeting', 'all')"
             >
-              <v-icon size="40" color="white">mdi-charity</v-icon>
+              <v-icon size="40" color="white">mdi-human-greeting</v-icon>
             </v-btn>
           </template>
           All
@@ -528,7 +516,8 @@
           v-show="activeMarker.Marker === marker.Marker"
           :key="marker.Marker"
           :questions="marker.questions"
-          :story="marker.Story">
+          :story="marker.Story"
+          color="Site">
         </app-poll>
         <app-poll
           v-for="provider in markerProviders"
@@ -913,7 +902,7 @@ export default {
     ],
     claimDescription: 'Claim this?',
     snackbar: true,
-    purposeIcon: 'mdi-charity',
+    purposeIcon: 'mdi-human-greeting',
     zoom: 11,
     markerDragged: false,
     lastMarkerPosition: latLng(42.9634, -85.6681),

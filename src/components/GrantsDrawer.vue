@@ -251,12 +251,12 @@
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-row>
-              <v-row class="mt-0">
+              <v-row class="mt-1">
                 <v-list-item-action>
-                  <v-btn-toggle
-                  >
+                  <v-btn-toggle>
                     <v-btn
                       outlined
+                      small
                       color="Villager lighten-4"
                       @click="claimGrant(index)">
                       <span
@@ -272,6 +272,7 @@
                     </v-btn>
 
                     <v-btn
+                        small
                         color="Site darken-1"
                         :loading="requestPending"
                         @click="requestGrant(index)">

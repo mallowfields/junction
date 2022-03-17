@@ -11,11 +11,11 @@
       <v-spacer></v-spacer>
       <v-divider vertical class="mx-5"></v-divider>
       <div>
-        <div class="caption small white--text">$5,000.00</div>
-        <div class="caption x-small yellow--text">available</div>
+        <div class="caption small white--text">Grant Kit</div>
+        <div class="caption x-small yellow--text">0 viewers</div>
       </div>
-      <v-icon class="ma-3 scale-big-small white--text" size="20">
-        mdi-cash-100
+      <v-icon class="ml-4 white--text" size="40">
+        mdi-send
       </v-icon>
     </v-toolbar>
     <v-btn-toggle
