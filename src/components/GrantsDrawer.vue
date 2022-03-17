@@ -277,12 +277,12 @@
                         @click="requestGrant(index)">
                       <span
                         :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
-                        Request Gift
+                        Request Grant
                       </span>
 
                       <v-icon
                         :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-5' : 'Villager lighten-3'" right>
-                        mdi-gift
+                        mdi-human-greeting
                       </v-icon>
                     </v-btn>
                   </v-btn-toggle>

@@ -15,22 +15,25 @@
       :src="$store.state.displayTheme === 'dark' ? '/grey-gradient-background.jpg' : '/card-texture.png'"
       @transitionend="checkFab"
     >
-      <neighbors-drawer></neighbors-drawer>
+      <kit-drawer></kit-drawer>
     </v-navigation-drawer>
-    <v-card tile flat>
+    <v-card tile flat
+    
+    :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
+    >
       <v-toolbar
         dark
         tile
       >
         <v-btn
           icon
-          @click="goHome"
+          @click="pathwaysMenu = true"
         >
-          <v-icon>mdi-close</v-icon>
+          <v-icon>mdi-all-inclusive</v-icon>
         </v-btn>
         <v-list-item two-line>
           <v-list-item-content>
-            <v-list-item-title>Neighbors </v-list-item-title>
+            <v-list-item-title>Grants</v-list-item-title>
             <v-list-item-subtitle>{{ markerCategory }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -48,7 +51,7 @@
               small
               icon
             >
-              <v-icon>mdi-dots-vertical</v-icon>
+              <v-icon>mdi-send</v-icon>
             </v-btn>
           </template>
 
@@ -62,6 +65,17 @@
                 share my view
               </v-list-item-title>
             </v-list-item>
+            <v-list-item>
+              <v-list-item-titel>
+                <v-icon>
+                  mdi-earth
+                </v-icon>
+                map
+                <v-switch>
+
+                </v-switch>
+              </v-list-item-titel>
+            </v-list-item>
           </v-list>
         </v-menu>
       </v-toolbar>
@@ -71,8 +85,8 @@
         small
         left
         absolute
-        width="100px"
-        style="border-radius: 0%; top: calc(100vh - 76px);"
+        width="120px"
+        :style="`border-radius: 0%; top: ${$vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'};`"
         @click="actorIsReady"
       >
         <v-icon size="20" class="mr-2" color="Villager">mdi-all-inclusive</v-icon>
@@ -81,7 +95,7 @@
       <div
         ref="mapContainer"
         width="100%"
-        :style="`width: 100vw; z-index:-1; overflow:hidden; height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '75px' : '66px'});`">
+        :style="`width: 100vw; z-index:-1; overflow:hidden; height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'};`">
 
         <l-map
           ref="map"
@@ -89,17 +103,17 @@
           :center="center"
           :options="mapOptions"
           :attributionControl="false"
-          :style="`height: calc(100vh - ${ $vuetify.breakpoint.smAndUp ? '67px' : '66px'}); width: 100vw;`"
+          :style="`height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'}; width: 100vw; background: transparent;`"
         >
-          <l-control-fullscreen position="topleft"
+          <!-- <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
-          />
-          <l-tile-layer
+          /> -->
+          <!-- <l-tile-layer
             ref="tileLayer"
             :url="url"
             :attribution="attribution"
           >
-          </l-tile-layer>
+          </l-tile-layer> -->
           
           <!-- <l-marker
             ref="dragMarker"
@@ -119,6 +133,7 @@
             :icon="getLoadedMarkerIcon(marker)"
             :draggable="true"
             @click="markerClicked(marker)"
+            @dragend="playGrantChime"
             :lat-lng="setMarkerLatLng(marker.Lat, marker.Lng)"
           />
           <l-marker
@@ -141,24 +156,15 @@
           
         </l-map>
       </div>
-      <v-progress-linear
-        color="Villager"
-        buffer-value="30"
-        value="25"
-        height="10"
-        striped
-        stream
-        absolute
-      ></v-progress-linear>
-      <v-spacer></v-spacer>
+      <v-divider></v-divider>
       <v-speed-dial
           id="networkFab"
-          top
-          left
+          v-show="true"
           direction="top"
+          absolute
+          top
           transition="slide-y-reverse-transition"
-          class="my-5"
-          :style="$vuetify.breakpoint.smAndUp ? '' : ''"
+          class="mb-1 ml-10"
           v-model="fab"
         >
         <template v-slot:activator>
@@ -559,12 +565,12 @@ import apiClient from '@/mixin/api-client'
 import moment from 'moment'
 import axios from 'axios'
 
-import NeighborsDrawer from '@/components/NeighborsDrawer.vue'
+import KitDrawer from '@/components/KitDrawer.vue'
 import AppPoll from '@/components/AppPoll.vue'
 
 export default {
   mixins: [apiClient, entityTypes],
-  components: { NeighborsDrawer, AppPoll, LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider, LMarker },
+  components: { KitDrawer, AppPoll, LMap, LTileLayer, LCircleMarker, LControlFullscreen, LGeoJson, LFreeDraw, Vue2LeafletMarkerCluster, Vue2LeafletLocatecontrol, OpenStreetMapProvider, LMarker },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
@@ -698,6 +704,17 @@ export default {
         iconAnchor: [60, 60],
         popupAnchor: [0, -28]
       })
+    },
+    playGrantChime: function () {
+      var audio = new Audio('grant.mp3')
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
     },
     entityMarkerClicked: function () {
       this.modelDialog = true

@@ -37,12 +37,12 @@
               </v-icon>
             </v-btn>
             <v-snackbar
-              color="Villager"
+              color="Site"
               class="pa-5 mt-10"
               top
               v-model="requestingGift"
               :timeout="-1">
-              no gifts available
+              no grants available, please try again soon
             </v-snackbar>
             <v-btn
                 color="Site darken-1"
@@ -51,12 +51,12 @@
                 >
               <span
                 :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
-                Request Gift
+                Request Grant
               </span>
 
               <v-icon
                 :color="$store.state.displayTheme === 'dark' ? 'Villager lighten-5' : 'Villager lighten-3'" right>
-                mdi-gift
+                mdi-human-greeting
               </v-icon>
             </v-btn>
           </v-btn-toggle>
@@ -71,7 +71,7 @@
           @loading="v => giftLoading = v"
         />
         <v-btn v-show="story" disabled color="Site" text x-small outlined rounded class="subtitle mb-3 ml-2">
-          recommended gift
+          recommended grant
         </v-btn>
       </v-card>
       <v-card

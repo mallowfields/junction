@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 
 // Pages
+import KitPage from '@/pages/public/KitPage.vue'
 import HomePage from '@/pages/public/HomePage.vue'
 import PollsPage from '@/pages/public/PollsPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
@@ -11,8 +12,13 @@ import CasualPage from '@/pages/public/CasualPage.vue'
 import ProcessCenterPage from '@/pages/administration/ProcessCenterPage.vue'
 import CommandCenterPage from '@/pages/administration/CommandCenterPage.vue'
 import CoordinatedEntryAssessment from '@/forms/CoordinatedEntryAssessment.vue'
+
 const routes = [
   {
+    name: 'kit',
+    path: '/kit',
+    component: KitPage
+  }, {
     name: 'coordinatedEntryAssessment',
     path: '/coordinated-entry-assessment',
     component: CoordinatedEntryAssessment
