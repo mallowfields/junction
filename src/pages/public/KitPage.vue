@@ -159,7 +159,7 @@
           v-model="fab"
         >
         <template v-slot:activator>
-          <v-card-subtitle class="pa-0  ma-0 caption">Filters</v-card-subtitle>
+          <v-card-subtitle class="pa-0 white--text ma-0 caption">Filters</v-card-subtitle>
           <v-btn
             v-bind="attrs"
             v-on="on"
@@ -174,7 +174,7 @@
               {{purposeIcon}}
             </v-icon>
           </v-btn>
-          <v-chip color="Villager darken-2" x-small>{{ markerCategory }}</v-chip>
+          <v-chip color="Villager darken-2" class="white--text" x-small>{{ markerCategory }}</v-chip>
         </template>
         <v-tooltip
           left>
