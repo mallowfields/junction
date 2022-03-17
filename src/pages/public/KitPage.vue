@@ -133,6 +133,7 @@
             :icon="getProviderMarkerIcon(provider)"
             :draggable="true"
             @click="markerProviderClicked(provider)"
+            @dragend="playProviderChime"
             :lat-lng="setMarkerLatLng(provider.Lat, provider.Lng)"
           />
           <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
@@ -703,6 +704,17 @@ export default {
       //   this.chiming = false
       // }, 1000)
     },
+    playProviderChime: function () {
+      var audio = new Audio('beacon_provider.mp3')
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
     playBeaconChime: function () {
       var audio = new Audio('beacon.mp3')
       audio.volume = 0.5
@@ -727,7 +739,7 @@ export default {
       console.log('%c provider clicked', 'color: #f00')
       this.appPollDialog = true
       this.activeMarker = provider
-
+      this.playBeaconChime()
     },
     markerMoved: function () {
       this.markerDragged = true
