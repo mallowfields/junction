@@ -135,6 +135,7 @@
             :draggable="true"
             @click="markerProviderClicked(provider)"
             @dragend="playProviderChime"
+            @dragstart="playClaimChime"
             :lat-lng="setMarkerLatLng(provider.Lat, provider.Lng)"
           />
           <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"
