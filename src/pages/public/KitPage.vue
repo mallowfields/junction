@@ -123,6 +123,7 @@
             :draggable="true"
             @click="markerClicked(marker)"
             @dragend="playGrantChime"
+            @dragstart="playClaimChime"
             :lat-lng="setMarkerLatLng(marker.Lat, marker.Lng)"
           />
           <l-marker
@@ -154,27 +155,26 @@
           direction="bottom"
           absolute
           top
-          style="top: 70px;"
+          style="top: 12px;"
           transition="slide-y-transition"
           v-model="fab"
         >
         <template v-slot:activator>
-          <v-card-subtitle class="pa-0 white--text ma-0 caption">Filters</v-card-subtitle>
           <v-btn
             v-bind="attrs"
             v-on="on"
             :loading="loading"
             color="Villager"
-            x-large
+            small
+            fab
           >
             <v-icon color="white" v-if="fab">
               mdi-close
             </v-icon>
-            <v-icon size="50" color="white" v-else>
+            <v-icon color="white" v-else>
               {{purposeIcon}}
             </v-icon>
           </v-btn>
-          <v-chip color="Villager darken-2" class="white--text" x-small>{{ markerCategory }}</v-chip>
         </template>
         <v-tooltip
           left>
@@ -718,6 +718,17 @@ export default {
     playBeaconChime: function () {
       var audio = new Audio('beacon.mp3')
       audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
+    playClaimChime: function () {
+      var audio = new Audio('claim.mp3')
+      audio.volume = 0.15
       audio.oncanplaythrough = function () {
         audio.play()
       }
