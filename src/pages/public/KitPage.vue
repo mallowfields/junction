@@ -513,14 +513,14 @@
       v-model="appPollDialog">
       <v-card>
         <v-toolbar flat>
-            <v-toolbar-title class="Villager--text">
+            <v-toolbar-title>
               {{ activeMarker.Marker }}
             </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             icon
             @click="appPollDialog = false">
-            <v-icon color="Villager">mdi-close</v-icon>
+            <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
         <app-poll
@@ -716,6 +716,17 @@ export default {
       //   this.chiming = false
       // }, 1000)
     },
+    playBeaconChime: function () {
+      var audio = new Audio('beacon.mp3')
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
     entityMarkerClicked: function () {
       this.modelDialog = true
     },
@@ -723,6 +734,7 @@ export default {
       console.log('%c marker clicked', 'color: #f00')
       this.appPollDialog = true
       this.activeMarker = marker
+      this.playBeaconChime()
     },
     markerProviderClicked: function (provider) {
       console.log('%c provider clicked', 'color: #f00')

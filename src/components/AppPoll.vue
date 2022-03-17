@@ -47,7 +47,7 @@
             <v-btn
                 color="Site darken-1"
                 :loading="requestingGift"
-                @click="requestGift"
+                @click="requestGrant"
                 >
               <span
                 :class="$store.state.displayTheme === 'dark' ? 'white--text' : 'Villager--text text--lighten-3'">
@@ -221,7 +221,8 @@ export default {
     }
   },
   methods: {
-    requestGift: function () {
+    requestGrant: function () {
+      this.playRequestChime()
       this.requestingGift = true
       setTimeout(() => {
         this.requestingGift = false
@@ -276,6 +277,7 @@ export default {
       }, 800)
     },
     changeQuestionData: function () {
+      this.playAcceptChime()
       this.activeQuestionIndex++
       let nextQuestion = Object.assign({}, this.questions[this.activeQuestionIndex])
       let total = this.questions.length
@@ -291,6 +293,28 @@ export default {
     finishPoll: function () {
       this.pollComplete = true
       return false
+    },
+    playAcceptChime: function () {
+      var audio = new Audio('accept.mp3')
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
+    playRequestChime: function () {
+      var audio = new Audio('request.mp3')
+      audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
     }
   }
 }
