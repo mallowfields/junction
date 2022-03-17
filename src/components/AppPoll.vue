@@ -292,11 +292,12 @@ export default {
     },
     finishPoll: function () {
       this.pollComplete = true
+      this.playCompleteChime()
       return false
     },
     playAcceptChime: function () {
       var audio = new Audio('accept.mp3')
-      audio.volume = 0.5
+      audio.volume = 0.15
       audio.oncanplaythrough = function () {
         audio.play()
       }
@@ -308,6 +309,17 @@ export default {
     playRequestChime: function () {
       var audio = new Audio('request.mp3')
       audio.volume = 0.5
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
+    playCompleteChime: function () {
+      var audio = new Audio('complete.mp3')
+      audio.volume = 0.1
       audio.oncanplaythrough = function () {
         audio.play()
       }

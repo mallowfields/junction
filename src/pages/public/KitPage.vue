@@ -146,6 +146,7 @@
         </l-map>
       </div>
       <v-divider></v-divider>
+
       <v-speed-dial
           id="networkFab"
           v-show="true"
@@ -157,25 +158,22 @@
           v-model="fab"
         >
         <template v-slot:activator>
-          <v-tooltip
-            top>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                :loading="loading"
-                color="Villager"
-                x-large
-              >
-                <v-icon color="white" v-if="fab">
-                  mdi-close
-                </v-icon>
-                <v-icon size="50" color="white" v-else>
-                  {{purposeIcon}}
-                </v-icon>
-              </v-btn>
-            </template>
-          </v-tooltip>
+          <v-card-subtitle class="pa-0  ma-0 caption">Filters</v-card-subtitle>
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            :loading="loading"
+            color="Villager"
+            x-large
+          >
+            <v-icon color="white" v-if="fab">
+              mdi-close
+            </v-icon>
+            <v-icon size="50" color="white" v-else>
+              {{purposeIcon}}
+            </v-icon>
+          </v-btn>
+          <v-chip color="Villager darken-2" x-small>{{ markerCategory }}</v-chip>
         </template>
         <v-tooltip
           left>
