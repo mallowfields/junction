@@ -632,7 +632,6 @@ export default {
             }
             return updatedProvider
           }))
-          
           if(providers.length) this.markerProviders.push(...providers)
         }
 

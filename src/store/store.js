@@ -20,8 +20,8 @@ const store = new Vuex.Store({
     socialJusticePowers: localStorage.getItem('socialJusticePowers') || false,
     adminPowers: localStorage.getItem('adminPowers') || false,
     casualPowers: localStorage.getItem('casualPowers') || false,
-    grants: parse(localStorage.getItem('grants')) || null,
-    providers: parse(localStorage.getItem('providers')) || null
+    grants: parse(localStorage.getItem('grants')) || [],
+    providers: parse(localStorage.getItem('providers')) || []
   },
   mutations: {
     viewMode (state, mode) {
