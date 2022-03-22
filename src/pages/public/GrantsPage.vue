@@ -632,9 +632,10 @@ export default {
             }
             return updatedProvider
           }))
+          
+          if(providers.length) this.markerProviders.push(...providers)
         }
 
-        if(providers && providers.length) this.markerProviders.push(...providers)
 
         return result
       }))
