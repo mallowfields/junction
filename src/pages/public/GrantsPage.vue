@@ -634,7 +634,7 @@ export default {
           }))
         }
 
-        if(providers) this.markerProviders.push(...providers)
+        if(providers && providers.length) this.markerProviders.push(...providers)
 
         return result
       }))
