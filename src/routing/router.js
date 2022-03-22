@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 
 // Pages
-import KitPage from '@/pages/public/KitPage.vue'
+import GrantsPage from '@/pages/public/GrantsPage.vue'
 import HomePage from '@/pages/public/HomePage.vue'
 import PollsPage from '@/pages/public/PollsPage.vue'
 import NeighborsPage from '@/pages/public/NeighborsPage.vue'
@@ -15,9 +15,9 @@ import CoordinatedEntryAssessment from '@/forms/CoordinatedEntryAssessment.vue'
 
 const routes = [
   {
-    name: 'kit',
-    path: '/kit',
-    component: KitPage
+    name: 'grants',
+    path: '/grants',
+    component: GrantsPage
   }, {
     name: 'coordinatedEntryAssessment',
     path: '/coordinated-entry-assessment',

@@ -42,7 +42,7 @@
               top
               v-model="requestingGift"
               :timeout="-1">
-              no grants available, please try again soon
+              Grant requested!
             </v-snackbar>
             <v-btn
                 color="Site darken-1"
@@ -260,6 +260,7 @@ export default {
       }, 300)
     },
     pollStop: function () {
+      this.playCloseChime()
       this.pollComplete = true
     },
     nextPollQuestion: function () {
@@ -297,6 +298,17 @@ export default {
     },
     playAcceptChime: function () {
       var audio = new Audio('accept.mp3')
+      audio.volume = 0.15
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
+    playCloseChime: function () {
+      var audio = new Audio('close.mp3')
       audio.volume = 0.15
       audio.oncanplaythrough = function () {
         audio.play()

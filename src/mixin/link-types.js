@@ -57,10 +57,17 @@ export default {
         {
           title: 'Neighbors',
           href: '/neighbors',
-          icon: 'mdi-earth',
+          icon: 'mdi-map',
           color: 'Villager',
           socialJusticePower: true,
           description: 'My World'
+        }, {
+          title: 'Grants',
+          href: '/grants',
+          icon: 'mdi-map',
+          color: 'Villager',
+          socialJusticePower: true,
+          description: 'My Grants'
         }
       ],
       casualLinks: [

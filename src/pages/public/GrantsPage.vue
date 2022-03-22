@@ -18,8 +18,7 @@
       <kit-drawer></kit-drawer>
     </v-navigation-drawer>
     <v-card tile flat
-    
-    :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
+      :style="$store.state.displayTheme === 'dark' ? 'background: url(/grey-gradient-background.jpg)' : 'background: url(/card-texture.png)'"
     >
       <v-toolbar
         dark
@@ -27,9 +26,9 @@
       >
         <v-btn
           icon
-          @click="pathwaysMenu = true"
+          @click="pathwaysMenu = true; playDrawerChime()"
         >
-          <v-icon>mdi-all-inclusive</v-icon>
+          <v-icon @click="goHome">mdi-close</v-icon>
         </v-btn>
         <v-list-item two-line>
           <v-list-item-content>
@@ -68,7 +67,7 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-      <!-- <v-btn
+      <v-btn
         fab
         dark
         small
@@ -78,13 +77,13 @@
         :style="`border-radius: 0%; top: ${$vuetify.breakpoint.smAndUp ? '70px' : '70px'};`"
         @click="actorIsReady"
       >
-        <v-icon size="20" class="mr-2" color="Villager">mdi-human-greeting</v-icon>
+        <v-icon size="20" class="mr-2" color="Villager">mdi-check-bold</v-icon>
         {{ remainingGrantFunds }}
-      </v-btn> -->
+      </v-btn>
       <div
         ref="mapContainer"
         width="100%"
-        :style="`width: 100vw; z-index:-1; overflow:hidden; height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'};`">
+        :style="`bottom: 60px; width: 100vw; z-index:-1; overflow:hidden; height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh - 66px)' : 'calc(100vh - 60px)'};`">
 
         <l-map
           ref="map"
@@ -92,7 +91,7 @@
           :center="center"
           :options="mapOptions"
           :attributionControl="false"
-          :style="`height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh - 120px)' : 'calc(100vh - 120px)'}; width: 100vw; background: transparent;`"
+          :style="`bottom: 10px; height: ${ $vuetify.breakpoint.smAndUp ? 'calc(100vh)' : 'calc(100vh)'}; width: 100vw; background: transparent;`"
         >
           <!-- <l-control-fullscreen position="topleft"
             :options="{ title: { 'false': 'Fullscreen Mode', 'true': 'Normal Mode' } }"
@@ -148,11 +147,10 @@
           
         </l-map>
       </div>
-      <v-divider></v-divider>
 
       <v-speed-dial
           id="networkFab"
-          v-show="true"
+          v-show="false"
           direction="bottom"
           absolute
           top
@@ -507,7 +505,7 @@
           <v-spacer></v-spacer>
           <v-btn
             icon
-            @click="appPollDialog = false">
+            @click="appPollDialog = false; playCloseChime()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
@@ -563,6 +561,7 @@ export default {
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
     this.redrawMap()
+    this.getStoredMarkerSettings()
     this.getMarkerSettings()
   },
   computed: {
@@ -610,6 +609,10 @@ export default {
     this.loadedGeojson.push(geojson2)
   },
   methods: {
+    getStoredMarkerSettings () {
+      this.markerSettings = this.$store.state.grants
+      this.markerProviders = this.$store.state.providers
+    },
     async getMarkerSettings () {
       const markers =  await this.getSettingsTab('Markers')
       
@@ -639,6 +642,9 @@ export default {
       console.log(`%c ${this.markerSettings.length} (:Markers)`, 'background: #000; color: #ba68c8;')
       console.log(this.markerProviders)
       console.log(`%c ${this.markerProviders.length} (:Providers)`, 'background: #444; color: #ba68c8;')
+      
+      this.$store.commit('grants', this.markerSettings)
+      this.$store.commit('providers', this.markerProviders)
     },
     getSettingsTab (tabId) {
       const url = process.env.VUE_APP_NO_CODE_API_PARTNER_SETTINGS
@@ -738,6 +744,28 @@ export default {
       //   this.chiming = false
       // }, 1000)
     },
+    playCloseChime: function () {
+      var audio = new Audio('close.mp3')
+      audio.volume = 0.15
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
+    playDrawerChime: function () {
+      var audio = new Audio('drawer.mp3')
+      audio.volume = 0.15
+      audio.oncanplaythrough = function () {
+        audio.play()
+      }
+
+      // setTimeout(() => {
+      //   this.chiming = false
+      // }, 1000)
+    },
     entityMarkerClicked: function () {
       this.modelDialog = true
     },
@@ -809,6 +837,7 @@ export default {
         this.hereDialog = false
         this.showFab = false
         this.pathwaysMenu = true
+        this.playDrawerChime()
         this.statusSnackbar = true
         return
       }
@@ -826,30 +855,6 @@ export default {
     close: function () {
       this.$emit('close')
     },
-
-    saveEntity: async function (entity) {
-      this.loading = true
-      this.editDialog = false
-      this.showNodeDetails = false
-      this.nodeModificationDialog = false
-      await this.api('map')[this.selectedNode.type.toLowerCase()].save(entity)
-      this.selectedNode = {}
-      this.reloadGraph()
-    },
-    purgeTargetEntity: async function () {
-      this.loading = true
-      this.editDialog = false
-      this.showNodeDetails = false
-      this.nodeModificationDialog = false
-      await this.api('map')[this.selectedNode.type.toLowerCase()].delete(this.selectedNode)
-      this.selectedNode = {}
-      this.reloadGraph()
-    },
-    goToSite: function ({ code, publicId }) {
-      let site = `/site/${code}/${publicId}`
-      this.$router.push(site, () => this.$router.go(0))
-      this.close()
-    },
     goToJobs: function () {
       let site = `/jobs`
       this.$router.push(site)
@@ -862,7 +867,7 @@ export default {
     }
   },
   data: () => ({
-    remainingGrantFunds: '$5,000.00',
+    remainingGrantFunds: '7',
     geosearchOptions: { // Important part Here
       provider: new OpenStreetMapProvider()
     },

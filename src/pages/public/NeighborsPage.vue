@@ -118,7 +118,7 @@
             ref="marker"
             :icon="getLoadedMarkerIcon(marker)"
             :draggable="true"
-            @click="markerClicked(marker)"
+            @click="pathwaysMenu = true"
             :lat-lng="setMarkerLatLng(marker.Lat, marker.Lng)"
           />
           <l-marker
@@ -128,7 +128,7 @@
             ref="provider"
             :icon="getProviderMarkerIcon(provider)"
             :draggable="true"
-            @click="markerProviderClicked(provider)"
+            @click="pathwaysMenu = true"
             :lat-lng="setMarkerLatLng(provider.Lat, provider.Lng)"
           />
           <l-geo-json v-for="geoData in loadedGeojson" :key="geoData.name"

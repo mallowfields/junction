@@ -22,12 +22,6 @@
       dense
       class="ml-2"
     >
-      <v-btn small  @click="showGrantsTab">
-        <v-icon color="Villager" left>
-          mdi-license
-        </v-icon>
-        <span>grants</span>
-      </v-btn>
       <v-btn small  @click="showPathTab">
         <v-icon color="Villager" left>
           mdi-navigation mdi-rotate-90
@@ -48,7 +42,6 @@
         <span>Jobs</span>
       </v-btn>
     </v-btn-toggle>
-    <grants-drawer v-show="showMenuTab.grants"></grants-drawer>
     <path-drawer v-show="showMenuTab.path"></path-drawer>
     <jobs-drawer v-show="showMenuTab.jobs"></jobs-drawer>
     <gigs-drawer
@@ -60,14 +53,13 @@
 import entityTypes from '@/mixin/entity-types'
 import apiClient from '@/mixin/api-client'
 import moment from 'moment'
-import GrantsDrawer from './GrantsDrawer.vue'
 import PathDrawer from './PathDrawer.vue'
 import GigsDrawer from './GigsDrawer.vue'
 import JobsDrawer from './JobsDrawer.vue'
 
 export default {
   mixins: [apiClient, entityTypes],
-  components: { GrantsDrawer, PathDrawer, GigsDrawer, JobsDrawer },
+  components: { PathDrawer, GigsDrawer, JobsDrawer },
   props: {
     show: {
       type: Boolean,
@@ -79,29 +71,20 @@ export default {
     this.startConnection()
   },
   methods: {
-    showGrantsTab: function () {
-      this.showMenuTab.grants = true
-      this.showMenuTab.path = false
-      this.showMenuTab.gigs = false
-      this.showMenuTab.jobs = false
-    },
     showPathTab: function () {
       this.showMenuTab.path = true
       this.showMenuTab.gigs = false
       this.showMenuTab.jobs = false
-      this.showMenuTab.grants = false
     },
     showGigsTab: function () {
       this.showMenuTab.gigs = true
       this.showMenuTab.jobs = false
       this.showMenuTab.path = false
-      this.showMenuTab.grants = false
     },
     showJobsTab: function () {
       this.showMenuTab.jobs = true
       this.showMenuTab.gigs = false
       this.showMenuTab.path = false
-      this.showMenuTab.grants = false
     },
     goHome: function () {
       this.$router.push('/')
@@ -138,8 +121,7 @@ export default {
     businesses: [],
     loadingBusinesses: false,
     showMenuTab: {
-      grants: true,
-      path: false,
+      path: true,
       gigs: false,
       jobs: false
     },
