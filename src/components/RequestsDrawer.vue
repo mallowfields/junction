@@ -218,6 +218,14 @@
           v-model="selected"
         >
           <v-list-item
+            v-show="grants && grants.length === 0"
+          >
+            <v-btn
+              @click="loadGrants">
+              load grant requests
+            </v-btn>
+          </v-list-item>
+          <v-list-item
               :key="grant.Marker"
               v-for="(grant, index) in grants">
             <v-col>
@@ -406,13 +414,16 @@ export default {
   components: { StripeCheckout, AppPoll },
   mounted: function () {
     this.organizationName = this.$store.state.organizationName
-    this.grants = this.$store.state.grants
     this.validationMessage = 'CONNECT'
+    this.loadGrants()
   },
   methods: {
     viewProfile: function (item, event) {
       this.activeProfile = item
       this.profileDialog = true
+    },
+    loadGrants: function () {
+      this.grants = this.$store.state.grants
     },
     connectProfile: function () {
       if (this.validated) return this.disconnectProfile()
