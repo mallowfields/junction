@@ -607,9 +607,9 @@ export default {
     }
   },
   async created () {
-    // const response = await fetch('/geojson/Demolished_Property_Map.geojson')
+    // const response = await fetch('/geojson/City_of_Grand_Rapids_Precincts.geojson')
     // const geojson = await response.json()
-    // this.loadedGeojson.push(geojson)
+    this.loadedGeojson.push(response)
     const response2 = await fetch('/geojson/MichiganCounties.geojson')
     const geojson2 = await response2.json()
     this.loadedGeojson.push(geojson2)
