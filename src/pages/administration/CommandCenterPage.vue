@@ -263,7 +263,7 @@
           </v-btn>
         </v-toolbar>
         <v-divider class="mb-2"></v-divider>
-        <v-img src="/qr-demo.png"></v-img>
+        <v-img src="/qr-heroku.png"></v-img>
       </v-card>
     </v-dialog>
 

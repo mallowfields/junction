@@ -3,7 +3,7 @@
     <v-card-text>
       scan to connect to another device
     </v-card-text>
-    <v-img src="/qr-demo.png"></v-img>
+    <v-img src="/qr-heroku.png"></v-img>
     <v-card-actions>
       <v-row>
         <v-col v-show="$vuetify.breakpoint.smAndUp">

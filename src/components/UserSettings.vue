@@ -81,7 +81,7 @@ export default {
     device: { agent: {} },
     userName: null,
     userRole: null,
-    qrImage: '/qr-demo.png',
+    qrImage: '/qr-heroku.png',
     userImage: `https://randomuser.me/api/portraits/women/${Math.ceil(Math.random() * 10)}.jpg`
   })
 }
