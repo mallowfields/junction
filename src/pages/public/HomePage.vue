@@ -107,7 +107,7 @@
           25 million of 3 billion raised
           <strong>0.0077%</strong> of what is needed for meaningful change in Grand Rapids, Michigan
         </div>
-        <a href="https://newcommunityfund.com/" class="ma-2 caption">Ollie is responsible for Directing the Venture Capital Fund: New Community Transformation Fund</a>
+        <a href="https://newcommunityfund.com/" target="_blank" class="ma-2 caption">Ollie is responsible for Directing the Venture Capital Fund: New Community Transformation Fund</a>
         <v-divider></v-divider>
         <v-card-actions>
           <v-btn
