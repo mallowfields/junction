@@ -100,7 +100,7 @@
           Your browser does not support the video tag.
         </video> -->
         <div>
-          <a class="caption ma-2" href="https://vimeo.com/696595373">view video on vimeo</a>
+          <a class="caption ma-2" target="_blank" href="https://vimeo.com/696595373">view video on vimeo</a>
         </div>
         <iframe src="https://player.vimeo.com/video/696595373?h=2b902a2a89&title=0&byline=0&portrait=0" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         <div class="ma-2 caption">
