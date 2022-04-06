@@ -58,6 +58,20 @@
             mdi-all-inclusive
           </v-icon>
           Junction
+          <v-spacer></v-spacer>
+          <v-btn
+            color="Villager"
+            text
+            outlined
+            x-large
+            :loading="pageLoading"
+            @click="coverDialog = false"
+          >
+            <v-icon left medium>
+              mdi-star-circle-outline
+            </v-icon>
+            start
+          </v-btn>
         </v-card-title>
 
         <v-card-text>
@@ -71,14 +85,30 @@
         </v-btn>
         </v-card-text>
         <v-divider></v-divider>
-        <v-img
+        <!-- <v-img
           width="300px"
           :src="coverImage">
-
-        </v-img>
-
+        </v-img> -->
+        <div class="ma-2">
+          This video demonstrates why we all must fight for social justice for all Americans.
+        </div>
+        <div class="ma-2 caption">
+          Platforms that use the US flag, or the Michigan flag, are sacred spaces for discussions about our country that ought to operate by a code of conduct that discourages inhospitable public behavior.
+        </div>
+        <!-- <video width="640" height="360" controls>
+          <source src="we-hear-you-ollie.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video> -->
+        <div>
+          <a class="caption ma-2" href="https://vimeo.com/696595373">view video on vimeo</a>
+        </div>
+        <iframe src="https://player.vimeo.com/video/696595373?h=2b902a2a89&title=0&byline=0&portrait=0" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <div class="ma-2 caption">
+          25 million of 3 billion raised
+          <strong>0.0077%</strong> of what is needed for meaningful change in Grand Rapids, Michigan
+        </div>
+        <a href="https://newcommunityfund.com/" class="ma-2 caption">Ollie is responsible for Directing the Venture Capital Fund: New Community Transformation Fund</a>
         <v-divider></v-divider>
-
         <v-card-actions>
           <v-btn
             @click="window.open('https://github.com/mallowfields/junction', '_blank')"
@@ -94,19 +124,6 @@
             mallowfields/junction
           </v-card-text>
           <v-spacer></v-spacer>
-          <v-btn
-            color="Villager"
-            text
-            outlined
-            x-large
-            :loading="pageLoading"
-            @click="coverDialog = false"
-          >
-            <v-icon left medium>
-              mdi-star-circle-outline
-            </v-icon>
-            start
-          </v-btn>
         </v-card-actions>
         <v-divider></v-divider>
       </v-card>
