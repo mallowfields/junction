@@ -5,7 +5,7 @@ const uri = isProduction
   ? process.env.VUE_APP_PROD_REST_ENDPOINT
   : process.env.VUE_APP_DEV_REST_ENDPOINT
 
-const client = new RestClient(uri, 'no-key')
+const client = new RestClient(uri || 'localhost', 'no-key')
 
 export default {
   methods: {
